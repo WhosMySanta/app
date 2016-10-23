@@ -13,21 +13,26 @@ type User = {
   giftWish?: GiftWish,
 };
 
-type Selection = {
+export type Selection = {
   gifter: User,
   giftee: User,
-  giftWish?: GiftWish,
 };
 
 const selectSecretSanta = (
   users: Array<User>,
 ): Array<Selection> => {
-  users.forEach(u =>
-    console.log(users[Math.floor(Math.random() * users.length)])
-  );
+  const gifters = [...users];
 
-  // console.log(u));
-  return [];
+  return users.map((giftee) => {
+    const gifter = gifters
+      .filter(g => g !== giftee)
+      .splice(Math.floor(Math.random()) * gifters.length, 1)[0];
+
+    return {
+      gifter,
+      giftee,
+    };
+  });
 };
 
 export default selectSecretSanta;
