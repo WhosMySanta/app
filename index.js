@@ -14,8 +14,8 @@ type User = {
 };
 
 export type Selection = {
-  gifter: User,
-  reciever: User,
+  giver: User,
+  receiver: User,
 };
 
 const selectSecretSanta = (
@@ -24,22 +24,22 @@ const selectSecretSanta = (
   // - User X cannot give to User Y
   // - User A must give to User B
 ): Array<Selection> => {
-  const gifters = [...users];
+  const givers = [...users];
 
   return users.map((reciever) => {
     // Possible gifters only for this receiver (receiver cannot be his own gifter)
     const recieverGifters = gifters.filter(g => g !== reciever);
 
-    const gifter = recieverGifters[
-      Math.floor(Math.random() * recieverGifters.length)
+    const giver = receiverGiver[
+      Math.floor(Math.random() * receiverGiver.length)
     ];
 
-    // Take the selected gifter out of the gifters array
-    gifters.splice(gifters.findIndex(g => g === gifter), 1);
+    // Take the selected giver out of the givers array
+    givers.splice(givers.findIndex(g => g === giver), 1);
 
     return {
-      gifter,
-      reciever,
+      giver,
+      receiver,
     };
   });
 };

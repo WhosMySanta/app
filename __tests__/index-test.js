@@ -19,12 +19,12 @@ test('non-colliding selection of pair', () => {
 
   expect(list).toEqual([
     {
-      gifter: user2,
-      reciever: user1,
+      giver: user2,
+      receiver: user1,
     },
     {
-      gifter: user1,
-      reciever: user2,
+      giver: user1,
+      receiver: user2,
     },
   ]);
 });
@@ -61,13 +61,56 @@ test('non-colliding selection of larger group', () => {
   const list = selectSecretSanta(users);
 
   users.forEach((user) => {
-    const gifters = list.map(({ gifter }) => gifter);
-    const recievers = list.map(({ reciever }) => reciever);
+    const givers = list.map(({ giver }) => giver);
+    const receivers = list.map(({ receiver }) => receiver);
 
-    // console.log('gifters', gifters);
-    // console.log('recievers', recievers);
+    expect(givers.filter(giver => giver === user).length).toEqual(1);
+    expect(receivers.filter(receiver => receiver === user).length).toEqual(1);
+  });
+});
 
-    expect(gifters.filter(gifter => gifter === user).length).toEqual(1);
-    expect(recievers.filter(reciever => reciever === user).length).toEqual(1);
+test('don\'t allow small pairs', () => {
+  const user1 = {
+    firstName: 'Karl',
+    lastName: 'Horky',
+    giftWish: ['Electronics', 'Games'],
+  };
+  const user2 = {
+    firstName: 'Glenn',
+    lastName: 'Reyes',
+    giftWish: 'iPhone 9',
+  };
+  const user3 = {
+    firstName: 'Donald',
+    lastName: 'Duck',
+    giftWish: null,
+  };
+  const user4 = {
+    firstName: 'Buzz',
+    lastName: 'Lightyear',
+    giftWish: 'Infinity and beyond',
+  };
+
+  const users = [
+    user1,
+    user2,
+    user3,
+    user4,
+  ];
+
+  const list = selectSecretSanta(users);
+
+  users.forEach((user) => {
+    const userReceiver = list
+      .find(({ giver }) => giver === user)
+      .receiver;
+
+    const userGiver = list
+      .find(({ receiver }) => receiver === user)
+      .giver;
+
+    // console.log(userReceiver, userGiver);
+
+    expect(userReceiver).not.toEqual(userGiver);
   });
 });
