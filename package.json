@@ -7,7 +7,8 @@
     "flow": "flow",
     "lint": "eslint . --ignore-path .gitignore",
     "start": "babel-node index",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test:watch": "npm test -- --watch"
   },
   "repository": {
     "type": "git",

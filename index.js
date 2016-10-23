@@ -19,10 +19,14 @@ type Selection = {
   giftWish?: GiftWish,
 };
 
-type SelectSecretSantaFn = (users: Array<User>) => Array<?Selection>;
+const selectSecretSanta = (
+  users: Array<User>,
+): Array<Selection> => {
+  users.forEach(u =>
+    console.log(users[Math.random() * users.length])
+  );
 
-const selectSecretSanta = (users): SelectSecretSantaFn => {
-  users.forEach(u => console.log(u));
+  // console.log(u));
   return [];
 };
 
