@@ -23,7 +23,7 @@ const selectSecretSanta = (
   users: Array<User>,
 ): Array<Selection> => {
   users.forEach(u =>
-    console.log(users[Math.random() * users.length])
+    console.log(users[Math.floor(Math.random() * users.length)])
   );
 
   // console.log(u));
