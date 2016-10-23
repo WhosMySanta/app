@@ -18,6 +18,22 @@ export type Selection = {
   receiver: User,
 };
 
+
+// TODO: Add function to create a selection group (in the SDK?)
+//
+// function createSelectionGroup({
+//  title = '',
+//  description = '',
+//  suggestions = {
+//   currency: 'Euro',
+//   minLimit: 10,
+//   maxLimit: 50
+// }}) { }
+//
+// ? Question: What is its relation to `selectSecretSanta`?
+// How does it get called, etc.
+
+
 const selectSecretSanta = (
   users: Array<User>,
   // TODO: Think of adding restrictions as a parameter, such as:
