@@ -26,9 +26,9 @@ const selectSecretSanta = (
 ): Array<Selection> => {
   const givers = [...users];
 
-  return users.map((reciever) => {
-    // Possible gifters only for this receiver (receiver cannot be his own gifter)
-    const recieverGifters = gifters.filter(g => g !== reciever);
+  return users.map((receiver) => {
+    // Possible givers only for this receiver (receiver cannot be his own giver)
+    const receiverGivers = givers.filter(g => g !== receiver);
 
     const giver = receiverGiver[
       Math.floor(Math.random() * receiverGiver.length)

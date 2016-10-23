@@ -109,8 +109,6 @@ test('don\'t allow small pairs', () => {
       .find(({ receiver }) => receiver === user)
       .giver;
 
-    // console.log(userReceiver, userGiver);
-
     expect(userReceiver).not.toEqual(userGiver);
   });
 });
