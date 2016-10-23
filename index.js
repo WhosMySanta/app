@@ -20,6 +20,9 @@ export type Selection = {
 
 const selectSecretSanta = (
   users: Array<User>,
+  // TODO: Think of adding restrictions as a parameter, such as:
+  // - User X cannot give to User Y
+  // - User A must give to User B
 ): Array<Selection> => {
   const gifters = [...users];
 

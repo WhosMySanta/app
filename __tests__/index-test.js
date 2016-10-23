@@ -1,6 +1,6 @@
 import selectSecretSanta from '..';
 
-test('simple non-colliding selection', () => {
+test('non-colliding selection of pair', () => {
   const user1 = {
     firstName: 'Karl',
     lastName: 'Horky',
@@ -29,7 +29,7 @@ test('simple non-colliding selection', () => {
   ]);
 });
 
-test('advanced non-colliding selection', () => {
+test('non-colliding selection of larger group', () => {
   const user1 = {
     firstName: 'Karl',
     lastName: 'Horky',
