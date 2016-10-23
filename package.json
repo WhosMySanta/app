@@ -1,12 +1,12 @@
 {
   "name": "whosmysanta-core",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Core module of WhosMySanta",
   "main": "index.js",
   "scripts": {
     "flow": "flow",
     "lint": "eslint . --ignore-path .gitignore",
-    "start": "babel-node index.js",
+    "start": "babel-node index",
     "test": "jest --coverage"
   },
   "repository": {
