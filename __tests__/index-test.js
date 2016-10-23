@@ -20,11 +20,11 @@ test('simple non-colliding selection', () => {
   expect(list).toEqual([
     {
       gifter: user2,
-      giftee: user1,
+      reciever: user1,
     },
     {
       gifter: user1,
-      giftee: user2,
+      reciever: user2,
     },
   ]);
 });
@@ -62,12 +62,12 @@ test('advanced non-colliding selection', () => {
 
   users.forEach((user) => {
     const gifters = list.map(({ gifter }) => gifter);
-    const giftees = list.map(({ giftee }) => giftee);
+    const recievers = list.map(({ reciever }) => reciever);
 
     // console.log('gifters', gifters);
-    // console.log('giftees', giftees);
+    // console.log('recievers', recievers);
 
     expect(gifters.filter(gifter => gifter === user).length).toEqual(1);
-    expect(giftees.filter(giftee => giftee === user).length).toEqual(1);
+    expect(recievers.filter(reciever => reciever === user).length).toEqual(1);
   });
 });

@@ -15,7 +15,7 @@ type User = {
 
 export type Selection = {
   gifter: User,
-  giftee: User,
+  reciever: User,
 };
 
 const selectSecretSanta = (
@@ -23,16 +23,20 @@ const selectSecretSanta = (
 ): Array<Selection> => {
   const gifters = [...users];
 
-  return users.map((giftee) => {
-    const gifteeGifters = gifters.filter(g => g !== giftee);
-    const gifter = gifteeGifters[
-      Math.floor(Math.random() * gifteeGifters.length)
+  return users.map((reciever) => {
+    // Possible gifters only for this receiver
+    const recieverGifters = gifters.filter(g => g !== reciever);
+
+    const gifter = recieverGifters[
+      Math.floor(Math.random() * recieverGifters.length)
     ];
+
+    // Take the selected gifter out of the gifters array
     gifters.splice(gifters.findIndex(g => g === gifter), 1);
 
     return {
       gifter,
-      giftee,
+      reciever,
     };
   });
 };
