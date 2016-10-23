@@ -2,14 +2,11 @@ module.exports = {
   extends: 'airbnb-base',
   env: {
     jest: true,
-    node: true
+    node: true,
   },
-  plugins: [
-    'flowtype'
-  ],
+  plugins: ['flowtype'],
   parser: 'babel-eslint',
   rules: {
-    // 'max-len': 'off'
     'flowtype/boolean-style': 'error',
     'flowtype/define-flow-type': 'error',
     'flowtype/delimiter-dangle': ['error', 'always-multiline'],
@@ -25,6 +22,6 @@ module.exports = {
     'flowtype/type-id-match': ['error', '^[A-Z][a-z]+(?:[A-Z][a-z]+)*$'],
     'flowtype/union-intersection-spacing': 'error',
     'flowtype/use-flow-type': 'error',
-    'flowtype/valid-syntax': 'error'
+    'flowtype/valid-syntax': 'error',
   }
 };

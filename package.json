@@ -4,6 +4,7 @@
   "description": "Core module of WhosMySanta",
   "main": "index.js",
   "scripts": {
+    "flow": "flow",
     "lint": "eslint . --ignore-path .gitignore",
     "start": "babel-node index.js",
     "test": "jest --coverage"
