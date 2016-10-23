@@ -23,6 +23,7 @@ const selectSecretSanta = (
   // TODO: Think of adding restrictions as a parameter, such as:
   // - User X cannot give to User Y
   // - User A must give to User B
+  // - User N only receives, doesn't give
 ): Array<Selection> => {
   const givers = [...users];
 
@@ -30,8 +31,8 @@ const selectSecretSanta = (
     // Possible givers only for this receiver (receiver cannot be his own giver)
     const receiverGivers = givers.filter(g => g !== receiver);
 
-    const giver = receiverGiver[
-      Math.floor(Math.random() * receiverGiver.length)
+    const giver = receiverGivers[
+      Math.floor(Math.random() * receiverGivers.length)
     ];
 
     // Take the selected giver out of the givers array
