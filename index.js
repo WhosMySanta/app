@@ -24,9 +24,11 @@ const selectSecretSanta = (
   const gifters = [...users];
 
   return users.map((giftee) => {
-    const gifter = gifters
-      .filter(g => g !== giftee)
-      .splice(Math.floor(Math.random()) * gifters.length, 1)[0];
+    const gifteeGifters = gifters.filter(g => g !== giftee);
+    const gifter = gifteeGifters[
+      Math.floor(Math.random() * gifteeGifters.length)
+    ];
+    gifters.splice(gifters.findIndex(g => g === gifter), 1);
 
     return {
       gifter,
