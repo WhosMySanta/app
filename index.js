@@ -24,7 +24,7 @@ const selectSecretSanta = (
   const gifters = [...users];
 
   return users.map((reciever) => {
-    // Possible gifters only for this receiver
+    // Possible gifters only for this receiver (receiver cannot be his own gifter)
     const recieverGifters = gifters.filter(g => g !== reciever);
 
     const gifter = recieverGifters[
