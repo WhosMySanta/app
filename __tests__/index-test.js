@@ -19,12 +19,12 @@ test('non-colliding selection of pair', () => {
 
   expect(list).toEqual([
     {
-      gifter: user2,
-      recipient: user1,
-    },
-    {
       gifter: user1,
       recipient: user2,
+    },
+    {
+      gifter: user2,
+      recipient: user1,
     },
   ]);
 });

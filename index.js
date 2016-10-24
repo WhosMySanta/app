@@ -41,24 +41,28 @@ const selectSecretSanta = (
   // - User A must give to User B
   // - User N only receives, doesn't give
 ): Array<Selection> => {
-  const gifters = [...users];
+  // Create new list of users for potential recipients
+  const recipients = [...users];
 
-  return users.map((recipient) => {
-    // Possible gifters only for this recipient (recipient cannot be his own gifter)
-    const possibleGifters = gifters.filter(g => g !== recipient);
+  // Core raffle, which loops through all participants
+  const raffle = users.map((gifter) => {
+    // Possible recipients for the current gifter (gifter cannot be his own recipient)
+    const possibleRecipient = recipients.filter(r => r !== gifter);
 
-    const gifter = possibleGifters[
-      Math.floor(Math.random() * possibleGifters.length)
-    ];
+    // Yes, this is the recipient of our current gifter
+    const recipient = possibleRecipient[Math.floor(Math.random() * possibleRecipient.length)];
 
-    // Take the selected gifter out of the gifters array
-    gifters.splice(gifters.findIndex(g => g === gifter), 1);
+    // Take the selected gifter out of the recipients list
+    recipients.splice(recipients.findIndex(r => r === recipient), 1);
 
     return {
       gifter,
       recipient,
     };
   });
+
+
+  return raffle;
 };
 
 export default selectSecretSanta;
