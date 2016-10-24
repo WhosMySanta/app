@@ -1,0 +1,41 @@
+{
+  "name": "whosmysanta",
+  "version": "0.0.0",
+  "description": "Core module of WhosMySanta",
+  "main": "index.js",
+  "scripts": {
+    "flow": "flow",
+    "lint": "eslint index",
+    "start": "babel-node index",
+    "test": "jest --coverage",
+    "test:watch": "npm test -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WhosMySanta/core.git"
+  },
+  "keywords": [
+    "santa",
+    "secretsanta",
+    "christmas",
+    "raffle"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WhosMySanta/core/issues"
+  },
+  "homepage": "https://github.com/WhosMySanta/core#readme",
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-plugin-transform-flow-strip-types": "^6.14.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-2": "^6.17.0",
+    "eslint": "^3.8.0",
+    "eslint-config-airbnb-base": "latest",
+    "eslint-plugin-flowtype": "^2.21.0",
+    "eslint-plugin-import": "^2.0.1",
+    "flow-bin": "^0.33.0",
+    "jest": "^16.0.2"
+  }
+}
