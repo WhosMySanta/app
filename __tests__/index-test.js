@@ -1,4 +1,4 @@
-import selectSecretSanta from '..';
+import raffleSecretSanta from '..';
 
 test('non-colliding selection of pair', () => {
   const user1 = {
@@ -12,21 +12,17 @@ test('non-colliding selection of pair', () => {
     giftWish: 'iPhone 9',
   };
 
-  const list = selectSecretSanta([
+  const raffle = raffleSecretSanta([
     user1,
     user2,
   ]);
 
-  expect(list).toEqual([
-    {
-      gifter: user1,
-      recipient: user2,
-    },
-    {
-      gifter: user2,
-      recipient: user1,
-    },
-  ]);
+  // The first selection
+  const firstGifter = raffle[0].gifter;
+  const firstRecipient = raffle[0].recipient;
+
+  // The first gifter can't be the recipient
+  expect(firstGifter !== firstRecipient).toBe(true);
 });
 
 test('non-colliding selection of larger group', () => {
@@ -58,18 +54,15 @@ test('non-colliding selection of larger group', () => {
     user4,
   ];
 
-  const list = selectSecretSanta(users);
+  const raffle = raffleSecretSanta(users);
 
-  users.forEach((user) => {
-    const gifters = list.map(({ gifter }) => gifter);
-    const recipients = list.map(({ recipient }) => recipient);
-
-    expect(gifters.filter(gifter => gifter === user).length).toEqual(1);
-    expect(recipients.filter(recipient => recipient === user).length).toEqual(1);
+  raffle.forEach(({ gifter, recipient }) => {
+    // Every gifter and recipient just cant be the same
+    expect(gifter !== recipient).toEqual(true);
   });
 });
 
-test('don\'t allow small pairs', () => {
+test('keep the raffle snaky 🐍 and don\'t allow small groups', () => {
   const user1 = {
     firstName: 'Karl',
     lastName: 'Horky',
@@ -90,7 +83,6 @@ test('don\'t allow small pairs', () => {
     lastName: 'Lightyear',
     giftWish: 'Infinity and beyond',
   };
-
   const users = [
     user1,
     user2,
@@ -98,17 +90,15 @@ test('don\'t allow small pairs', () => {
     user4,
   ];
 
-  const list = selectSecretSanta(users);
+  const raffle = raffleSecretSanta(users);
+  const firstGifter = raffle[0].gifter;
+  const lastRecipient = raffle[raffle.length - 1].recipient;
 
-  users.forEach((user) => {
-    const userReceiver = list
-      .find(({ gifter }) => gifter === user)
-      .recipient;
+  // The first gifter of every shuffled list is also the last recipient
+  expect(firstGifter === lastRecipient).toBe(true);
 
-    const userGiver = list
-      .find(({ recipient }) => recipient === user)
-      .gifter;
-
-    expect(userReceiver).not.toEqual(userGiver);
+  // But also the gifter can't be the recipient
+  raffle.forEach(({ gifter, recipient }) => {
+    expect(gifter !== recipient).toBe(true);
   });
 });

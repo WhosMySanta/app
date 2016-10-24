@@ -18,8 +18,7 @@ export type Selection = {
   recipient: User,
 };
 
-
-// TODO: Add function to create a selection group (in the SDK?)
+// TODO: Add function to create a raffleion group (in the SDK?)
 //
 // function createSelectionGroup({
 //  title = '',
@@ -30,30 +29,33 @@ export type Selection = {
 //   maxLimit: 50
 // }}) { }
 //
-// ? Question: What is its relation to `selectSecretSanta`?
+// ? Question: What is its relation to `raffleSecretSanta`?
 // How does it get called, etc.
 
-
-const selectSecretSanta = (
+const raffleSecretSanta = (
   users: Array<User>,
   // TODO: Think of adding restrictions as a parameter, such as:
   // - User X cannot give to User Y
   // - User A must give to User B
   // - User N only receives, doesn't give
 ): Array<Selection> => {
-  // Create new list of users for potential recipients
-  const recipients = [...users];
+  // Shuffle all the users
+  const shuffled = users.sort(() => Math.floor(Math.random() * users.length));
 
-  // Core raffle, which loops through all participants
-  const raffle = users.map((gifter) => {
-    // Possible recipients for the current gifter (gifter cannot be his own recipient)
-    const possibleRecipient = recipients.filter(r => r !== gifter);
+  // Create new list and just take all the shuffled users
+  const gifters = [...shuffled];
 
-    // Yes, this is the recipient of our current gifter
-    const recipient = possibleRecipient[Math.floor(Math.random() * possibleRecipient.length)];
+  // Create a second list that takes the shuffled gifters ...
+  const recipients = [...shuffled];
 
-    // Take the selected gifter out of the recipients list
-    recipients.splice(recipients.findIndex(r => r === recipient), 1);
+  // ... and move the first one to the last! We
+  // don't want pairs or small groups of the raffle. This keeps it snaky 🐍!
+  recipients.push(recipients.shift());
+
+  // Boom, let's raffle! 🎫
+  const raffle = users.map((user, raffleRound) => {
+    const gifter = gifters[raffleRound];
+    const recipient = recipients[raffleRound];
 
     return {
       gifter,
@@ -61,8 +63,10 @@ const selectSecretSanta = (
     };
   });
 
+  // console.log(raffle);
 
   return raffle;
 };
 
-export default selectSecretSanta;
+
+export default raffleSecretSanta;
