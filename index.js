@@ -45,10 +45,10 @@ const selectSecretSanta = (
 
   return users.map((receiver) => {
     // Possible gifters only for this receiver (receiver cannot be his own gifter)
-    const possibleGivers = gifters.filter(g => g !== receiver);
+    const possibleGifters = gifters.filter(g => g !== receiver);
 
-    const gifter = possibleGivers[
-      Math.floor(Math.random() * possibleGivers.length)
+    const gifter = possibleGifters[
+      Math.floor(Math.random() * possibleGifters.length)
     ];
 
     // Take the selected gifter out of the gifters array
