@@ -19,11 +19,11 @@ test('non-colliding selection of pair', () => {
 
   expect(list).toEqual([
     {
-      giver: user2,
+      gifter: user2,
       receiver: user1,
     },
     {
-      giver: user1,
+      gifter: user1,
       receiver: user2,
     },
   ]);
@@ -61,10 +61,10 @@ test('non-colliding selection of larger group', () => {
   const list = selectSecretSanta(users);
 
   users.forEach((user) => {
-    const givers = list.map(({ giver }) => giver);
+    const gifters = list.map(({ gifter }) => gifter);
     const receivers = list.map(({ receiver }) => receiver);
 
-    expect(givers.filter(giver => giver === user).length).toEqual(1);
+    expect(gifters.filter(gifter => gifter === user).length).toEqual(1);
     expect(receivers.filter(receiver => receiver === user).length).toEqual(1);
   });
 });
@@ -102,12 +102,12 @@ test('don\'t allow small pairs', () => {
 
   users.forEach((user) => {
     const userReceiver = list
-      .find(({ giver }) => giver === user)
+      .find(({ gifter }) => gifter === user)
       .receiver;
 
     const userGiver = list
       .find(({ receiver }) => receiver === user)
-      .giver;
+      .gifter;
 
     expect(userReceiver).not.toEqual(userGiver);
   });
