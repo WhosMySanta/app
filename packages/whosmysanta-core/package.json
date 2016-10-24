@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WhosMySanta/core.git"
+    "url": "git+https://github.com/WhosMySanta/whosmysanta.git"
   },
   "keywords": [
     "santa",
@@ -22,9 +22,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/WhosMySanta/core/issues"
+    "url": "https://github.com/WhosMySanta/whosmysanta/issues"
   },
-  "homepage": "https://github.com/WhosMySanta/core#readme",
+  "homepage": "https://github.com/WhosMySanta/whosmysanta#readme",
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-eslint": "^7.0.0",
