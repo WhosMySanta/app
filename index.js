@@ -15,7 +15,7 @@ type User = {
 
 export type Selection = {
   gifter: User,
-  receiver: User,
+  recipient: User,
 };
 
 
@@ -43,9 +43,9 @@ const selectSecretSanta = (
 ): Array<Selection> => {
   const gifters = [...users];
 
-  return users.map((receiver) => {
-    // Possible gifters only for this receiver (receiver cannot be his own gifter)
-    const possibleGifters = gifters.filter(g => g !== receiver);
+  return users.map((recipient) => {
+    // Possible gifters only for this recipient (recipient cannot be his own gifter)
+    const possibleGifters = gifters.filter(g => g !== recipient);
 
     const gifter = possibleGifters[
       Math.floor(Math.random() * possibleGifters.length)
@@ -56,7 +56,7 @@ const selectSecretSanta = (
 
     return {
       gifter,
-      receiver,
+      recipient,
     };
   });
 };
