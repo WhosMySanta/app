@@ -12,7 +12,7 @@ before_install:
 install:
   - cd packages/whosmysanta-core
   - time yarn
-  - cd ..
+  - cd ../..
 script:
   - cd packages/whosmysanta-core
   - npm run lint
