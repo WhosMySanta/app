@@ -21,24 +21,20 @@ class Home extends Component {
           </div>
 
           <div>
-            <fieldset>
-              <legend>Suggestions</legend>
-              <label htmlFor="currency">Currency</label>
-              <select id="currency" name="currency">
-                {codes().map(code => (
-                  <option
-                    key={code.toLowerCase()}
-                    selected={code === 'EUR'}
-                    value={code.toLowerCase()}
-                  >{code}</option>
-                ))}
-                <option value="usd">USD</option>
-              </select>
-              <label htmlFor="min">Minimum</label>
-              <input type="number" id="min" name="min" />
-              <label htmlFor="max">Maximum</label>
-              <input type="number" id="max" name="max" />
-            </fieldset>
+            <label htmlFor="currency">Currency</label>
+            <select id="currency" name="currency" defaultValue="EUR">
+              {codes().map(code => (
+                <option
+                  key={code.toLowerCase()}
+                  value={code.toLowerCase()}
+                >{code}</option>
+              ))}
+              <option value="usd">USD</option>
+            </select>
+            <label htmlFor="min">Minimum</label>
+            <input type="number" id="min" name="min" />
+            <label htmlFor="max">Maximum</label>
+            <input type="number" id="max" name="max" />
           </div>
         </section>
         <section>

@@ -9,6 +9,10 @@ html {
   box-sizing: inherit;
 }
 
+*:focus {
+  outline: 0;
+}
+
 body {
   background: indianred;
   color: ivory;
@@ -41,10 +45,15 @@ label {
   margin: 1rem 0 .5rem;
 }
 
-button, fieldset, input, textarea {
+button, input, select, textarea {
   border: 0;
   border-radius: .25rem;
-  color: ivory;
-  padding: 0;
+  color: indianred;
+  font-family: inherit;
+  padding: 1rem;
   width: 100%;
+}
+
+button {
+  background: white;
 }
