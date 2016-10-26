@@ -1,11 +1,14 @@
 /* eslint-disable react/jsx-filename-extension */
 
+import 'normalize.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router';
-import './style.css';
 
 import App from './components/App';
+
+import './style.css';
 
 ReactDOM.render(
   <BrowserRouter>

@@ -49,6 +49,7 @@ class Home extends Component {
               <input type="text" id={`${friend}-name`} name={`${friend}-name`} />
               <label htmlFor="description">Email</label>
               <input type="email" id={`${friend}-email`} name={`${friend}-email`} />
+              <hr />
             </div>
           ))}
         </section>

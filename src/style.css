@@ -1,0 +1,50 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
+}
+
+body {
+  background: indianred;
+  color: ivory;
+  font-family: Avenir Next, sans-serif;
+}
+
+header,
+main {
+  margin: 1rem auto;
+  max-width: 30rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  text-align: center;
+}
+
+a {
+  color: ivory;
+  text-decoration: none;
+}
+
+label {
+  display: block;
+  margin: 1rem 0 .5rem;
+}
+
+button, fieldset, input, textarea {
+  border: 0;
+  border-radius: .25rem;
+  color: ivory;
+  padding: 0;
+  width: 100%;
+}
