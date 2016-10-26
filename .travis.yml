@@ -11,8 +11,10 @@ before_install:
   - time npm i -g yarn --cache-min 999999999
 install:
   - time yarn
-  - lerna bootstrap
+  - cd packages/whosmysanta-core
+  - time yarn
 script:
-  - lerna run lint
-  - lerna run flow
-  - lerna run test
+  - cd packages/whosmysanta-core
+  - npm run lint
+  - npm run flow
+  - npm run test
