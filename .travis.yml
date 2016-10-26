@@ -10,9 +10,9 @@ cache:
 before_install:
   - time npm i -g yarn --cache-min 999999999
 install:
-  - time yarn
   - cd packages/whosmysanta-core
   - time yarn
+  - cd ..
 script:
   - cd packages/whosmysanta-core
   - npm run lint
