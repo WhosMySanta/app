@@ -2,13 +2,13 @@ import raffleSecretSanta from '..';
 
 test('non-colliding selection of pair', () => {
   const user1 = {
-    firstName: 'Karl',
-    lastName: 'Horky',
+    name: 'Karl Horky',
+    email: 'karl.horky@mailinator.com',
     giftWish: ['Electronics', 'Games'],
   };
   const user2 = {
-    firstName: 'Glenn',
-    lastName: 'Reyes',
+    name: 'Glenn Reyes',
+    email: 'glenn.reyes@mailinator.com',
     giftWish: 'iPhone 9',
   };
 
@@ -27,23 +27,23 @@ test('non-colliding selection of pair', () => {
 
 test('non-colliding selection of larger group', () => {
   const user1 = {
-    firstName: 'Karl',
-    lastName: 'Horky',
+    name: 'Karl Horky',
+    email: 'karl.horky@mailinator.com',
     giftWish: ['Electronics', 'Games'],
   };
   const user2 = {
-    firstName: 'Glenn',
-    lastName: 'Reyes',
+    name: 'Glenn Reyes',
+    email: 'glenn.reyes@mailinator.com',
     giftWish: 'iPhone 9',
   };
   const user3 = {
-    firstName: 'Donald',
-    lastName: 'Duck',
+    name: 'Donald Duck',
+    email: 'donald.duck@mailinator.com',
     giftWish: null,
   };
   const user4 = {
-    firstName: 'Buzz',
-    lastName: 'Lightyear',
+    name: 'Buzz Lightyear',
+    email: 'buzz.lightyear@mailinator.com',
     giftWish: 'Infinity and beyond',
   };
 
@@ -64,23 +64,23 @@ test('non-colliding selection of larger group', () => {
 
 test('keep the raffle snaky 🐍 and don\'t allow small groups', () => {
   const user1 = {
-    firstName: 'Karl',
-    lastName: 'Horky',
+    name: 'Karl Horky',
+    email: 'karl.horky@mailinator.com',
     giftWish: ['Electronics', 'Games'],
   };
   const user2 = {
-    firstName: 'Glenn',
-    lastName: 'Reyes',
+    name: 'Glenn Reyes',
+    email: 'glenn.reyes@mailinator.com',
     giftWish: 'iPhone 9',
   };
   const user3 = {
-    firstName: 'Donald',
-    lastName: 'Duck',
+    name: 'Donald Duck',
+    email: 'donald.duck@mailinator.com',
     giftWish: null,
   };
   const user4 = {
-    firstName: 'Buzz',
-    lastName: 'Lightyear',
+    name: 'Buzz Lightyear',
+    email: 'buzz.lightyear@mailinator.com',
     giftWish: 'Infinity and beyond',
   };
   const users = [

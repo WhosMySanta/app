@@ -8,8 +8,8 @@ type GiftCategory =
 type GiftWish = string | Array<GiftCategory>;
 
 type User = {
-  firstName: string,
-  lastName?: string,
+  name: string,
+  email: string,
   giftWish?: GiftWish,
 };
 
