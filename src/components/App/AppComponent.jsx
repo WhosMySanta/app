@@ -8,13 +8,13 @@ import Home from '../../components/Home';
 import Create from '../../components/Create';
 
 type Props = {
-  hello: string,
+  teas: Array<any>,
 };
 
-export default ({ hello }: Props) => (
+export default ({ teas }: Props) => (
   <div>
     <Header />
-    {console.log(hello)}
+    {console.log(teas)}
     <Match exactly pattern="/" component={Home} />
     <Match pattern="/create" component={Create} />
   </div>

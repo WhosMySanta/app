@@ -1,3 +1,3 @@
 /* @flow */
 
-export { default } from './AppComponent';
+export { default } from './AppContainer';

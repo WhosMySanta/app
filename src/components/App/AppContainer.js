@@ -1,13 +1,18 @@
-import { createContainer, QL } from 'react-relay';
+import Relay from 'react-relay';
 
 import App from './AppComponent';
 
 
-export default createContainer(App, {
+export default Relay.createContainer(App, {
   fragments: {
-    hello: () => QL`
-      fragment on User {
-        name,
+    store: () => Relay.QL`
+      fragment on Store {
+        teas {
+          fragment on Tea {
+            name,
+            steepingTime,
+          },
+        },
       },
     `,
   },
