@@ -6,9 +6,8 @@ import { codes } from 'currency-codes';
 export default () => (
   <main>
     <h1>Create</h1>
-    <hr/>
+    <hr />
     <section>
-      <h3></h3>
       <div>
         <label htmlFor="title">Title</label>
         <input type="text" id="title" name="title" />

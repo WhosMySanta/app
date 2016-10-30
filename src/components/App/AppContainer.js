@@ -8,10 +8,7 @@ export default Relay.createContainer(App, {
     store: () => Relay.QL`
       fragment on Store {
         teas {
-          fragment on Tea {
-            name,
-            steepingTime,
-          },
+          name
         },
       },
     `,
