@@ -1,7 +1,3 @@
-const { exec } = require('child_process');
-
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
 const {
   GraphQLInt,
   GraphQLList,
@@ -9,11 +5,6 @@ const {
   GraphQLSchema,
   GraphQLString,
 } = require('graphql');
-const { resolve } = require('path');
-
-const app = express();
-
-const port = process.env.PORT || 3000;
 
 const STORE = {
   teas: [
@@ -31,22 +22,22 @@ const STORE = {
   ],
 };
 
-const TeaType = new GraphQLObjectType({
+export const TeaType = new GraphQLObjectType({
   name: 'Tea',
   fields: () => ({
-    name: {type: GraphQLString},
-    steepingTime: {type: GraphQLInt},
+    name: { type: GraphQLString },
+    steepingTime: { type: GraphQLInt },
   }),
 });
 
-const StoreType = new GraphQLObjectType({
+export const StoreType = new GraphQLObjectType({
   name: 'Store',
   fields: () => ({
-    teas: {type: new GraphQLList(TeaType)},
+    teas: { type: new GraphQLList(TeaType) },
   }),
 });
 
-const MyGraphQLSchema = new GraphQLSchema({
+export const Schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: () => ({
@@ -56,27 +47,4 @@ const MyGraphQLSchema = new GraphQLSchema({
       },
     }),
   }),
-});
-
-const { Schema } = require('../data/schema');
-
-app.use('/graphql', graphqlHTTP({
-  schema: Schema,
-  graphiql: true,
-}));
-
-app.use(express.static(resolve(__dirname, '../build')));
-
-app.get('*', (req, res) => {
-  res.sendFile(resolve(__dirname, '../build/index.html'));
-});
-
-exec('npm run update-schema', () => {
-  app.listen(port, (error) => {
-    if (error) {
-      console.error(error);
-    } else {
-      console.log('Server started 🚀!');
-    }
-  });
 });
