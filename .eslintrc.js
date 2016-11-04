@@ -7,7 +7,7 @@ module.exports = {
   plugins: ['flowtype'],
   parser: 'babel-eslint',
   rules: {
-    'arrow-parens': 'always', // For Flow typing
+    'arrow-parens': ['error', 'always'], // For Flow typing
     'flowtype/boolean-style': 'error',
     'flowtype/define-flow-type': 'error',
     'flowtype/delimiter-dangle': ['error', 'always-multiline'],
