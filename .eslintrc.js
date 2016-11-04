@@ -23,6 +23,15 @@ module.exports = {
     'flowtype/union-intersection-spacing': 'error',
     'flowtype/use-flow-type': 'error',
     'flowtype/valid-syntax': 'error',
+    'import/no-extraneous-dependencies': [
+      'error', {
+        devDependencies: [
+          '**/server/**/*',
+          '**/config/**/*',
+        ]
+      }
+    ],
     'max-len': 'off',
+    'no-confusing-arrow': 'off',
   },
 };

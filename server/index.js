@@ -1,82 +1,135 @@
-const { exec } = require('child_process');
+// import chokidar from 'chokidar';
+import express from 'express';
+import graphQLHTTP from 'express-graphql';
+import path from 'path';
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+// import {clean} from 'require-clean';
+import {exec} from 'child_process';
 
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-const {
-  GraphQLInt,
-  GraphQLList,
-  GraphQLObjectType,
-  GraphQLSchema,
-  GraphQLString,
-} = require('graphql');
-const { resolve } = require('path');
+const APP_PORT = 3000;
+const GRAPHQL_PORT = 8080;
 
-const app = express();
+let graphQLServer;
+let appServer;
 
-const port = process.env.PORT || 3000;
-
-const STORE = {
-  teas: [
-    {name: 'Earl Grey Blue Star', steepingTime: 5},
-    {name: 'Milk Oolong', steepingTime: 3},
-    {name: 'Gunpowder Golden Temple', steepingTime: 3},
-    {name: 'Assam Hatimara', steepingTime: 5},
-    {name: 'Bancha', steepingTime: 2},
-    {name: 'Ceylon New Vithanakande', steepingTime: 5},
-    {name: 'Golden Tip Yunnan', steepingTime: 5},
-    {name: 'Jasmine Phoenix Pearls', steepingTime: 3},
-    {name: 'Kenya Milima', steepingTime: 5},
-    {name: 'Pu Erh First Grade', steepingTime: 4},
-    {name: 'Sencha Makoto', steepingTime: 2},
-  ],
-};
-
-const TeaType = new GraphQLObjectType({
-  name: 'Tea',
-  fields: () => ({
-    name: {type: GraphQLString},
-    steepingTime: {type: GraphQLInt},
-  }),
-});
-
-const StoreType = new GraphQLObjectType({
-  name: 'Store',
-  fields: () => ({
-    teas: {type: new GraphQLList(TeaType)},
-  }),
-});
-
-const MyGraphQLSchema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'Query',
-    fields: () => ({
-      store: {
-        type: StoreType,
-        resolve: () => STORE,
-      },
-    }),
-  }),
-});
-
-const { Schema } = require('../data/schema');
-
-app.use('/graphql', graphqlHTTP({
-  schema: Schema,
-  graphiql: true,
-}));
-
-app.use(express.static(resolve(__dirname, '../build')));
-
-app.get('*', (req, res) => {
-  res.sendFile(resolve(__dirname, '../build/index.html'));
-});
-
-exec('npm run update-schema', () => {
-  app.listen(port, (error) => {
-    if (error) {
-      console.error(error);
-    } else {
-      console.log('Server started 🚀!');
+function startAppServer(callback) {
+  // Serve the Relay app
+  const compiler = webpack({
+    entry: path.resolve(__dirname, '..', 'src', 'index.js'),
+    module: {
+      loaders: [
+        {
+          exclude: /node_modules/,
+          loader: 'babel',
+          test: /\.js$/,
+        }
+      ]
+    },
+    output: {filename: '/app.js', path: '/', publicPath: '/js/'}
+  });
+  appServer = new WebpackDevServer(compiler, {
+    contentBase: '/public/',
+    proxy: {'/graphql': `http://localhost:${GRAPHQL_PORT}`},
+    publicPath: '/js/',
+    stats: {colors: true}
+  });
+  // Serve static resources
+  appServer.use('/', express.static(path.resolve(__dirname, 'public')));
+  appServer.listen(APP_PORT, () => {
+    console.log(`App is now running on http://localhost:${APP_PORT}`);
+    if (callback) {
+      callback();
     }
   });
-});
+}
+
+function startGraphQLServer(callback) {
+  // Expose a GraphQL endpoint
+  // clean('./data/schema');
+  const {Schema} = require('../data/schema');
+  const graphQLApp = express();
+  graphQLApp.use('/', graphQLHTTP({
+    graphiql: true,
+    pretty: true,
+    schema: Schema,
+  }));
+  graphQLServer = graphQLApp.listen(GRAPHQL_PORT, () => {
+    console.log(
+      `GraphQL server is now running on http://localhost:${GRAPHQL_PORT}`
+    );
+    if (callback) {
+      callback();
+    }
+  });
+}
+
+function startServers(callback) {
+  // Shut down the servers
+  if (appServer) {
+    appServer.listeningApp.close();
+  }
+  if (graphQLServer) {
+    graphQLServer.close();
+  }
+
+  // Compile the schema
+  exec('npm run update-schema', (error, stdout) => {
+    console.log(stdout);
+    let doneTasks = 0;
+    function handleTaskDone() {
+      doneTasks++;
+      if (doneTasks === 2 && callback) {
+        callback();
+      }
+    }
+    startGraphQLServer(handleTaskDone);
+    startAppServer(handleTaskDone);
+  });
+}
+// const watcher = chokidar.watch('./data/{database,schema}.js');
+// watcher.on('change', path => {
+//   console.log(`\`${path}\` changed. Restarting.`);
+//   startServers(() =>
+//     console.log('Restart your browser to use the updated schema.')
+//   );
+// });
+startServers();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* eslint-disable global-require, no-console */
+
+// const express = require('express');
+
+// const app = express();
+// const port = process.env.PORT || 3000;
+
+// require('./graphql').default({ app });
+
+// if (process.env.NODE_ENV !== 'production') {
+//   require('./config.dev').default({ app, port });
+// } else {
+//   require('./config.prod').default({ app, port });
+// }
