@@ -9,20 +9,20 @@ import Create from '../../components/Create';
 
 type Props = {
   raffleGroup: {
-    title: string,
-    description: string,
-    suggestions: {
-      currency: string,
-      minLimit: number,
-      maxLimit: number,
-    },
+    // title: string,
+    // description: string,
+    // suggestions: {
+    //   currency: string,
+    //   minLimit: number,
+    //   maxLimit: number,
+    // },
   },
 };
 
 export default (props: Props) => (
   <div>
     <Header />
-    {props.raffleGroup.title}
+    {console.log(props.raffleGroup)}
     <Match exactly pattern="/" component={Home} />
     <Match pattern="/create" component={Create} />
   </div>

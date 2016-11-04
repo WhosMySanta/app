@@ -13,10 +13,15 @@ import './style.css';
 
 class AppRoute extends Relay.Route {
   static routeName = 'Home';
+  static paramDefinitions = {
+    // By setting `required` to true, `ProfileRoute` will throw if a `userID`
+    // is not supplied when instantiated.
+    raffleID: { required: true },
+  };
   static queries = {
-    raffleGroup: Component => Relay.QL`
+    raffleGroup: (Component) => Relay.QL`
       query RaffleGroupQuery {
-        raffleGroup { ${Component.getFragment('raffleGroup')} },
+        raffleGroup(id: $raffleID) { ${Component.getFragment('raffleGroup')} },
       }
     `,
   };
@@ -26,7 +31,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Relay.RootContainer
       Component={App}
-      route={new AppRoute()}
+      route={new AppRoute({ raffleID: '123a' })}
     />
   </BrowserRouter>,
   document.getElementById('root'),

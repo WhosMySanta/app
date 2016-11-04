@@ -1,8 +1,9 @@
 type Query {
-  raffleGroup: RaffleGroup
+  raffleGroup(id: String): RaffleGroup
 }
 
 type RaffleGroup {
+  id: String
   title: String
   description: String
   suggestions: Suggestions

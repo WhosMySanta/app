@@ -7,7 +7,14 @@ export default Relay.createContainer(App, {
   fragments: {
     raffleGroup: () => Relay.QL`
       fragment on RaffleGroup {
-        title
+        id,
+        title,
+        description,
+        suggestions {
+          currency,
+          minLimit,
+          maxLimit,
+        }
       },
     `,
   },

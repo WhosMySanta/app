@@ -7,12 +7,25 @@ const {
 } = require('graphql');
 
 const RAFFLE_GROUP_FIXTURE = {
-  title: 'Holmes Family',
-  description: 'Secret santa group for the Holmes family',
-  suggestions: {
-    currency: 'EUR',
-    minLimit: 10,
-    maxLimit: 50,
+  '123a': {
+    id: '123a',
+    title: 'Adams Family',
+    description: 'Secret santa group for the Adams family',
+    suggestions: {
+      currency: 'EUR',
+      minLimit: 10,
+      maxLimit: 100,
+    },
+  },
+  '321b': {
+    id: '321b',
+    title: 'Holmes Family',
+    description: 'Secret santa group for the Holmes family',
+    suggestions: {
+      currency: 'EUR',
+      minLimit: 20,
+      maxLimit: 50,
+    },
   },
 };
 
@@ -28,6 +41,7 @@ export const SuggestionsType = new GraphQLObjectType({
 export const RaffleGroupType = new GraphQLObjectType({
   name: 'RaffleGroup',
   fields: () => ({
+    id: { type: GraphQLString },
     title: { type: GraphQLString },
     description: { type: GraphQLString },
     suggestions: { type: SuggestionsType },
@@ -40,7 +54,10 @@ export const Schema = new GraphQLSchema({
     fields: () => ({
       raffleGroup: {
         type: RaffleGroupType,
-        resolve: () => RAFFLE_GROUP_FIXTURE,
+        args: {
+          id: { type: GraphQLString },
+        },
+        resolve: (_, { id }) => RAFFLE_GROUP_FIXTURE[id],
       },
     }),
   }),

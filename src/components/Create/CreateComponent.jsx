@@ -20,7 +20,7 @@ export default () => (
       <div>
         <label htmlFor="currency">Currency</label>
         <select id="currency" name="currency" defaultValue="eur">
-          {codes().map(code => (
+          {codes().map((code) => (
             <option
               key={code.toLowerCase()}
               value={code.toLowerCase()}
@@ -36,7 +36,7 @@ export default () => (
     </section>
     <section>
       <h3>Friend</h3>
-      {['friend-1', 'friend-2', 'friend-3', 'friend-4', 'friend-5'].map(friend => (
+      {['friend-1', 'friend-2', 'friend-3', 'friend-4', 'friend-5'].map((friend) => (
         <div key={friend}>
           <label htmlFor="description">Name</label>
           <input type="text" id={`${friend}-name`} name={`${friend}-name`} />
