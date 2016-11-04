@@ -1,12 +1,15 @@
 type Query {
-  store: Store
+  raffleGroup: RaffleGroup
 }
 
-type Store {
-  teas: [Tea]
+type RaffleGroup {
+  title: String
+  description: String
+  suggestions: Suggestions
 }
 
-type Tea {
-  name: String
-  steepingTime: Int
+type Suggestions {
+  currency: String
+  minLimit: Int
+  maxLimit: Int
 }

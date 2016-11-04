@@ -1,39 +1,36 @@
 const {
   GraphQLInt,
-  GraphQLList,
+  // GraphQLList,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
 } = require('graphql');
 
-const STORE = {
-  teas: [
-    {name: 'Earl Grey Blue Star', steepingTime: 5},
-    {name: 'Milk Oolong', steepingTime: 3},
-    {name: 'Gunpowder Golden Temple', steepingTime: 3},
-    {name: 'Assam Hatimara', steepingTime: 5},
-    {name: 'Bancha', steepingTime: 2},
-    {name: 'Ceylon New Vithanakande', steepingTime: 5},
-    {name: 'Golden Tip Yunnan', steepingTime: 5},
-    {name: 'Jasmine Phoenix Pearls', steepingTime: 3},
-    {name: 'Kenya Milima', steepingTime: 5},
-    {name: 'Pu Erh First Grade', steepingTime: 4},
-    {name: 'Sencha Makoto', steepingTime: 2},
-  ],
+const RAFFLE_GROUP_FIXTURE = {
+  title: 'Holmes Family',
+  description: 'Secret santa group for the Holmes family',
+  suggestions: {
+    currency: 'EUR',
+    minLimit: 10,
+    maxLimit: 50,
+  },
 };
 
-export const TeaType = new GraphQLObjectType({
-  name: 'Tea',
+export const SuggestionsType = new GraphQLObjectType({
+  name: 'Suggestions',
   fields: () => ({
-    name: { type: GraphQLString },
-    steepingTime: { type: GraphQLInt },
+    currency: { type: GraphQLString },
+    minLimit: { type: GraphQLInt },
+    maxLimit: { type: GraphQLInt },
   }),
 });
 
-export const StoreType = new GraphQLObjectType({
-  name: 'Store',
+export const RaffleGroupType = new GraphQLObjectType({
+  name: 'RaffleGroup',
   fields: () => ({
-    teas: { type: new GraphQLList(TeaType) },
+    title: { type: GraphQLString },
+    description: { type: GraphQLString },
+    suggestions: { type: SuggestionsType },
   }),
 });
 
@@ -41,9 +38,9 @@ export const Schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: () => ({
-      store: {
-        type: StoreType,
-        resolve: () => STORE,
+      raffleGroup: {
+        type: RaffleGroupType,
+        resolve: () => RAFFLE_GROUP_FIXTURE,
       },
     }),
   }),

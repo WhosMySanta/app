@@ -8,13 +8,21 @@ import Home from '../../components/Home';
 import Create from '../../components/Create';
 
 type Props = {
-  store: Array<any>, // eslint-disable-line flowtype/no-weak-types
+  raffleGroup: {
+    title: string,
+    description: string,
+    suggestions: {
+      currency: string,
+      minLimit: number,
+      maxLimit: number,
+    },
+  },
 };
 
-export default ({ store }: Props) => (
+export default ({ raffleGroup }: Props) => (
   <div>
     <Header />
-    {console.log(store.teas)}
+    {raffleGroup.title}
     <Match exactly pattern="/" component={Home} />
     <Match pattern="/create" component={Create} />
   </div>

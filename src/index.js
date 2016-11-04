@@ -14,9 +14,9 @@ import './style.css';
 class AppRoute extends Relay.Route {
   static routeName = 'Home';
   static queries = {
-    store: Component => Relay.QL`
-      query TeaStoreQuery {
-        store { ${Component.getFragment('store')} },
+    raffleGroup: Component => Relay.QL`
+      query RaffleGroupQuery {
+        raffleGroup { ${Component.getFragment('raffleGroup')} },
       }
     `,
   };

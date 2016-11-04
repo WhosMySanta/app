@@ -13,12 +13,12 @@
           "description": null,
           "fields": [
             {
-              "name": "store",
+              "name": "raffleGroup",
               "description": null,
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Store",
+                "name": "RaffleGroup",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -32,38 +32,11 @@
         },
         {
           "kind": "OBJECT",
-          "name": "Store",
+          "name": "RaffleGroup",
           "description": null,
           "fields": [
             {
-              "name": "teas",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Tea",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Tea",
-          "description": null,
-          "fields": [
-            {
-              "name": "name",
+              "name": "title",
               "description": null,
               "args": [],
               "type": {
@@ -75,12 +48,24 @@
               "deprecationReason": null
             },
             {
-              "name": "steepingTime",
+              "name": "description",
               "description": null,
               "args": [],
               "type": {
                 "kind": "SCALAR",
-                "name": "Int",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "suggestions",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Suggestions",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -99,6 +84,53 @@
           "fields": null,
           "inputFields": null,
           "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Suggestions",
+          "description": null,
+          "fields": [
+            {
+              "name": "currency",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "minLimit",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maxLimit",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
