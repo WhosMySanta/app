@@ -19,10 +19,10 @@ type Props = {
   },
 };
 
-export default ({ raffleGroup }: Props) => (
+export default (props: Props) => (
   <div>
     <Header />
-    {raffleGroup.title}
+    {props.raffleGroup.title}
     <Match exactly pattern="/" component={Home} />
     <Match pattern="/create" component={Create} />
   </div>
