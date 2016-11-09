@@ -3,7 +3,8 @@
 import React, { Component } from 'react';
 import { codes } from 'currency-codes';
 
-export default class Create extends Component {
+
+class Create extends Component {
   state = {
     title: '',
     desciption: '',
@@ -63,3 +64,6 @@ export default class Create extends Component {
     );
   }
 }
+
+
+export default Create;

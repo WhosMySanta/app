@@ -9,6 +9,7 @@ import Home from '../../components/Home';
 import Create from '../../components/Create';
 import Wish from '../../components/Wish';
 
+
 class AppRoute extends Relay.Route {
   static routeName = 'Home';
   static paramDefinitions = {
@@ -25,7 +26,7 @@ class AppRoute extends Relay.Route {
   };
 }
 
-export default () => (
+const App = () => (
   <div>
     <Header />
     <Match exactly pattern="/" component={Home} />
@@ -41,3 +42,6 @@ export default () => (
     />
   </div>
 );
+
+
+export default App;

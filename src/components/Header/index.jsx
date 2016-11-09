@@ -3,7 +3,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-export default () => (
+
+const Header = () => (
   <header>
     <nav>
       <Link to="/">Home</Link>
@@ -11,3 +12,6 @@ export default () => (
     </nav>
   </header>
 );
+
+
+export default Header;

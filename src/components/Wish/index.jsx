@@ -29,6 +29,7 @@ const Wish = ({ groupId }: Props) => (
   </main>
 );
 
+
 export default Relay.createContainer(Wish, {
   fragments: {
     group: () => Relay.QL`
