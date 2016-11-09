@@ -4,12 +4,12 @@ test('non-colliding selection of pair', () => {
   const user1 = {
     name: 'Karl Horky',
     email: 'karl.horky@mailinator.com',
-    giftWish: ['Electronics', 'Games'],
+    wish: ['Electronics', 'Games'],
   };
   const user2 = {
     name: 'Glenn Reyes',
     email: 'glenn.reyes@mailinator.com',
-    giftWish: 'iPhone 9',
+    wish: 'iPhone 9',
   };
 
   const raffle = raffleSecretSanta([
@@ -29,22 +29,22 @@ test('non-colliding selection of larger group', () => {
   const user1 = {
     name: 'Karl Horky',
     email: 'karl.horky@mailinator.com',
-    giftWish: ['Electronics', 'Games'],
+    wish: ['Electronics', 'Games'],
   };
   const user2 = {
     name: 'Glenn Reyes',
     email: 'glenn.reyes@mailinator.com',
-    giftWish: 'iPhone 9',
+    wish: 'iPhone 9',
   };
   const user3 = {
     name: 'Donald Duck',
     email: 'donald.duck@mailinator.com',
-    giftWish: null,
+    wish: null,
   };
   const user4 = {
     name: 'Buzz Lightyear',
     email: 'buzz.lightyear@mailinator.com',
-    giftWish: 'Infinity and beyond',
+    wish: 'Infinity and beyond',
   };
 
   const users = [
@@ -66,22 +66,22 @@ test('keep the raffle snaky 🐍 and don\'t allow small groups', () => {
   const user1 = {
     name: 'Karl Horky',
     email: 'karl.horky@mailinator.com',
-    giftWish: ['Electronics', 'Games'],
+    wish: ['Electronics', 'Games'],
   };
   const user2 = {
     name: 'Glenn Reyes',
     email: 'glenn.reyes@mailinator.com',
-    giftWish: 'iPhone 9',
+    wish: 'iPhone 9',
   };
   const user3 = {
     name: 'Donald Duck',
     email: 'donald.duck@mailinator.com',
-    giftWish: null,
+    wish: null,
   };
   const user4 = {
     name: 'Buzz Lightyear',
     email: 'buzz.lightyear@mailinator.com',
-    giftWish: 'Infinity and beyond',
+    wish: 'Infinity and beyond',
   };
   const users = [
     user1,

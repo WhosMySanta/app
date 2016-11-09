@@ -1,16 +1,16 @@
 /* @flow */
 
-type GiftCategory =
+type Category =
   'Electronics' |
   'Games' |
   'Home Decoration';
 
-type GiftWish = string | Array<GiftCategory>;
+type Wish = string | Array<Category>;
 
 type User = {
   name: string,
   email: string,
-  giftWish?: GiftWish,
+  wish?: Wish,
 };
 
 export type Selection = {
@@ -62,8 +62,6 @@ const raffleSecretSanta = (
       recipient,
     };
   });
-
-  // console.log(raffle);
 
   return raffle;
 };
