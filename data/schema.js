@@ -1,6 +1,7 @@
 const {
   GraphQLInt,
   // GraphQLList,
+  GraphQLInputObjectType,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
@@ -38,6 +39,15 @@ export const SuggestionsType = new GraphQLObjectType({
   }),
 });
 
+export const SuggestionsInputType = new GraphQLInputObjectType({
+  name: 'SuggestionsInput',
+  fields: () => ({
+    currency: { type: GraphQLString },
+    minLimit: { type: GraphQLInt },
+    maxLimit: { type: GraphQLInt },
+  }),
+});
+
 export const GroupType = new GraphQLObjectType({
   name: 'Group',
   fields: () => ({
@@ -48,17 +58,46 @@ export const GroupType = new GraphQLObjectType({
   }),
 });
 
-export const Schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'Query',
-    fields: () => ({
-      group: {
-        type: GroupType,
-        args: {
-          id: { type: GraphQLString },
-        },
-        resolve: (_, { id }) => GROUP_FIXTURE[id],
+const QueryType = new GraphQLObjectType({
+  name: 'Query',
+  fields: () => ({
+    group: {
+      type: GroupType,
+      args: {
+        id: { type: GraphQLString },
       },
-    }),
+      resolve: (_, { id }) => GROUP_FIXTURE[id],
+    },
   }),
+});
+
+const MutationType = new GraphQLObjectType({
+  name: 'GroupMutations',
+  fields: () => ({
+    createGroup: {
+      type: GroupType,
+      args: {
+        title: { type: GraphQLString },
+        description: { type: GraphQLString },
+        suggestions: { type: SuggestionsInputType },
+      },
+      resolve: (_, { title, description, suggestions }) => {
+        const id = 'someRandomId';
+
+        GROUP_FIXTURE[id] = {
+          id,
+          title,
+          description,
+          suggestions,
+        };
+
+        return GROUP_FIXTURE[id];
+      },
+    },
+  }),
+});
+
+export const Schema = new GraphQLSchema({
+  query: QueryType,
+  mutation: MutationType,
 });
