@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import Relay from 'react-relay';
+import Relay, { createContainer } from 'react-relay';
 
 
 type Props = {
@@ -30,7 +30,7 @@ const Wish = ({ groupId }: Props) => (
 );
 
 
-export default Relay.createContainer(Wish, {
+export default createContainer(Wish, {
   fragments: {
     group: () => Relay.QL`
       fragment on Group {

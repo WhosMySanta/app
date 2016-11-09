@@ -1,19 +1,23 @@
+/* @flow */
+
 import 'normalize.css';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router';
 
 import App from './components/App';
 
 import './style.css';
 
-ReactDOM.render(
+
+render(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
   document.getElementById('root'),
 );
+
 
 if (module.hot && typeof module.hot.accept === 'function') {
   // Enable webpack HMR and just rerun this module
