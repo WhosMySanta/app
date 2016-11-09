@@ -3,9 +3,14 @@
 import React from 'react';
 import Relay from 'react-relay';
 
-const Wish = () => (
+
+type Props = {
+  groupId: string,
+};
+
+const Wish = ({ groupId }: Props) => (
   <main>
-    <h1>Enter your wish</h1>
+    <h1>{groupId}</h1>
 
     <hr />
 

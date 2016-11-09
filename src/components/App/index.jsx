@@ -9,18 +9,6 @@ import Home from '../../components/Home';
 import Create from '../../components/Create';
 import Wish from '../../components/Wish';
 
-// type Props = {
-//   raffleGroup: {
-//     // title: string,
-//     // description: string,
-//     // suggestions: {
-//     //   currency: string,
-//     //   minLimit: number,
-//     //   maxLimit: number,
-//     // },
-//   },
-// };
-
 class AppRoute extends Relay.Route {
   static routeName = 'Home';
   static paramDefinitions = {
