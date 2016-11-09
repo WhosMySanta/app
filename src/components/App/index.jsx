@@ -18,7 +18,7 @@ class AppRoute extends Relay.Route {
   };
   static queries = {
     group: (Component) => Relay.QL`
-      query GroupQuery {
+      query {
         group(id: $groupId) { ${Component.getFragment('group')} },
       }
     `,
