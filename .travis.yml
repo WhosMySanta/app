@@ -12,6 +12,6 @@ before_install:
 install:
   - time lerna exec -- yarn
 script:
-  - lerna run lint
-  - lerna run flow
-  - lerna run test
+  - yarn run lint
+  - yarn run flow
+  - yarn run test
