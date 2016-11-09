@@ -13,7 +13,7 @@
           "description": null,
           "fields": [
             {
-              "name": "raffleGroup",
+              "name": "group",
               "description": null,
               "args": [
                 {
@@ -29,7 +29,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "RaffleGroup",
+                "name": "Group",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -53,7 +53,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "RaffleGroup",
+          "name": "Group",
           "description": null,
           "fields": [
             {

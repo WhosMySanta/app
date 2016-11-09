@@ -1,12 +1,12 @@
-type Query {
-  raffleGroup(id: String): RaffleGroup
-}
-
-type RaffleGroup {
+type Group {
   id: String
   title: String
   description: String
   suggestions: Suggestions
+}
+
+type Query {
+  group(id: String): Group
 }
 
 type Suggestions {

@@ -6,7 +6,7 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const RAFFLE_GROUP_FIXTURE = {
+const GROUP_FIXTURE = {
   '123a': {
     id: '123a',
     title: 'Adams Family',
@@ -38,8 +38,8 @@ export const SuggestionsType = new GraphQLObjectType({
   }),
 });
 
-export const RaffleGroupType = new GraphQLObjectType({
-  name: 'RaffleGroup',
+export const GroupType = new GraphQLObjectType({
+  name: 'Group',
   fields: () => ({
     id: { type: GraphQLString },
     title: { type: GraphQLString },
@@ -52,12 +52,12 @@ export const Schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
     fields: () => ({
-      raffleGroup: {
-        type: RaffleGroupType,
+      group: {
+        type: GroupType,
         args: {
           id: { type: GraphQLString },
         },
-        resolve: (_, { id }) => RAFFLE_GROUP_FIXTURE[id],
+        resolve: (_, { id }) => GROUP_FIXTURE[id],
       },
     }),
   }),
