@@ -18,27 +18,7 @@ export type Selection = {
   recipient: User,
 };
 
-// TODO: Add function to create a raffleion group (in the SDK?)
-//
-// function createSelectionGroup({
-//  title = '',
-//  description = '',
-//  suggestions = {
-//   currency: 'Euro',
-//   minLimit: 10,
-//   maxLimit: 50
-// }}) { }
-//
-// ? Question: What is its relation to `raffleSecretSanta`?
-// How does it get called, etc.
-
-const raffleSecretSanta = (
-  users: Array<User>,
-  // TODO: Think of adding restrictions as a parameter, such as:
-  // - User X cannot give to User Y
-  // - User A must give to User B
-  // - User N only receives, doesn't give
-): Array<Selection> => {
+const raffleSecretSanta = (users: Array<User>): Array<Selection> => {
   // Shuffle all the users
   const shuffled = users.sort(() => Math.floor(Math.random() * users.length));
 
