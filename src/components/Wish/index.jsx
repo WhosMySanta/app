@@ -37,11 +37,6 @@ export default createContainer(Wish, {
         id,
         title,
         description,
-        suggestions {
-          currency,
-          minLimit,
-          maxLimit,
-        }
       },
     `,
   },

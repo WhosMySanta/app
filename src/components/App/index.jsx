@@ -11,7 +11,7 @@ import Wish from '../../components/Wish';
 
 
 class AppRoute extends Route {
-  static routeName = 'Home';
+  static routeName = 'AppRoute';
   static paramDefinitions = {
     groupId: { required: true },
   };
@@ -30,13 +30,13 @@ const App = () => (
     <Match exactly pattern="/" component={Home} />
     <Match pattern="/create" component={Create} />
     <Match
-      pattern="/:groupId"
-      render={({ params: { groupId } }) =>
+      pattern="/group/:groupId"
+      render={({ params: { groupId } }) => (
         <RootContainer
           Component={Wish}
           route={new AppRoute({ groupId })}
         />
-      }
+      )}
     />
   </div>
 );

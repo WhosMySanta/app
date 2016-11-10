@@ -1,21 +1,92 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { codes } from 'currency-codes';
+import Relay, { Mutation, Store } from 'react-relay';
 
+
+type State = {
+  id: string,
+  title: string,
+  description: string,
+};
+
+class CreateGroupMutation extends Mutation {
+  static fragments = {
+    group: () => Relay.QL`
+      fragment on Group {
+        id,
+        title,
+        description,
+      },
+    `,
+  }
+  getMutation() {
+    return Relay.QL`
+      mutation { createGroup },
+    `;
+  }
+  getVariables() {
+    return {
+      id: this.props.input.id,
+      title: this.props.input.title,
+      description: this.props.input.description,
+    };
+  }
+  getFatQuery() {
+    return Relay.QL`
+      fragment on Group {
+        id,
+        title,
+        description,
+      },
+    `;
+  }
+  getConfigs() {
+    return [{
+      type: 'FIELDS_CHANGE',
+      fieldIDs: { group: this.props.input.id },
+    }];
+  }
+}
 
 class Create extends Component {
-  state = {
+  state: State = {
+    id: 'someRandomId',
     title: '',
-    desciption: '',
-    suggestions: {
-      currency: 'eur',
-      minLimit: 0,
-      maxLimit: 0,
-    },
+    description: '',
+  }
+
+  handleSubmit = () => {
+    const { id, title, description } = this.state;
+
+    Store.commitUpdate(
+      new CreateGroupMutation({ input: {
+        id,
+        title,
+        description,
+      } })
+    );
+  }
+
+  handleChangeTitle = (event: { target: { value: string } }) => {
+    this.setState({ title: event.target.value });
+  }
+
+  handleChangeDescription = (event: { target: { value: string } }) => {
+    this.setState({ description: event.target.value });
   }
 
   render() {
+    const {
+      handleChangeDescription,
+      handleChangeTitle,
+      handleSubmit,
+    } = this;
+    const {
+      title,
+      description,
+    } = this.state;
+
     return (
       <main>
         <h1>Create</h1>
@@ -23,31 +94,23 @@ class Create extends Component {
         <section>
           <div>
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" name="title" />
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={handleChangeTitle}
+            />
           </div>
           <div>
             <label htmlFor="description">Description</label>
-            <textarea id="description" name="description" />
-          </div>
-
-          <div>
-            <label htmlFor="currency">Currency</label>
-            <select id="currency" name="currency" defaultValue="eur">
-              {codes().map((code) => (
-                <option
-                  key={code.toLowerCase()}
-                  value={code.toLowerCase()}
-                >{code}</option>
-              ))}
-              <option value="usd">USD</option>
-            </select>
-            <label htmlFor="min">Minimum</label>
-            <input type="number" id="min" name="min" />
-            <label htmlFor="max">Maximum</label>
-            <input type="number" id="max" name="max" />
+            <textarea
+              id="description"
+              value={description}
+              onChange={handleChangeDescription}
+            />
           </div>
         </section>
-        <section>
+        {/* <section>
           <h3>Friend</h3>
           {['friend-1', 'friend-2', 'friend-3', 'friend-4', 'friend-5'].map((friend) => (
             <div key={friend}>
@@ -58,8 +121,8 @@ class Create extends Component {
               <hr />
             </div>
           ))}
-        </section>
-        <button type="button">Send</button>
+        </section> */}
+        <button type="button" onClick={handleSubmit}>Send</button>
       </main>
     );
   }

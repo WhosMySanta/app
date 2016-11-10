@@ -7,25 +7,18 @@ type Group {
   id: String
   title: String
   description: String
-  suggestions: Suggestions
+}
+
+input GroupInput {
+  id: String
+  title: String
+  description: String
 }
 
 type GroupMutations {
-  createGroup(title: String, description: String, suggestions: SuggestionsInput): Group
+  createGroup(input: GroupInput): Group
 }
 
 type Query {
   group(id: String): Group
-}
-
-type Suggestions {
-  currency: String
-  minLimit: Int
-  maxLimit: Int
-}
-
-input SuggestionsInput {
-  currency: String
-  minLimit: Int
-  maxLimit: Int
 }

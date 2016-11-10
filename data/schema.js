@@ -1,6 +1,4 @@
 const {
-  GraphQLInt,
-  // GraphQLList,
   GraphQLInputObjectType,
   GraphQLObjectType,
   GraphQLSchema,
@@ -12,41 +10,13 @@ const GROUP_FIXTURE = {
     id: '123a',
     title: 'Adams Family',
     description: 'Secret santa group for the Adams family',
-    suggestions: {
-      currency: 'EUR',
-      minLimit: 10,
-      maxLimit: 100,
-    },
   },
   '321b': {
     id: '321b',
     title: 'Holmes Family',
     description: 'Secret santa group for the Holmes family',
-    suggestions: {
-      currency: 'EUR',
-      minLimit: 20,
-      maxLimit: 50,
-    },
   },
 };
-
-export const SuggestionsType = new GraphQLObjectType({
-  name: 'Suggestions',
-  fields: () => ({
-    currency: { type: GraphQLString },
-    minLimit: { type: GraphQLInt },
-    maxLimit: { type: GraphQLInt },
-  }),
-});
-
-export const SuggestionsInputType = new GraphQLInputObjectType({
-  name: 'SuggestionsInput',
-  fields: () => ({
-    currency: { type: GraphQLString },
-    minLimit: { type: GraphQLInt },
-    maxLimit: { type: GraphQLInt },
-  }),
-});
 
 export const GroupType = new GraphQLObjectType({
   name: 'Group',
@@ -54,7 +24,15 @@ export const GroupType = new GraphQLObjectType({
     id: { type: GraphQLString },
     title: { type: GraphQLString },
     description: { type: GraphQLString },
-    suggestions: { type: SuggestionsType },
+  }),
+});
+
+export const GroupInputType = new GraphQLInputObjectType({
+  name: 'GroupInput',
+  fields: () => ({
+    id: { type: GraphQLString },
+    title: { type: GraphQLString },
+    description: { type: GraphQLString },
   }),
 });
 
@@ -77,19 +55,10 @@ const MutationType = new GraphQLObjectType({
     createGroup: {
       type: GroupType,
       args: {
-        title: { type: GraphQLString },
-        description: { type: GraphQLString },
-        suggestions: { type: SuggestionsInputType },
+        input: { type: GroupInputType },
       },
-      resolve: (_, { title, description, suggestions }) => {
-        const id = 'someRandomId';
-
-        GROUP_FIXTURE[id] = {
-          id,
-          title,
-          description,
-          suggestions,
-        };
+      resolve: (_, { input: { id, title, description } }) => {
+        GROUP_FIXTURE[id] = { id, title, description };
 
         return GROUP_FIXTURE[id];
       },
