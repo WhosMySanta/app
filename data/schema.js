@@ -5,6 +5,8 @@ const {
   GraphQLString,
 } = require('graphql');
 
+const { mutationWithClientMutationId } = require('graphql-relay');
+
 const GROUP_FIXTURE = {
   '123a': {
     id: '123a',
@@ -52,17 +54,35 @@ const QueryType = new GraphQLObjectType({
 const MutationType = new GraphQLObjectType({
   name: 'GroupMutations',
   fields: () => ({
-    createGroup: {
-      type: GroupType,
-      args: {
-        input: { type: GroupInputType },
+    createGroup: mutationWithClientMutationId({
+      name: 'CreateGroup',
+      inputFields: {
+        // id: { type: GraphQLString },
+        title: { type: GraphQLString },
+        description: { type: GraphQLString },
       },
-      resolve: (_, { input: { id, title, description } }) => {
-        GROUP_FIXTURE[id] = { id, title, description };
+      outputFields: {
+        group: {
+          type: GroupType,
+          resolve(value) {
+            // _, { group: { id, title, description } }
+            // GROUP_FIXTURE[id] = { id, title, description };
 
+            // return GROUP_FIXTURE[id];
+            return value;
+          },
+        },
+      },
+      mutateAndGetPayload: ({ id, title, description }) => {
+        // GROUP_FIXTURE[id] = {
+        //   id,
+        //   title,
+
+        // }
+        GROUP_FIXTURE[id] = { id, title, description };
         return GROUP_FIXTURE[id];
       },
-    },
+    }),
   }),
 });
 

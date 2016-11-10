@@ -3,20 +3,25 @@ schema {
   mutation: GroupMutations
 }
 
+input CreateGroupInput {
+  title: String
+  description: String
+  clientMutationId: String
+}
+
+type CreateGroupPayload {
+  group: Group
+  clientMutationId: String
+}
+
 type Group {
   id: String
   title: String
   description: String
 }
 
-input GroupInput {
-  id: String
-  title: String
-  description: String
-}
-
 type GroupMutations {
-  createGroup(input: GroupInput): Group
+  createGroup(input: CreateGroupInput!): CreateGroupPayload
 }
 
 type Query {

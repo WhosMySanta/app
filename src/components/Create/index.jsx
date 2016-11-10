@@ -14,7 +14,6 @@ class CreateGroupMutation extends Mutation {
   static fragments = {
     group: () => Relay.QL`
       fragment on Group {
-        id,
         title,
         description,
       },
@@ -27,25 +26,26 @@ class CreateGroupMutation extends Mutation {
   }
   getVariables() {
     return {
-      id: this.props.input.id,
-      title: this.props.input.title,
-      description: this.props.input.description,
+      // id: this.props.group.id,
+      title: this.props.group.title,
+      description: this.props.group.description,
     };
   }
   getFatQuery() {
     return Relay.QL`
       fragment on Group {
-        id,
         title,
         description,
       },
     `;
   }
   getConfigs() {
-    return [{
-      type: 'FIELDS_CHANGE',
-      fieldIDs: { group: this.props.input.id },
-    }];
+    return [
+    // {
+    //   type: 'FIELDS_CHANGE',
+    //   fieldIDs: { group: this.props.input.id },
+    // }
+    ];
   }
 }
 
@@ -57,14 +57,13 @@ class Create extends Component {
   }
 
   handleSubmit = () => {
-    const { id, title, description } = this.state;
+    const { title, description } = this.state;
 
     Store.commitUpdate(
-      new CreateGroupMutation({ input: {
-        id,
+      new CreateGroupMutation({ group: {
         title,
         description,
-      } })
+      } }),
     );
   }
 
