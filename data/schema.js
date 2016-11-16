@@ -1,5 +1,6 @@
 const {
   GraphQLInputObjectType,
+  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
@@ -51,6 +52,16 @@ const QueryType = new GraphQLObjectType({
   }),
 });
 
+const Root = new GraphQLObjectType({
+  name: 'Root',
+  fields: {
+    viewer: {
+      type: QueryType,
+      resolve: () => new class {}(),
+    },
+  },
+});
+
 const MutationType = new GraphQLObjectType({
   name: 'GroupMutations',
   fields: () => ({
@@ -58,8 +69,8 @@ const MutationType = new GraphQLObjectType({
       name: 'CreateGroup',
       inputFields: {
         // id: { type: GraphQLString },
-        title: { type: GraphQLString },
-        description: { type: GraphQLString },
+        title: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: new GraphQLNonNull(GraphQLString) },
       },
       outputFields: {
         group: {
@@ -87,6 +98,7 @@ const MutationType = new GraphQLObjectType({
           title,
           description,
         };
+
         return GROUP_FIXTURE[id];
       },
     }),
@@ -94,6 +106,6 @@ const MutationType = new GraphQLObjectType({
 });
 
 export const Schema = new GraphQLSchema({
-  query: QueryType,
+  query: Root,
   mutation: MutationType,
 });

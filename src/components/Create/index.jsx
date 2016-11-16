@@ -13,6 +13,7 @@ class CreateGroupMutation extends Mutation {
   static fragments = {
     group: () => Relay.QL`
       fragment on Group {
+        id,
         title,
         description,
       },
@@ -25,7 +26,7 @@ class CreateGroupMutation extends Mutation {
   }
   getVariables() {
     return {
-      // groupId: this.props.group.id,
+      id: this.props.group.id,
       title: this.props.group.title,
       description: this.props.group.description,
     };
@@ -33,6 +34,7 @@ class CreateGroupMutation extends Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on Group {
+        id,
         title,
         description,
       },
@@ -40,15 +42,22 @@ class CreateGroupMutation extends Mutation {
   }
   getConfigs() {
     return [
-      // {
-      //   type: 'FIELDS_CHANGE',
-      //   fieldIDs: { group: this.props.group.id },
-      // },
+      {
+        type: 'RANGE_ADD',
+        parentName: 'viewer',
+        parentID: 1,
+        connectionName: 'groups',
+        edgeName: 'groupEdit',
+      },
+      {
+        type: 'FIELDS_CHANGE',
+        fieldIDs: { group: this.props.group.id },
+      },
     ];
   }
 }
 
-export default class Create extends Component {
+class Create extends Component {
   state: State = {
     id: 'someRandomId',
     title: '',
@@ -60,7 +69,7 @@ export default class Create extends Component {
 
     Store.commitUpdate(
       new CreateGroupMutation({ group: {
-        // id,
+        id: null,
         title,
         description,
       } }),
@@ -128,14 +137,15 @@ export default class Create extends Component {
 }
 
 
-// export default Relay.createContainer(Create, {
-//   fragments: {
-//     group: () => Relay.QL`
-//       fragment on Group {
-//         title,
-//         description,
-//         ${CreateGroupMutation.getFragment('group')},
-//       }
-//     `,
-//   },
-// });
+export default Relay.createContainer(Create, {
+  fragments: {
+    viewer: () => Relay.QL`
+      fragment on Group {
+        id,
+        title,
+        description,
+        ${CreateGroupMutation.getFragment('viewer')},
+      }
+    `,
+  },
+});
