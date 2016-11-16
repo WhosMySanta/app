@@ -5,19 +5,21 @@ import Relay, { createContainer } from 'react-relay';
 
 
 type Props = {
-  group: {
-    title: string,
-    description: string,
+  app: {
+    group: {
+      title: string,
+      description: string,
+    },
   },
 };
 
 const Wish = (props: Props) => (
   <main>
-    <h1>{props.group.title}</h1>
+    <h1>{props.app.group.title}</h1>
 
     <hr />
 
-    <p>{props.group.description}</p>
+    <p>{props.app.group.description}</p>
 
     <section>
       <div>
@@ -36,7 +38,19 @@ const Wish = (props: Props) => (
 
 
 export default createContainer(Wish, {
+  initialVariables: {
+    groupId: null,
+  },
+
   fragments: {
+    app: () => Relay.QL`
+      fragment on App {
+        group(id: $groupId) {
+          title,
+          description,
+        }
+      }
+    `,
     group: () => Relay.QL`
       fragment on Group {
         id,

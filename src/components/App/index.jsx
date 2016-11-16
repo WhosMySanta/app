@@ -16,10 +16,10 @@ class AppRoute extends Route {
     groupId: { required: true },
   };
   static queries = {
-    group: ({ getFragment }) => Relay.QL`
+    app: ({ getFragment }, { groupId }) => Relay.QL`
       query {
-        group(id: $groupId) { ${getFragment('group')} },
-      }
+        app { ${getFragment('app', { groupId })} },
+      },
     `,
   };
 }
@@ -29,12 +29,11 @@ class AppCreateRoute extends Route {
   static paramDefinitions = {
   };
   static queries = {
-    group: () => Relay.QL`
+    app: (Component) => Relay.QL`
       query {
-        viewer
+        app { ${Component.getFragment('app')} }
       }
     `,
-    // group(id: "123a") { ${getFragment('group')} },
   };
 }
 

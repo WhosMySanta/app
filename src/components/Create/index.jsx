@@ -3,6 +3,11 @@
 import React, { Component } from 'react';
 import Relay, { Mutation, Store } from 'react-relay';
 
+
+type Props = {
+  app: {},
+};
+
 type State = {
   id: string,
   title: string,
@@ -11,11 +16,9 @@ type State = {
 
 class CreateGroupMutation extends Mutation {
   static fragments = {
-    group: () => Relay.QL`
-      fragment on Group {
+    app: () => Relay.QL`
+      fragment on App {
         id,
-        title,
-        description,
       },
     `,
   }
@@ -33,25 +36,18 @@ class CreateGroupMutation extends Mutation {
   }
   getFatQuery() {
     return Relay.QL`
-      fragment on Group {
-        id,
-        title,
-        description,
+      fragment on CreateGroupPayload {
+        app {
+          groups,
+        }
       },
     `;
   }
   getConfigs() {
     return [
       {
-        type: 'RANGE_ADD',
-        parentName: 'viewer',
-        parentID: 1,
-        connectionName: 'groups',
-        edgeName: 'groupEdit',
-      },
-      {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { group: this.props.group.id },
+        fieldIDs: { app: this.props.app.id },
       },
     ];
   }
@@ -64,15 +60,20 @@ class Create extends Component {
     description: '',
   }
 
+  props: Props
+
   handleSubmit = () => {
     const { title, description } = this.state;
 
     Store.commitUpdate(
-      new CreateGroupMutation({ group: {
-        id: null,
-        title,
-        description,
-      } }),
+      new CreateGroupMutation({
+        app: this.props.app,
+        group: {
+          id: '',
+          title,
+          description,
+        },
+      }),
     );
   }
 
@@ -139,12 +140,10 @@ class Create extends Component {
 
 export default Relay.createContainer(Create, {
   fragments: {
-    viewer: () => Relay.QL`
-      fragment on Group {
-        id,
-        title,
-        description,
-        ${CreateGroupMutation.getFragment('viewer')},
+    app: () => Relay.QL`
+      fragment on App {
+        groups,
+        ${CreateGroupMutation.getFragment('app')},
       }
     `,
   },

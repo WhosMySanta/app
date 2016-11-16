@@ -1,5 +1,6 @@
 const {
   GraphQLInputObjectType,
+  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
@@ -8,18 +9,19 @@ const {
 
 const { mutationWithClientMutationId } = require('graphql-relay');
 
-const GROUP_FIXTURE = {
-  '123a': {
+
+const GROUPS = [
+  {
     id: '123a',
     title: 'Adams Family',
     description: 'Secret santa group for the Adams family',
   },
-  '321b': {
+  {
     id: '321b',
     title: 'Holmes Family',
     description: 'Secret santa group for the Holmes family',
   },
-};
+];
 
 export const GroupType = new GraphQLObjectType({
   name: 'Group',
@@ -39,15 +41,17 @@ export const GroupInputType = new GraphQLInputObjectType({
   }),
 });
 
-const QueryType = new GraphQLObjectType({
-  name: 'Query',
+const AppType = new GraphQLObjectType({
+  name: 'App',
   fields: () => ({
+    groups: { type: new GraphQLList(GroupType) },
+    id: { type: GraphQLString },
     group: {
       type: GroupType,
       args: {
         id: { type: GraphQLString },
       },
-      resolve: (_, { id }) => GROUP_FIXTURE[id],
+      resolve: (_, { id }) => GROUPS.find((group) => group.id === id),
     },
   }),
 });
@@ -55,9 +59,13 @@ const QueryType = new GraphQLObjectType({
 const Root = new GraphQLObjectType({
   name: 'Root',
   fields: {
-    viewer: {
-      type: QueryType,
-      resolve: () => new class {}(),
+    app: {
+      type: AppType,
+      resolve: () => ({
+        group: (_, { id }) => GROUPS.find((group) => group.id === id),
+        groups: GROUPS,
+        id: '0',
+      }),
     },
   },
 });
@@ -68,38 +76,27 @@ const MutationType = new GraphQLObjectType({
     createGroup: mutationWithClientMutationId({
       name: 'CreateGroup',
       inputFields: {
-        // id: { type: GraphQLString },
+        id: { type: GraphQLString },
         title: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
       },
       outputFields: {
-        group: {
-          type: GroupType,
-          resolve(value) {
-            // _, { group: { id, title, description } }
-            // GROUP_FIXTURE[id] = { id, title, description };
-
-            // return GROUP_FIXTURE[id];
-            return GROUP_FIXTURE[value.id];
-          },
+        app: {
+          type: AppType,
+          resolve: () => GROUPS,
         },
       },
       mutateAndGetPayload: ({ title, description }) => {
-        // GROUP_FIXTURE[id] = {
-        //   id,
-        //   title,
-
-        // }
-
         const id = title.toLowerCase().replace(' ', '-');
-
-        GROUP_FIXTURE[id] = {
+        const payload = {
           id,
           title,
           description,
         };
 
-        return GROUP_FIXTURE[id];
+        GROUPS.push(payload);
+
+        return payload;
       },
     }),
   }),

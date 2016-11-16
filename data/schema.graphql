@@ -1,16 +1,23 @@
 schema {
-  query: Query
+  query: Root
   mutation: GroupMutations
 }
 
+type App {
+  groups: [Group]
+  id: String
+  group(id: String): Group
+}
+
 input CreateGroupInput {
+  id: String
   title: String!
   description: String!
   clientMutationId: String
 }
 
 type CreateGroupPayload {
-  group: Group
+  app: App
   clientMutationId: String
 }
 
@@ -24,6 +31,6 @@ type GroupMutations {
   createGroup(input: CreateGroupInput!): CreateGroupPayload
 }
 
-type Query {
-  group(id: String): Group
+type Root {
+  app: App
 }
