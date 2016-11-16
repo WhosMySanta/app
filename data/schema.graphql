@@ -1,31 +1,36 @@
 schema {
-  query: Query
+  query: Root
   mutation: GroupMutations
+}
+
+type App {
+  groups: [Group]
+  id: String
+  group(id: String): Group
+}
+
+input CreateGroupInput {
+  id: String
+  title: String!
+  description: String!
+  clientMutationId: String
+}
+
+type CreateGroupPayload {
+  app: App
+  clientMutationId: String
 }
 
 type Group {
   id: String
   title: String
   description: String
-  suggestions: Suggestions
 }
 
 type GroupMutations {
-  createGroup(title: String, description: String, suggestions: SuggestionsInput): Group
+  createGroup(input: CreateGroupInput!): CreateGroupPayload
 }
 
-type Query {
-  group(id: String): Group
-}
-
-type Suggestions {
-  currency: String
-  minLimit: Int
-  maxLimit: Int
-}
-
-input SuggestionsInput {
-  currency: String
-  minLimit: Int
-  maxLimit: Int
+type Root {
+  app: App
 }

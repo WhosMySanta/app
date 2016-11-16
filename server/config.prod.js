@@ -7,7 +7,7 @@ export default ({ app, port }) => {
     res.sendFile(resolve(__dirname, '../build/index.html'));
   });
 
-  app.listen(port, error =>
+  app.listen(port, (error) =>
     error ?
       console.error(error) && process.exit(1) : // eslint-disable-line no-console
       console.log('Server started 🚀!') // eslint-disable-line no-console

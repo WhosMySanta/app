@@ -8,6 +8,7 @@ module.exports = {
   parser: 'babel-eslint',
   rules: {
     'arrow-parens': ['error', 'always'], // For Flow typing
+    'class-methods-use-this': 'off',
     'flowtype/boolean-style': 'error',
     'flowtype/define-flow-type': 'error',
     'flowtype/delimiter-dangle': ['error', 'always-multiline'],

@@ -11,14 +11,27 @@ import Wish from '../../components/Wish';
 
 
 class AppRoute extends Route {
-  static routeName = 'Home';
+  static routeName = 'AppRoute';
   static paramDefinitions = {
     groupId: { required: true },
   };
   static queries = {
-    group: ({ getFragment }) => Relay.QL`
+    app: ({ getFragment }, { groupId }) => Relay.QL`
       query {
-        group(id: $groupId) { ${getFragment('group')} },
+        app { ${getFragment('app', { groupId })} },
+      },
+    `,
+  };
+}
+
+class AppCreateRoute extends Route {
+  static routeName = 'AppCreateRoute';
+  static paramDefinitions = {
+  };
+  static queries = {
+    app: (Component) => Relay.QL`
+      query {
+        app { ${Component.getFragment('app')} }
       }
     `,
   };
@@ -28,15 +41,23 @@ const App = () => (
   <div>
     <Header />
     <Match exactly pattern="/" component={Home} />
-    <Match pattern="/create" component={Create} />
     <Match
-      pattern="/:groupId"
-      render={({ params: { groupId } }) =>
+      pattern="/create"
+      render={() => (
+        <RootContainer
+          Component={Create}
+          route={new AppCreateRoute()}
+        />
+      )}
+    />
+    <Match
+      pattern="/group/:groupId"
+      render={({ params: { groupId } }) => (
         <RootContainer
           Component={Wish}
           route={new AppRoute({ groupId })}
         />
-      }
+      )}
     />
   </div>
 );
