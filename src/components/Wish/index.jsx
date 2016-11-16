@@ -5,14 +5,19 @@ import Relay, { createContainer } from 'react-relay';
 
 
 type Props = {
-  groupId: string,
+  group: {
+    title: string,
+    description: string,
+  },
 };
 
-const Wish = ({ groupId }: Props) => (
+const Wish = (props: Props) => (
   <main>
-    <h1>{groupId}</h1>
+    <h1>{props.group.title}</h1>
 
     <hr />
+
+    <p>{props.group.description}</p>
 
     <section>
       <div>

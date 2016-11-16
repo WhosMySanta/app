@@ -69,17 +69,24 @@ const MutationType = new GraphQLObjectType({
             // GROUP_FIXTURE[id] = { id, title, description };
 
             // return GROUP_FIXTURE[id];
-            return value;
+            return GROUP_FIXTURE[value.id];
           },
         },
       },
-      mutateAndGetPayload: ({ id, title, description }) => {
+      mutateAndGetPayload: ({ title, description }) => {
         // GROUP_FIXTURE[id] = {
         //   id,
         //   title,
 
         // }
-        GROUP_FIXTURE[id] = { id, title, description };
+
+        const id = title.toLowerCase().replace(' ', '-');
+
+        GROUP_FIXTURE[id] = {
+          id,
+          title,
+          description,
+        };
         return GROUP_FIXTURE[id];
       },
     }),

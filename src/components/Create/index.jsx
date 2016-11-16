@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import Relay, { Mutation, Store } from 'react-relay';
 
-
 type State = {
   id: string,
   title: string,
@@ -26,7 +25,7 @@ class CreateGroupMutation extends Mutation {
   }
   getVariables() {
     return {
-      // id: this.props.group.id,
+      // groupId: this.props.group.id,
       title: this.props.group.title,
       description: this.props.group.description,
     };
@@ -41,15 +40,15 @@ class CreateGroupMutation extends Mutation {
   }
   getConfigs() {
     return [
-    // {
-    //   type: 'FIELDS_CHANGE',
-    //   fieldIDs: { group: this.props.input.id },
-    // }
+      // {
+      //   type: 'FIELDS_CHANGE',
+      //   fieldIDs: { group: this.props.group.id },
+      // },
     ];
   }
 }
 
-class Create extends Component {
+export default class Create extends Component {
   state: State = {
     id: 'someRandomId',
     title: '',
@@ -61,6 +60,7 @@ class Create extends Component {
 
     Store.commitUpdate(
       new CreateGroupMutation({ group: {
+        // id,
         title,
         description,
       } }),
@@ -128,4 +128,14 @@ class Create extends Component {
 }
 
 
-export default Create;
+// export default Relay.createContainer(Create, {
+//   fragments: {
+//     group: () => Relay.QL`
+//       fragment on Group {
+//         title,
+//         description,
+//         ${CreateGroupMutation.getFragment('group')},
+//       }
+//     `,
+//   },
+// });

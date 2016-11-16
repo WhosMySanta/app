@@ -24,11 +24,34 @@ class AppRoute extends Route {
   };
 }
 
+// class AppCreateRoute extends Route {
+//   static routeName = 'AppCreateRoute';
+//   static paramDefinitions = {
+//     groupId: {  },
+//   };
+//   static queries = {
+//     group: ({ getFragment }) => Relay.QL`
+//       query {
+//         group(id: $groupId) { ${getFragment('group')} },
+//       }
+//     `,
+//   };
+// }
+
 const App = () => (
   <div>
     <Header />
     <Match exactly pattern="/" component={Home} />
-    <Match pattern="/create" component={Create} />
+    <Match exactly pattern="/create" component={Create} />
+    {/* <Match
+      pattern="/create"
+      render={() => (
+        <RootContainer
+          Component={Create}
+          route={new AppCreateRoute()}
+        />
+      )}
+    />*/}
     <Match
       pattern="/group/:groupId"
       render={({ params: { groupId } }) => (
