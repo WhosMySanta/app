@@ -13,13 +13,13 @@ type Props = {
   },
 };
 
-const Wish = (props: Props) => (
+const Wish = ({ app: { group: { title, description } } }: Props) => (
   <main>
-    <h1>{props.app.group.title}</h1>
+    <h1>{title}</h1>
 
     <hr />
 
-    <p>{props.app.group.description}</p>
+    <p>{description}</p>
 
     <section>
       <div>

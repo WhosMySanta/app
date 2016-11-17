@@ -27,11 +27,12 @@ module.exports = {
     'flowtype/valid-syntax': 'error',
     'import/no-extraneous-dependencies': [ 'error', {
       devDependencies: [
-        '**/server/**/*',
         '**/config/**/*',
+        '**/server/**/*',
       ],
     }],
     'max-len': 'off',
     'no-confusing-arrow': 'off',
+    'react/no-unused-prop-types': 'off',
   },
 };
