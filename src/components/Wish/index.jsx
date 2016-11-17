@@ -51,12 +51,5 @@ export default createContainer(Wish, {
         }
       }
     `,
-    group: () => Relay.QL`
-      fragment on Group {
-        id,
-        title,
-        description,
-      },
-    `,
   },
 });
