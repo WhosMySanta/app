@@ -112,6 +112,11 @@ module.exports = {
           })
         }
       },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules|styles\.scss/,
+        loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss!sass'
+      },
       // "postcss" loader applies autoprefixer to our CSS.
       // "css" loader resolves paths in CSS and adds assets as dependencies.
       // "style" loader turns CSS into JS modules that inject <style> tags.
@@ -120,6 +125,11 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style!css?importLoaders=1!postcss'
+      },
+      {
+        test: /src\/styles\.scss$/,
+        exclude: /node_modules/,
+        loader: 'style!css!postcss!sass'
       },
       // JSON is not enabled by default in Webpack but both Node and Browserify
       // allow it implicitly so we also enable it.
