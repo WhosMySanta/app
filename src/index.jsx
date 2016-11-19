@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router';
 
 import App from './components/App';
 
-import './styles.css';
+import './styles.scss';
 
 
 render(
