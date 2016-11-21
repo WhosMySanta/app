@@ -89,6 +89,17 @@ class Create extends Component {
 
   props: Props
 
+  addFriend() {
+    this.setState({friends: [
+      ...this.state.friends,
+      {
+        id: this.state.friends.length,
+        name: '',
+        email: '',
+      },
+    ]});
+  }
+
   handleChange: HandleChangeFn = (property: string) => ({target: {value}}) => {
     this.setState({[property]: value});
   }
