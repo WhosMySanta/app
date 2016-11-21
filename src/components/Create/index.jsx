@@ -41,10 +41,13 @@ class CreateGroupMutation extends Mutation {
     `;
   }
   getVariables() {
+    const {id, title, description, friends} = this.props.group;
+
     return {
-      id: this.props.group.id,
-      title: this.props.group.title,
-      description: this.props.group.description,
+      id,
+      title,
+      description,
+      friends,
     };
   }
   getFatQuery() {
@@ -98,26 +101,21 @@ class Create extends Component {
   }
 
   handleSubmit = () => {
-    const {title, description} = this.state;
+    const {app} = this.props;
+    const {id, title, description, friends} = this.state;
 
     Store.commitUpdate(
       new CreateGroupMutation({
-        app: this.props.app,
+        app,
         group: {
-          id: '',
+          id,
           title,
           description,
+          friends,
         },
       }),
     );
   }
-
-  // handleChangeDescription = ({target: {value}}: Event) => {
-  //   this.setState({description: value});
-  // }
-
-  // handleChangeName = ({target: {value}}: Event) => {}
-  // handleChangeEmail = ({target: {value}}: Event) => {}
 
   render() {
     const {
@@ -134,7 +132,6 @@ class Create extends Component {
 
     return (
       <main>
-        {console.log(friends)}
         <h1>Create</h1>
         <hr />
         <section>

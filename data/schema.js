@@ -1,5 +1,6 @@
 const {
   GraphQLInputObjectType,
+  GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
@@ -23,12 +24,31 @@ const GROUPS = [
   },
 ];
 
+export const FriendType = new GraphQLObjectType({
+  name: 'Friend',
+  fields: () => ({
+    id: {type: GraphQLInt},
+    name: {type: GraphQLString},
+    email: {type: GraphQLString},
+  }),
+});
+
+export const FriendInputType = new GraphQLInputObjectType({
+  name: 'FriendInput',
+  fields: () => ({
+    id: {type: GraphQLInt},
+    name: {type: GraphQLString},
+    email: {type: GraphQLString},
+  }),
+});
+
 export const GroupType = new GraphQLObjectType({
   name: 'Group',
   fields: () => ({
     id: {type: GraphQLString},
     title: {type: GraphQLString},
     description: {type: GraphQLString},
+    friends: {type: new GraphQLList(FriendType)},
   }),
 });
 
@@ -38,8 +58,10 @@ export const GroupInputType = new GraphQLInputObjectType({
     id: {type: GraphQLString},
     title: {type: GraphQLString},
     description: {type: GraphQLString},
+    friends: {type: new GraphQLList(FriendInputType)},
   }),
 });
+
 
 const AppType = new GraphQLObjectType({
   name: 'App',
@@ -79,6 +101,7 @@ const MutationType = new GraphQLObjectType({
         id: {type: GraphQLString},
         title: {type: new GraphQLNonNull(GraphQLString)},
         description: {type: new GraphQLNonNull(GraphQLString)},
+        friends: {type: new GraphQLList(FriendInputType)},
       },
       outputFields: {
         app: {
@@ -86,12 +109,13 @@ const MutationType = new GraphQLObjectType({
           resolve: () => GROUPS,
         },
       },
-      mutateAndGetPayload: ({title, description}) => {
+      mutateAndGetPayload: ({title, description, friends}) => {
         const id = title.toLowerCase().replace(' ', '-');
         const payload = {
           id,
           title,
           description,
+          friends,
         };
 
         GROUPS.push(payload);

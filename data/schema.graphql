@@ -13,6 +13,7 @@ input CreateGroupInput {
   id: String
   title: String!
   description: String!
+  friends: [FriendInput]
   clientMutationId: String
 }
 
@@ -21,10 +22,23 @@ type CreateGroupPayload {
   clientMutationId: String
 }
 
+type Friend {
+  id: Int
+  name: String
+  email: String
+}
+
+input FriendInput {
+  id: Int
+  name: String
+  email: String
+}
+
 type Group {
   id: String
   title: String
   description: String
+  friends: [Friend]
 }
 
 type GroupMutations {
