@@ -3,10 +3,10 @@
 ## Routes
 
 ```
-/                  Home
-/create            Create a group
-/:groupId          User enters a name and their wish
-/:groupId/status   Answer status of group participants
+/                       Home
+/create                 Create a group
+/group/:groupId         User enters a name and their wish
+/group/:groupId/manage  Answer status of group participants, results
 ```
 
 ## Selection process
