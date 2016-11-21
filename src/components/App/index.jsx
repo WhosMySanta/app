@@ -8,7 +8,7 @@ import Header from '../../components/Header';
 import Home from '../../components/Home';
 import Create from '../../components/Create';
 import Wish from '../../components/Wish';
-
+import Manage from '../../components/Manage';
 
 class AppRoute extends Route {
   static routeName = 'AppRoute';
@@ -52,9 +52,19 @@ const App = () => (
     />
     <Match
       pattern="/group/:groupId"
+      exactly
       render={({params: {groupId}}) => (
         <RootContainer
           Component={Wish}
+          route={new AppRoute({groupId})}
+        />
+      )}
+    />
+    <Match
+      pattern="/group/:groupId/manage"
+      render={({params: {groupId}}) => (
+        <RootContainer
+          Component={Manage}
           route={new AppRoute({groupId})}
         />
       )}

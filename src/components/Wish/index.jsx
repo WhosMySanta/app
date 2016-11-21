@@ -3,7 +3,6 @@
 import React from 'react';
 import Relay, {createContainer} from 'react-relay';
 
-
 type Props = {
   app: {
     group: {
