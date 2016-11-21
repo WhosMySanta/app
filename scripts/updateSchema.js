@@ -2,9 +2,9 @@
 
 import fs from 'fs';
 import path from 'path';
-import { graphql } from 'graphql';
-import { introspectionQuery, printSchema } from 'graphql/utilities';
-import { Schema } from '../data/schema';
+import {graphql} from 'graphql';
+import {introspectionQuery, printSchema} from 'graphql/utilities';
+import {Schema} from '../data/schema';
 
 // Save JSON of full schema introspection for Babel Relay Plugin to use
 (async () => {
@@ -12,12 +12,12 @@ import { Schema } from '../data/schema';
   if (result.errors) {
     console.error( // eslint-disable-line no-console
       'ERROR introspecting schema: ',
-      JSON.stringify(result.errors, null, 2)
+      JSON.stringify(result.errors, null, 2),
     );
   } else {
     fs.writeFileSync(
       path.join(__dirname, '../data/schema.json'),
-      JSON.stringify(result, null, 2)
+      JSON.stringify(result, null, 2),
     );
   }
 })();
@@ -25,5 +25,5 @@ import { Schema } from '../data/schema';
 // Save user readable type system shorthand of schema
 fs.writeFileSync(
   path.join(__dirname, '../data/schema.graphql'),
-  printSchema(Schema)
+  printSchema(Schema),
 );

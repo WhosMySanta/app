@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'development';
 
-const { exec } = require('child_process');
-const { join } = require('path');
+const {exec} = require('child_process');
+const {join} = require('path');
 
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -9,7 +9,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const config = require('../config/webpack.config.dev');
 
-export default ({ app, port }) => {
+export default ({app, port}) => {
   const compiler = webpack(config);
   const middleware = webpackDevMiddleware(compiler, {
     contentBase: 'public',
