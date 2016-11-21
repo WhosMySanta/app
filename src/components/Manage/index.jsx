@@ -39,7 +39,7 @@ const Manage = ({app: {group: {title, description, friends}}}: Props) =>
         </ul>
       </dd>
       <dt>Response</dt>
-      <dd>Didn't answer yet <-- don't hardcode this</dd>
+      <dd>Didnt answer yet 👈 dont hardcode this</dd>
     </dl>
   </main>;
 
