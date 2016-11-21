@@ -75,28 +75,26 @@ class CreateGroupMutation extends Mutation {
   }
 }
 
+const createFriend = (id) => ({id, name: '', email: ''});
+
 class Create extends Component {
   state: State = {
     id: 'someRandomId',
     title: '',
     description: '',
     friends: [
-      {id: 0, name: '', email: ''},
-      {id: 1, name: '', email: ''},
-      {id: 2, name: '', email: ''},
+      createFriend(0),
     ],
   }
 
   props: Props
 
-  addFriend() {
+  addFriend = () => {
+    const {friends} = this.state;
+
     this.setState({friends: [
-      ...this.state.friends,
-      {
-        id: this.state.friends.length,
-        name: '',
-        email: '',
-      },
+      ...friends,
+      createFriend(friends.length),
     ]});
   }
 
@@ -136,6 +134,7 @@ class Create extends Component {
 
   render() {
     const {
+      addFriend,
       handleChange,
       handleChangeFriend,
       handleSubmit,
@@ -189,6 +188,7 @@ class Create extends Component {
               <hr />
             </div>
           ))}
+          <button onClick={addFriend}>➕</button>
         </section>
         <button type="button" onClick={handleSubmit}>Send</button>
       </main>
