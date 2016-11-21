@@ -3,6 +3,8 @@
 import React, {Component} from 'react';
 import Relay, {Mutation, Store} from 'react-relay';
 
+import TextField from '../TextField';
+
 
 type Props = {
   app: {},
@@ -26,6 +28,10 @@ type State = {
   description: string,
   friends: Array<Friend>,
 };
+
+export type HandleChangeEvent = (event: Event) => void;
+type HandleChangeFn = (property: string) => HandleChangeEvent;
+type HandleChangeFriendFn = (params: {property: string, id: number}) => HandleChangeEvent;
 
 class CreateGroupMutation extends Mutation {
   static fragments = {
@@ -83,11 +89,11 @@ class Create extends Component {
 
   props: Props
 
-  handleChange = (property: string) => ({target: {value}}: Event) => {
+  handleChange: HandleChangeFn = (property: string) => ({target: {value}}) => {
     this.setState({[property]: value});
   }
 
-  handleChangeFriend = ({property, id}: {property: string, id: number}) => ({target: {value}}: Event) => {
+  handleChangeFriend: HandleChangeFriendFn = ({property, id}) => ({target: {value}}) => {
     const friends = this.state.friends
       .map((friend) =>
         friend.id !== id ?
@@ -157,18 +163,15 @@ class Create extends Component {
           <h3>Friends</h3>
           {friends.map(({id, name, email}) => (
             <div key={id}>
-              <label htmlFor={`friend-name-${id}`}>Name</label>
-              <input
-                type="text"
+              <TextField
                 id={`friend-name-${id}`}
+                label="Name"
                 value={name}
                 onChange={handleChangeFriend({property: 'name', id})}
               />
-
-              <label htmlFor={`friend-email-${id}`}>Email</label>
-              <input
-                type="email"
+              <TextField
                 id={`friend-email-${id}`}
+                label="Email"
                 value={email}
                 onChange={handleChangeFriend({property: 'email', id})}
               />
