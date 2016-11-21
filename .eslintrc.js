@@ -25,7 +25,7 @@ module.exports = {
     'flowtype/union-intersection-spacing': 'error',
     'flowtype/use-flow-type': 'error',
     'flowtype/valid-syntax': 'error',
-    'import/no-extraneous-dependencies': [ 'error', {
+    'import/no-extraneous-dependencies': ['error', {
       devDependencies: [
         '**/config/**/*',
         '**/server/**/*',
@@ -34,6 +34,7 @@ module.exports = {
     'max-len': 'off',
     'no-confusing-arrow': 'off',
     'object-curly-spacing': ['error', 'never'],
+    'react/jsx-curly-spacing': ['error', 'never'],
     'react/no-unused-prop-types': 'off',
   },
 };
