@@ -7,7 +7,7 @@ const {
   GraphQLString,
 } = require('graphql');
 
-const { mutationWithClientMutationId } = require('graphql-relay');
+const {mutationWithClientMutationId} = require('graphql-relay');
 
 
 const GROUPS = [
@@ -26,32 +26,32 @@ const GROUPS = [
 export const GroupType = new GraphQLObjectType({
   name: 'Group',
   fields: () => ({
-    id: { type: GraphQLString },
-    title: { type: GraphQLString },
-    description: { type: GraphQLString },
+    id: {type: GraphQLString},
+    title: {type: GraphQLString},
+    description: {type: GraphQLString},
   }),
 });
 
 export const GroupInputType = new GraphQLInputObjectType({
   name: 'GroupInput',
   fields: () => ({
-    id: { type: GraphQLString },
-    title: { type: GraphQLString },
-    description: { type: GraphQLString },
+    id: {type: GraphQLString},
+    title: {type: GraphQLString},
+    description: {type: GraphQLString},
   }),
 });
 
 const AppType = new GraphQLObjectType({
   name: 'App',
   fields: () => ({
-    groups: { type: new GraphQLList(GroupType) },
-    id: { type: GraphQLString },
+    groups: {type: new GraphQLList(GroupType)},
+    id: {type: GraphQLString},
     group: {
       type: GroupType,
       args: {
-        id: { type: GraphQLString },
+        id: {type: GraphQLString},
       },
-      resolve: (_, { id }) => GROUPS.find((group) => group.id === id),
+      resolve: (_, {id}) => GROUPS.find((group) => group.id === id),
     },
   }),
 });
@@ -62,7 +62,7 @@ const Root = new GraphQLObjectType({
     app: {
       type: AppType,
       resolve: () => ({
-        group: (_, { id }) => GROUPS.find((group) => group.id === id),
+        group: (_, {id}) => GROUPS.find((group) => group.id === id),
         groups: GROUPS,
         id: '0',
       }),
@@ -76,9 +76,9 @@ const MutationType = new GraphQLObjectType({
     createGroup: mutationWithClientMutationId({
       name: 'CreateGroup',
       inputFields: {
-        id: { type: GraphQLString },
-        title: { type: new GraphQLNonNull(GraphQLString) },
-        description: { type: new GraphQLNonNull(GraphQLString) },
+        id: {type: GraphQLString},
+        title: {type: new GraphQLNonNull(GraphQLString)},
+        description: {type: new GraphQLNonNull(GraphQLString)},
       },
       outputFields: {
         app: {
@@ -86,7 +86,7 @@ const MutationType = new GraphQLObjectType({
           resolve: () => GROUPS,
         },
       },
-      mutateAndGetPayload: ({ title, description }) => {
+      mutateAndGetPayload: ({title, description}) => {
         const id = title.toLowerCase().replace(' ', '-');
         const payload = {
           id,

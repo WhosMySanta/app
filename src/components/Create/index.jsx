@@ -1,17 +1,30 @@
 /* @flow */
 
-import React, { Component } from 'react';
-import Relay, { Mutation, Store } from 'react-relay';
+import React, {Component} from 'react';
+import Relay, {Mutation, Store} from 'react-relay';
 
 
 type Props = {
   app: {},
 };
 
+type Event = {
+  target: {
+    value: string,
+  },
+};
+
+type Friend = {
+  id: number,
+  name: string,
+  email: string,
+};
+
 type State = {
   id: string,
   title: string,
   description: string,
+  friends: Array<Friend>,
 };
 
 class CreateGroupMutation extends Mutation {
@@ -47,7 +60,7 @@ class CreateGroupMutation extends Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { app: this.props.app.id },
+        fieldIDs: {app: this.props.app.id},
       },
     ];
   }
@@ -58,12 +71,34 @@ class Create extends Component {
     id: 'someRandomId',
     title: '',
     description: '',
+    friends: [
+      {id: 0, name: '', email: ''},
+      {id: 1, name: '', email: ''},
+      {id: 2, name: '', email: ''},
+    ],
   }
 
   props: Props
 
+  handleChange = (property: string) => ({target: {value}}: Event) => {
+    this.setState({[property]: value});
+  }
+
+  handleChangeFriend = ({property, id}: {property: string, id: number}) => ({target: {value}}: Event) => {
+    const friends = this.state.friends
+      .map((friend) =>
+        friend.id !== id ?
+          friend :
+          ({
+            ...friend,
+            [property]: value,
+          }),
+      );
+    this.setState({friends});
+  }
+
   handleSubmit = () => {
-    const { title, description } = this.state;
+    const {title, description} = this.state;
 
     Store.commitUpdate(
       new CreateGroupMutation({
@@ -77,27 +112,29 @@ class Create extends Component {
     );
   }
 
-  handleChangeTitle = (event: { target: { value: string } }) => {
-    this.setState({ title: event.target.value });
-  }
+  // handleChangeDescription = ({target: {value}}: Event) => {
+  //   this.setState({description: value});
+  // }
 
-  handleChangeDescription = (event: { target: { value: string } }) => {
-    this.setState({ description: event.target.value });
-  }
+  // handleChangeName = ({target: {value}}: Event) => {}
+  // handleChangeEmail = ({target: {value}}: Event) => {}
 
   render() {
     const {
-      handleChangeDescription,
-      handleChangeTitle,
+      handleChange,
+      handleChangeFriend,
       handleSubmit,
     } = this;
+
     const {
       title,
       description,
+      friends,
     } = this.state;
 
     return (
       <main>
+        {console.log(friends)}
         <h1>Create</h1>
         <hr />
         <section>
@@ -107,7 +144,7 @@ class Create extends Component {
               type="text"
               id="title"
               value={title}
-              onChange={handleChangeTitle}
+              onChange={handleChange('title')}
             />
           </div>
           <div>
@@ -115,22 +152,33 @@ class Create extends Component {
             <textarea
               id="description"
               value={description}
-              onChange={handleChangeDescription}
+              onChange={handleChange('description')}
             />
           </div>
         </section>
-        {/* <section>
-          <h3>Friend</h3>
-          {['friend-1', 'friend-2', 'friend-3', 'friend-4', 'friend-5'].map((friend) => (
-            <div key={friend}>
-              <label htmlFor="description">Name</label>
-              <input type="text" id={`${friend}-name`} name={`${friend}-name`} />
-              <label htmlFor="description">Email</label>
-              <input type="email" id={`${friend}-email`} name={`${friend}-email`} />
+        <section>
+          <h3>Friends</h3>
+          {friends.map(({id, name, email}) => (
+            <div key={id}>
+              <label htmlFor={`friend-name-${id}`}>Name</label>
+              <input
+                type="text"
+                id={`friend-name-${id}`}
+                value={name}
+                onChange={handleChangeFriend({property: 'name', id})}
+              />
+
+              <label htmlFor={`friend-email-${id}`}>Email</label>
+              <input
+                type="email"
+                id={`friend-email-${id}`}
+                value={email}
+                onChange={handleChangeFriend({property: 'email', id})}
+              />
               <hr />
             </div>
           ))}
-        </section> */}
+        </section>
         <button type="button" onClick={handleSubmit}>Send</button>
       </main>
     );

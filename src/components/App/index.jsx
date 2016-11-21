@@ -1,8 +1,8 @@
 /* @flow */
 
 import React from 'react';
-import { Match } from 'react-router';
-import Relay, { RootContainer, Route } from 'react-relay';
+import {Match} from 'react-router';
+import Relay, {RootContainer, Route} from 'react-relay';
 
 import Header from '../../components/Header';
 import Home from '../../components/Home';
@@ -13,12 +13,12 @@ import Wish from '../../components/Wish';
 class AppRoute extends Route {
   static routeName = 'AppRoute';
   static paramDefinitions = {
-    groupId: { required: true },
+    groupId: {required: true},
   };
   static queries = {
-    app: ({ getFragment }, { groupId }) => Relay.QL`
+    app: ({getFragment}, {groupId}) => Relay.QL`
       query {
-        app { ${getFragment('app', { groupId })} },
+        app { ${getFragment('app', {groupId})} },
       },
     `,
   };
@@ -52,10 +52,10 @@ const App = () => (
     />
     <Match
       pattern="/group/:groupId"
-      render={({ params: { groupId } }) => (
+      render={({params: {groupId}}) => (
         <RootContainer
           Component={Wish}
-          route={new AppRoute({ groupId })}
+          route={new AppRoute({groupId})}
         />
       )}
     />

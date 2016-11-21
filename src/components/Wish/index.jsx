@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import Relay, { createContainer } from 'react-relay';
+import Relay, {createContainer} from 'react-relay';
 
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   },
 };
 
-const Wish = ({ app: { group: { title, description } } }: Props) => (
+const Wish = ({app: {group: {title, description}}}: Props) => (
   <main>
     <h1>{title}</h1>
 

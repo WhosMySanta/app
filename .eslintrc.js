@@ -33,6 +33,7 @@ module.exports = {
     }],
     'max-len': 'off',
     'no-confusing-arrow': 'off',
+    'object-curly-spacing': ['error', 'never'],
     'react/no-unused-prop-types': 'off',
   },
 };
