@@ -8,7 +8,7 @@ import type {HandleChangeEvent} from '../Create';
 type Props = {
   id: string,
   label?: string,
-  onChange: HandleChangeEvent,
+  onChange?: HandleChangeEvent,
   type?: 'email' | 'text',
   value?: string,
 };

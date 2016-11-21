@@ -16,11 +16,31 @@ const GROUPS = [
     id: '123a',
     title: 'Adams Family',
     description: 'Secret santa group for the Adams family',
+    friends: [
+      {
+        id: 0,
+        email: 'glenn@glenn.com',
+      },
+      {
+        id: 1,
+        email: 'karl@karl.com',
+      },
+    ],
   },
   {
     id: '321b',
     title: 'Holmes Family',
     description: 'Secret santa group for the Holmes family',
+    friends: [
+      {
+        id: 0,
+        email: 'glenn@glenn.com',
+      },
+      {
+        id: 1,
+        email: 'karl@karl.com',
+      },
+    ],
   },
 ];
 
@@ -49,6 +69,13 @@ export const GroupType = new GraphQLObjectType({
     title: {type: GraphQLString},
     description: {type: GraphQLString},
     friends: {type: new GraphQLList(FriendType)},
+    friend: {
+      type: FriendType,
+      args: {
+        email: {type: GraphQLString},
+      },
+      resolve: (parent, {email}) => parent.friends.find((friend) => friend.email === email),
+    },
   }),
 });
 
@@ -84,8 +111,8 @@ const Root = new GraphQLObjectType({
     app: {
       type: AppType,
       resolve: () => ({
-        group: (_, {id}) => GROUPS.find((group) => group.id === id),
         groups: GROUPS,
+        group: (_, {id}) => GROUPS.find((group) => group.id === id),
         id: '0',
       }),
     },

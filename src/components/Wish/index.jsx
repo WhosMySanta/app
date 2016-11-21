@@ -1,7 +1,10 @@
 /* @flow */
 
-import React from 'react';
+import React, {Component} from 'react';
 import Relay, {createContainer} from 'react-relay';
+
+import TextField from '../TextField';
+
 
 type Props = {
   app: {
@@ -12,29 +15,92 @@ type Props = {
   },
 };
 
-const Wish = ({app: {group: {title, description}}}: Props) => (
-  <main>
-    <h1>{title}</h1>
+type State = {
+  email: string,
+  wish: string,
+};
 
-    <hr />
+// class WishMutation extends Mutation {
+//   static fragments = {
+//     app: () => Relay.QL`
+//       fragment on App {
+//         id,
+//       },
+//     `,
+//   }
+//   getMutation() {
+//     return Relay.QL`
+//       mutation { createWish },
+//     `;
+//   }
+//   getVariables() {
+//     const {email, wish} = this.props.friend;
+//
+//     return {
+//       email,
+//       wish,
+//     };
+//   }
+//   getFatQuery() {
+//     return Relay.QL`
+//       fragment on CreateWishPayload {
+//         app {
+//           group(id: $groupId) {
+//             friends,
+//           }
+//         }
+//       },
+//     `;
+//   }
+//   getConfigs() {
+//     return [
+//       {
+//         type: 'FIELDS_CHANGE',
+//         fieldIDs: {app: this.props.app.id},
+//       },
+//     ];
+//   }
+// }
 
-    <p>{description}</p>
+class Wish extends Component {
+  state: State = {
+    email: '',
+    wish: '',
+  }
 
-    <section>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" />
-      </div>
-      <div>
-        <label htmlFor="wish">What would you like?</label>
-        <textarea id="wish" name="wish" placeholder="New iPhone, Home Decoration, Electronics" />
-      </div>
-    </section>
+  props: Props
+  render() {
+    const {app: {group: {title, description}}} = this.props;
+    const {email, wish} = this.state;
 
-    <button type="button">Send</button>
-  </main>
-);
+    return (
+      <main>
+        <h1>{title}</h1>
 
+        <hr />
+
+        <p>{description}</p>
+
+        <section>
+          <div>
+            <TextField
+              label="Email"
+              type="email"
+              id="email"
+              value={email}
+            />
+            <label htmlFor="wish">What would you like?</label>
+            <textarea id="wish" name="wish" placeholder="New iPhone, Home Decoration, Electronics">
+              {wish}
+            </textarea>
+          </div>
+        </section>
+
+        <button type="button">Send</button>
+      </main>
+    );
+  }
+}
 
 export default createContainer(Wish, {
   initialVariables: {
@@ -47,6 +113,7 @@ export default createContainer(Wish, {
         group(id: $groupId) {
           title,
           description,
+          friends,
         }
       }
     `,
