@@ -11,7 +11,7 @@ const {
 const {mutationWithClientMutationId} = require('graphql-relay');
 
 
-const GROUPS = [
+let GROUPS = [
   {
     id: '123a',
     title: 'Adams Family',
@@ -89,6 +89,14 @@ export const GroupInputType = new GraphQLInputObjectType({
   }),
 });
 
+export const WishType = new GraphQLObjectType({
+  name: 'Wish',
+  fields: () => ({
+    email: {type: GraphQLString},
+    wish: {type: GraphQLString},
+  }),
+});
+
 
 const AppType = new GraphQLObjectType({
   name: 'App',
@@ -120,7 +128,7 @@ const Root = new GraphQLObjectType({
 });
 
 const MutationType = new GraphQLObjectType({
-  name: 'GroupMutations',
+  name: 'Mutations',
   fields: () => ({
     createGroup: mutationWithClientMutationId({
       name: 'CreateGroup',
@@ -131,6 +139,8 @@ const MutationType = new GraphQLObjectType({
         friends: {type: new GraphQLList(FriendInputType)},
       },
       outputFields: {
+        // TODO: Find out if the resolve is broken here
+        // Shouldn't it be returning the whole app object?
         app: {
           type: AppType,
           resolve: () => GROUPS,
@@ -146,6 +156,41 @@ const MutationType = new GraphQLObjectType({
         };
 
         GROUPS.push(payload);
+
+        return payload;
+      },
+    }),
+    createWish: mutationWithClientMutationId({
+      name: 'CreateWish',
+      inputFields: {
+        groupId: {type: new GraphQLNonNull(GraphQLString)},
+        email: {type: new GraphQLNonNull(GraphQLString)},
+        wish: {type: GraphQLString},
+      },
+      outputFields: {
+        wish: {
+          type: WishType,
+          groups: {},
+          resolve: (payload) => payload,
+        },
+      },
+      mutateAndGetPayload: ({groupId, email, wish}) => {
+        const payload = {
+          email,
+          wish,
+        };
+
+        GROUPS = GROUPS.map((group) =>
+          group.id !== groupId ? group : {
+            ...group,
+            friends: group.friends.map((friend) =>
+              friend.email !== email ? friend : {
+                ...friend,
+                wish,
+              },
+            ),
+          },
+        );
 
         return payload;
       },
