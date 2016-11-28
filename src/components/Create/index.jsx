@@ -6,6 +6,7 @@ import {Link} from 'react-router';
 
 import TextField from '../TextField';
 
+
 type Props = {
   app: {},
 };
@@ -89,6 +90,17 @@ class Create extends Component {
     error: null,
   }
 
+  props: Props
+
+  addFriend = () => {
+    const {friends} = this.state;
+
+    this.setState({friends: [
+      ...friends,
+      createFriend(String(friends.length)),
+    ]});
+  }
+
   onChange: OnChangeFn = (property: string) => ({target: {value}}) => {
     this.setState({[property]: value});
   }
@@ -134,17 +146,6 @@ class Create extends Component {
       },
     );
   }
-
-  addFriend = () => {
-    const {friends} = this.state;
-
-    this.setState({friends: [
-      ...friends,
-      createFriend(String(friends.length)),
-    ]});
-  }
-
-  props: Props
 
   render() {
     const {

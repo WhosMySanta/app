@@ -50,10 +50,9 @@ class UpdateWishMutation extends Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateWishPayload {
-        app {
-          group(id: $groupId) {
-            friends,
-          }
+        friend {
+          email,
+          wish,
         }
       },
     `;
