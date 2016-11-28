@@ -244,7 +244,7 @@
               "deprecationReason": null
             },
             {
-              "name": "url",
+              "name": "hash",
               "description": null,
               "args": [],
               "type": {

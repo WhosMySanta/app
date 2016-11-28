@@ -51,7 +51,7 @@ const App = () => (
       )}
     />
     <Match
-      pattern="/group/:groupId"
+      pattern="/group/:groupId/:friendUrl"
       exactly
       render={({params: {groupId}}) => (
         <RootContainer

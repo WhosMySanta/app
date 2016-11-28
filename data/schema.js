@@ -21,13 +21,13 @@ let GROUPS = [
         id: '0',
         email: 'glenn@glenn.com',
         wish: '',
-        url: 'Hkgqz8Xqzx',
+        hash: 'Hkgqz8Xqzx',
       },
       {
         id: '1',
         email: 'karl@karl.com',
         wish: '',
-        url: 'HkqM8Q9Ge',
+        hash: 'HkqM8Q9Ge',
       },
     ],
   },
@@ -40,13 +40,13 @@ let GROUPS = [
         id: '0',
         email: 'glenn@glenn.com',
         wish: '',
-        url: 'Hkgqz8Xqzx',
+        hash: 'Hkgqz8Xqzx',
       },
       {
         id: '1',
         email: 'karl@karl.com',
         wish: '',
-        url: 'HkqM8Q9Ge',
+        hash: 'HkqM8Q9Ge',
       },
     ],
   },
@@ -59,7 +59,7 @@ export const FriendType = new GraphQLObjectType({
     name: {type: GraphQLString},
     email: {type: GraphQLString},
     wish: {type: GraphQLString},
-    url: {type: GraphQLString},
+    hash: {type: GraphQLString},
   }),
 });
 
@@ -164,7 +164,7 @@ const MutationType = new GraphQLObjectType({
           description,
           friends: friends.map((friend) => ({
             ...friend,
-            url: shortid.generate(friend.email),
+            hash: shortid.generate(friend.email),
           })),
         };
 
