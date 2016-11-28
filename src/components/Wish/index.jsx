@@ -61,7 +61,7 @@ class UpdateWishMutation extends Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: {app: this.props.app.id},
+        fieldIDs: {friend: this.props.friend.id},
       },
     ];
   }
