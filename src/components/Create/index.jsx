@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import Relay, {Mutation, Store} from 'react-relay';
+import {Link} from 'react-router';
 
 import TextField from '../TextField';
 
@@ -26,6 +27,7 @@ type State = {
   title: string,
   description: string,
   friends: Array<Friend>,
+  error: ?Error,
 };
 
 export type OnChangeEvent = (event: Event) => void;
@@ -84,6 +86,7 @@ class Create extends Component {
     friends: [
       createFriend('0'),
     ],
+    error: null,
   }
 
   onChange: OnChangeFn = (property: string) => ({target: {value}}) => {
@@ -103,9 +106,17 @@ class Create extends Component {
     this.setState({friends});
   }
 
-  onSubmit = () => {
+  onSubmitFailure = (transaction) => {
+    this.setState({
+      error: transaction.getError() || new Error('Mutation failed.'),
+    });
+  }
+
+  onSubmit = (onClick) => (event) => {
     const {app} = this.props;
     const {id, title, description, friends} = this.state;
+
+    event.persist();
 
     Store.commitUpdate(
       new CreateGroupMutation({
@@ -117,6 +128,10 @@ class Create extends Component {
           friends,
         },
       }),
+      {
+        onFailure: this.onSubmitFailure,
+        onSuccess: () => onClick(event),
+      },
     );
   }
 
@@ -143,12 +158,15 @@ class Create extends Component {
       title,
       description,
       friends,
+      error,
     } = this.state;
 
     return (
       <main>
         <h1>Create</h1>
+
         <hr />
+
         <section>
           <div>
             <label htmlFor="title">Title</label>
@@ -159,6 +177,7 @@ class Create extends Component {
               onChange={onChange('title')}
             />
           </div>
+
           <div>
             <label htmlFor="description">Description</label>
             <textarea
@@ -168,6 +187,7 @@ class Create extends Component {
             />
           </div>
         </section>
+
         <section>
           <h3>Friends</h3>
           {friends.map(({id, name, email}) => (
@@ -189,7 +209,14 @@ class Create extends Component {
           ))}
           <button onClick={addFriend}>➕</button>
         </section>
-        <button type="button" onClick={onSubmit}>Send</button>
+
+        <Link to="/">
+          {({onClick}) =>
+            <button type="button" onClick={onSubmit(onClick)}>Send</button>
+          }
+        </Link>
+
+        <div>{error && error.toString()}</div>
       </main>
     );
   }
