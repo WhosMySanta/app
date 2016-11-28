@@ -5,7 +5,6 @@ import Relay, {Mutation, Store} from 'react-relay';
 
 import TextField from '../TextField';
 
-
 type Props = {
   app: {},
 };
@@ -29,9 +28,9 @@ type State = {
   friends: Array<Friend>,
 };
 
-export type HandleChangeEvent = (event: Event) => void;
-type HandleChangeFn = (property: string) => HandleChangeEvent;
-type HandleChangeFriendFn = (params: {property: string, id: string}) => HandleChangeEvent;
+export type OnChangeEvent = (event: Event) => void;
+type OnChangeFn = (property: string) => OnChangeEvent;
+type OnChangeFriendFn = (params: {property: string, id: string}) => OnChangeEvent;
 
 class CreateGroupMutation extends Mutation {
   static fragments = {
@@ -87,22 +86,11 @@ class Create extends Component {
     ],
   }
 
-  props: Props
-
-  addFriend = () => {
-    const {friends} = this.state;
-
-    this.setState({friends: [
-      ...friends,
-      createFriend(String(friends.length)),
-    ]});
-  }
-
-  handleChange: HandleChangeFn = (property: string) => ({target: {value}}) => {
+  onChange: OnChangeFn = (property: string) => ({target: {value}}) => {
     this.setState({[property]: value});
   }
 
-  handleChangeFriend: HandleChangeFriendFn = ({property, id}) => ({target: {value}}) => {
+  onChangeFriend: OnChangeFriendFn = ({property, id}) => ({target: {value}}) => {
     const friends = this.state.friends
       .map((friend) =>
         friend.id !== id ?
@@ -115,7 +103,7 @@ class Create extends Component {
     this.setState({friends});
   }
 
-  handleSubmit = () => {
+  onSubmit = () => {
     const {app} = this.props;
     const {id, title, description, friends} = this.state;
 
@@ -132,12 +120,23 @@ class Create extends Component {
     );
   }
 
+  addFriend = () => {
+    const {friends} = this.state;
+
+    this.setState({friends: [
+      ...friends,
+      createFriend(String(friends.length)),
+    ]});
+  }
+
+  props: Props
+
   render() {
     const {
       addFriend,
-      handleChange,
-      handleChangeFriend,
-      handleSubmit,
+      onChange,
+      onChangeFriend,
+      onSubmit,
     } = this;
 
     const {
@@ -157,7 +156,7 @@ class Create extends Component {
               type="text"
               id="title"
               value={title}
-              onChange={handleChange('title')}
+              onChange={onChange('title')}
             />
           </div>
           <div>
@@ -165,7 +164,7 @@ class Create extends Component {
             <textarea
               id="description"
               value={description}
-              onChange={handleChange('description')}
+              onChange={onChange('description')}
             />
           </div>
         </section>
@@ -177,20 +176,20 @@ class Create extends Component {
                 id={`friend-name-${id}`}
                 label="Name"
                 value={name}
-                onChange={handleChangeFriend({property: 'name', id})}
+                onChange={onChangeFriend({property: 'name', id})}
               />
               <TextField
                 id={`friend-email-${id}`}
                 label="Email"
                 value={email}
-                onChange={handleChangeFriend({property: 'email', id})}
+                onChange={onChangeFriend({property: 'email', id})}
               />
               <hr />
             </div>
           ))}
           <button onClick={addFriend}>➕</button>
         </section>
-        <button type="button" onClick={handleSubmit}>Send</button>
+        <button type="button" onClick={onSubmit}>Send</button>
       </main>
     );
   }
