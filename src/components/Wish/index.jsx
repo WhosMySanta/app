@@ -51,6 +51,7 @@ class UpdateWishMutation extends Mutation {
     return Relay.QL`
       fragment on UpdateWishPayload {
         friend {
+          id,
           email,
           wish,
         }

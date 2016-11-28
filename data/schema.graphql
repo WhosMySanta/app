@@ -27,6 +27,7 @@ type Friend {
   name: String
   email: String
   wish: String
+  url: String
 }
 
 input FriendInput {

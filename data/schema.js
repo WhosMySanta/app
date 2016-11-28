@@ -9,6 +9,7 @@ const {
 
 const {mutationWithClientMutationId} = require('graphql-relay');
 
+const shortid = require('shortid');
 
 let GROUPS = [
   {
@@ -20,11 +21,13 @@ let GROUPS = [
         id: '0',
         email: 'glenn@glenn.com',
         wish: '',
+        url: 'Hkgqz8Xqzx',
       },
       {
         id: '1',
         email: 'karl@karl.com',
         wish: '',
+        url: 'HkqM8Q9Ge',
       },
     ],
   },
@@ -37,11 +40,13 @@ let GROUPS = [
         id: '0',
         email: 'glenn@glenn.com',
         wish: '',
+        url: 'Hkgqz8Xqzx',
       },
       {
         id: '1',
         email: 'karl@karl.com',
         wish: '',
+        url: 'HkqM8Q9Ge',
       },
     ],
   },
@@ -54,6 +59,7 @@ export const FriendType = new GraphQLObjectType({
     name: {type: GraphQLString},
     email: {type: GraphQLString},
     wish: {type: GraphQLString},
+    url: {type: GraphQLString},
   }),
 });
 
@@ -156,7 +162,10 @@ const MutationType = new GraphQLObjectType({
           id,
           title,
           description,
-          friends,
+          friends: friends.map((friend) => ({
+            ...friend,
+            url: shortid.generate(friend.email),
+          })),
         };
 
         GROUPS.push(payload);
