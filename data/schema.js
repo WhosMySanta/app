@@ -168,6 +168,7 @@ const MutationType = new GraphQLObjectType({
     updateFriend: mutationWithClientMutationId({
       name: 'UpdateFriend',
       inputFields: {
+        id: {type: GraphQLString},
         groupId: {type: new GraphQLNonNull(GraphQLString)},
         email: {type: new GraphQLNonNull(GraphQLString)},
         wish: {type: GraphQLString},
@@ -179,8 +180,11 @@ const MutationType = new GraphQLObjectType({
           resolve: (payload) => payload,
         },
       },
-      mutateAndGetPayload: ({groupId, email, wish}) => {
+      mutateAndGetPayload: (args) => {
+        console.log(args);
+        const {groupId, email, id, wish} = args;
         const payload = {
+          id,
           email,
           wish,
         };

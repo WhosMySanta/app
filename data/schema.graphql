@@ -54,6 +54,7 @@ type Root {
 }
 
 input UpdateFriendInput {
+  id: String
   groupId: String!
   email: String!
   wish: String

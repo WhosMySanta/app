@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* @flow */
 
 import React, {Component} from 'react';
@@ -12,6 +13,7 @@ type Props = {
       title: string,
       description: string,
       friend: {
+        id: string,
         email: string,
       },
     },
@@ -43,9 +45,11 @@ class UpdateFriendMutation extends Mutation {
     `;
   }
   getVariables() {
-    const {email, wish} = this.props.friend;
+    const {email, id, wish} = this.props.friend;
 
     return {
+      groupId: this.props.groupId,
+      id,
       email,
       wish,
     };
@@ -55,7 +59,6 @@ class UpdateFriendMutation extends Mutation {
       fragment on UpdateFriendPayload {
         friend {
           id,
-          email,
           wish,
         }
       },
@@ -72,10 +75,15 @@ class UpdateFriendMutation extends Mutation {
 }
 
 class Wish extends Component {
-  state: State = {
-    email: '',
-    wish: '',
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: props.email,
+      wish: props.app.group.friend.wish,
+    }
   }
+  state: State
 
   onChangeEmail: OnChangeEmailFn = ({target: {value}}) => {
     this.setState({email: value});
@@ -86,13 +94,15 @@ class Wish extends Component {
   }
 
   onSubmit: OnSubmitFn = () => {
-    const {app} = this.props;
-    const {email, wish} = this.state;
+    const {app, app: {group: {friend: {id, email}}}, groupId} = this.props;
+    const {wish} = this.state;
 
     Store.commitUpdate(
       new UpdateFriendMutation({
         app,
+        groupId,
         friend: {
+          id,
           email,
           wish,
         },
@@ -159,7 +169,8 @@ export default createContainer(Wish, {
             wish
             hash
           }
-        }
+        },
+        ${UpdateFriendMutation.getFragment('app')},
       }
     `,
   },
