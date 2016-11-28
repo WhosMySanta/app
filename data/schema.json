@@ -156,7 +156,7 @@
               "description": null,
               "args": [
                 {
-                  "name": "email",
+                  "name": "hash",
                   "description": null,
                   "type": {
                     "kind": "SCALAR",
@@ -294,7 +294,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updateWish",
+              "name": "updateFriend",
               "description": null,
               "args": [
                 {
@@ -305,7 +305,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "UpdateWishInput",
+                      "name": "UpdateFriendInput",
                       "ofType": null
                     }
                   },
@@ -314,7 +314,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "UpdateWishPayload",
+                "name": "UpdateFriendPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -477,7 +477,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "UpdateWishInput",
+          "name": "UpdateFriendInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -536,7 +536,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "UpdateWishPayload",
+          "name": "UpdateFriendPayload",
           "description": null,
           "fields": [
             {
@@ -545,7 +545,7 @@
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Wish",
+                "name": "Friend",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -553,41 +553,6 @@
             },
             {
               "name": "clientMutationId",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "Wish",
-          "description": null,
-          "fields": [
-            {
-              "name": "email",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "wish",
               "description": null,
               "args": [],
               "type": {

@@ -11,6 +11,9 @@ type Props = {
     group: {
       title: string,
       description: string,
+      friend: {
+        email: string,
+      },
     },
   },
 };
@@ -26,7 +29,7 @@ type OnChangeWishFn = (event: {target: {value: string}}) => void;
 
 type OnSubmitFn = () => void;
 
-class UpdateWishMutation extends Mutation {
+class UpdateFriendMutation extends Mutation {
   static fragments = {
     app: () => Relay.QL`
       fragment on App {
@@ -36,7 +39,7 @@ class UpdateWishMutation extends Mutation {
   }
   getMutation() {
     return Relay.QL`
-      mutation { updateWish },
+      mutation { updateFriend },
     `;
   }
   getVariables() {
@@ -49,7 +52,7 @@ class UpdateWishMutation extends Mutation {
   }
   getFatQuery() {
     return Relay.QL`
-      fragment on UpdateWishPayload {
+      fragment on UpdateFriendPayload {
         friend {
           id,
           email,
@@ -74,7 +77,6 @@ class Wish extends Component {
     wish: '',
   }
 
-
   onChangeEmail: OnChangeEmailFn = ({target: {value}}) => {
     this.setState({email: value});
   }
@@ -88,7 +90,7 @@ class Wish extends Component {
     const {email, wish} = this.state;
 
     Store.commitUpdate(
-      new UpdateWishMutation({
+      new UpdateFriendMutation({
         app,
         friend: {
           email,
@@ -102,8 +104,8 @@ class Wish extends Component {
 
   render() {
     const {onChangeEmail, onChangeWish, onSubmit} = this;
-    const {app: {group: {title, description}}} = this.props;
-    const {email, wish} = this.state;
+    const {app: {group: {title, description, friend: {email}}}} = this.props;
+    const {wish} = this.state;
 
     return (
       <main>
@@ -142,15 +144,21 @@ class Wish extends Component {
 export default createContainer(Wish, {
   initialVariables: {
     groupId: null,
+    friendHash: null,
   },
 
   fragments: {
     app: () => Relay.QL`
       fragment on App {
         group(id: $groupId) {
-          title,
-          description,
-          friends,
+          title
+          description
+          friend (hash: $friendHash) {
+            id
+            email
+            wish
+            hash
+          }
         }
       }
     `,

@@ -41,31 +41,26 @@ type Group {
   title: String
   description: String
   friends: [Friend]
-  friend(email: String): Friend
+  friend(hash: String): Friend
 }
 
 type Mutations {
   createGroup(input: CreateGroupInput!): CreateGroupPayload
-  updateWish(input: UpdateWishInput!): UpdateWishPayload
+  updateFriend(input: UpdateFriendInput!): UpdateFriendPayload
 }
 
 type Root {
   app: App
 }
 
-input UpdateWishInput {
+input UpdateFriendInput {
   groupId: String!
   email: String!
   wish: String
   clientMutationId: String
 }
 
-type UpdateWishPayload {
-  friend: Wish
+type UpdateFriendPayload {
+  friend: Friend
   clientMutationId: String
-}
-
-type Wish {
-  email: String
-  wish: String
 }

@@ -82,9 +82,10 @@ export const GroupType = new GraphQLObjectType({
     friend: {
       type: FriendType,
       args: {
-        email: {type: GraphQLString},
+        // TODO: Change this from `hash` to `id` (make sure unique!)
+        hash: {type: GraphQLString},
       },
-      resolve: (parent, {email}) => parent.friends.find((friend) => friend.email === email),
+      resolve: (parent, {hash}) => parent.friends.find((friend) => friend.hash === hash),
     },
   }),
 });
@@ -98,15 +99,6 @@ export const GroupInputType = new GraphQLInputObjectType({
     friends: {type: new GraphQLList(FriendInputType)},
   }),
 });
-
-export const WishType = new GraphQLObjectType({
-  name: 'Wish',
-  fields: () => ({
-    email: {type: GraphQLString},
-    wish: {type: GraphQLString},
-  }),
-});
-
 
 const AppType = new GraphQLObjectType({
   name: 'App',
@@ -173,8 +165,8 @@ const MutationType = new GraphQLObjectType({
         return payload;
       },
     }),
-    updateWish: mutationWithClientMutationId({
-      name: 'UpdateWish',
+    updateFriend: mutationWithClientMutationId({
+      name: 'UpdateFriend',
       inputFields: {
         groupId: {type: new GraphQLNonNull(GraphQLString)},
         email: {type: new GraphQLNonNull(GraphQLString)},
@@ -182,7 +174,7 @@ const MutationType = new GraphQLObjectType({
       },
       outputFields: {
         friend: {
-          type: WishType,
+          type: FriendType,
           groups: {},
           resolve: (payload) => payload,
         },
