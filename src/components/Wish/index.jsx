@@ -30,7 +30,7 @@ type State = {
 //   }
 //   getMutation() {
 //     return Relay.QL`
-//       mutation { createWish },
+//       mutation { updateWish },
 //     `;
 //   }
 //   getVariables() {
@@ -43,7 +43,7 @@ type State = {
 //   }
 //   getFatQuery() {
 //     return Relay.QL`
-//       fragment on CreateWishPayload {
+//       fragment on UpdateWishPayload {
 //         app {
 //           group(id: $groupId) {
 //             friends,

@@ -160,15 +160,15 @@ const MutationType = new GraphQLObjectType({
         return payload;
       },
     }),
-    createWish: mutationWithClientMutationId({
-      name: 'CreateWish',
+    updateWish: mutationWithClientMutationId({
+      name: 'UpdateWish',
       inputFields: {
         groupId: {type: new GraphQLNonNull(GraphQLString)},
         email: {type: new GraphQLNonNull(GraphQLString)},
         wish: {type: GraphQLString},
       },
       outputFields: {
-        wish: {
+        friend: {
           type: WishType,
           groups: {},
           resolve: (payload) => payload,
