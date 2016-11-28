@@ -20,10 +20,12 @@ let GROUPS = [
       {
         id: 0,
         email: 'glenn@glenn.com',
+        wish: '',
       },
       {
         id: 1,
         email: 'karl@karl.com',
+        wish: '',
       },
     ],
   },
@@ -35,10 +37,12 @@ let GROUPS = [
       {
         id: 0,
         email: 'glenn@glenn.com',
+        wish: '',
       },
       {
         id: 1,
         email: 'karl@karl.com',
+        wish: '',
       },
     ],
   },
@@ -50,6 +54,7 @@ export const FriendType = new GraphQLObjectType({
     id: {type: GraphQLInt},
     name: {type: GraphQLString},
     email: {type: GraphQLString},
+    wish: {type: GraphQLString},
   }),
 });
 
