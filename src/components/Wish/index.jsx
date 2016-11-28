@@ -90,9 +90,12 @@ class Wish extends Component {
               value={email}
             />
             <label htmlFor="wish">What would you like?</label>
-            <textarea id="wish" name="wish" placeholder="New iPhone, Home Decoration, Electronics">
-              {wish}
-            </textarea>
+            <textarea
+              id="wish"
+              name="wish"
+              placeholder="New iPhone, Home Decoration, Electronics"
+              defaultValue={wish}
+            />
           </div>
         </section>
 
