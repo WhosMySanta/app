@@ -23,14 +23,14 @@ type CreateGroupPayload {
 }
 
 type Friend {
-  id: Int
+  id: String
   name: String
   email: String
   wish: String
 }
 
 input FriendInput {
-  id: Int
+  id: String
   name: String
   email: String
 }

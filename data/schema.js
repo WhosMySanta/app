@@ -1,6 +1,5 @@
 const {
   GraphQLInputObjectType,
-  GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
@@ -18,12 +17,12 @@ let GROUPS = [
     description: 'Secret santa group for the Adams family',
     friends: [
       {
-        id: 0,
+        id: '0',
         email: 'glenn@glenn.com',
         wish: '',
       },
       {
-        id: 1,
+        id: '1',
         email: 'karl@karl.com',
         wish: '',
       },
@@ -35,12 +34,12 @@ let GROUPS = [
     description: 'Secret santa group for the Holmes family',
     friends: [
       {
-        id: 0,
+        id: '0',
         email: 'glenn@glenn.com',
         wish: '',
       },
       {
-        id: 1,
+        id: '1',
         email: 'karl@karl.com',
         wish: '',
       },
@@ -51,7 +50,7 @@ let GROUPS = [
 export const FriendType = new GraphQLObjectType({
   name: 'Friend',
   fields: () => ({
-    id: {type: GraphQLInt},
+    id: {type: GraphQLString},
     name: {type: GraphQLString},
     email: {type: GraphQLString},
     wish: {type: GraphQLString},
@@ -61,7 +60,7 @@ export const FriendType = new GraphQLObjectType({
 export const FriendInputType = new GraphQLInputObjectType({
   name: 'FriendInput',
   fields: () => ({
-    id: {type: GraphQLInt},
+    id: {type: GraphQLString},
     name: {type: GraphQLString},
     email: {type: GraphQLString},
   }),

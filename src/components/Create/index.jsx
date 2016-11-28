@@ -17,7 +17,7 @@ type Event = {
 };
 
 type Friend = {
-  id: number,
+  id: string,
   name: string,
   email: string,
 };
@@ -31,7 +31,7 @@ type State = {
 
 export type HandleChangeEvent = (event: Event) => void;
 type HandleChangeFn = (property: string) => HandleChangeEvent;
-type HandleChangeFriendFn = (params: {property: string, id: number}) => HandleChangeEvent;
+type HandleChangeFriendFn = (params: {property: string, id: string}) => HandleChangeEvent;
 
 class CreateGroupMutation extends Mutation {
   static fragments = {
@@ -83,7 +83,7 @@ class Create extends Component {
     title: '',
     description: '',
     friends: [
-      createFriend(0),
+      createFriend('0'),
     ],
   }
 
@@ -94,7 +94,7 @@ class Create extends Component {
 
     this.setState({friends: [
       ...friends,
-      createFriend(friends.length),
+      createFriend(String(friends.length)),
     ]});
   }
 
