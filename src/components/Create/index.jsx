@@ -257,7 +257,7 @@ class Create extends Component {
           <button onClick={addFriend}>➕</button>
         </section>
 
-        <Link to="/group/">
+        <Link to={`/group/${id}/manage`}>
           {({onClick}) =>
             <button type="button" onClick={onSubmit(onClick)}>Send</button>
           }

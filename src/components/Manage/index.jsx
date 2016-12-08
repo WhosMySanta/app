@@ -31,8 +31,8 @@ const Manage = ({app: {group: {title, description, friends}}}: Props) =>
       <dt>Friends</dt>
       <dd>
         <ul>
-          {friends.map(({name, email, wish}: Friend) => (
-            <li>
+          {friends.map(({name, email, wish}: Friend, index) => (
+            <li key={index}>
               Name: {name}<br />
               Email: {email}<br />
               Wish: {wish}

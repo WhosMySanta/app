@@ -155,6 +155,7 @@ const MutationType = new GraphQLObjectType({
           description,
           friends: friends.map((friend) => ({
             ...friend,
+            wish: '',
             hash: shortid.generate(friend.email),
           })),
         };
