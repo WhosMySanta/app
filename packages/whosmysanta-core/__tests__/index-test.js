@@ -18,11 +18,11 @@ test('non-colliding selection of pair', () => {
   ]);
 
   // The first selection
-  const firstGifter = raffle[0].gifter;
+  const firstGiver = raffle[0].giver;
   const firstRecipient = raffle[0].recipient;
 
-  // The first gifter can't be the recipient
-  expect(firstGifter !== firstRecipient).toBe(true);
+  // The first giver can't be the recipient
+  expect(firstGiver !== firstRecipient).toBe(true);
 });
 
 test('non-colliding selection of larger group', () => {
@@ -56,9 +56,9 @@ test('non-colliding selection of larger group', () => {
 
   const raffle = raffleSecretSanta(users);
 
-  raffle.forEach(({ gifter, recipient }) => {
-    // Every gifter and recipient just cant be the same
-    expect(gifter !== recipient).toEqual(true);
+  raffle.forEach(({ giver, recipient }) => {
+    // Every giver and recipient just cant be the same
+    expect(giver !== recipient).toEqual(true);
   });
 });
 
@@ -91,14 +91,14 @@ test('keep the raffle snaky 🐍 and don\'t allow small groups', () => {
   ];
 
   const raffle = raffleSecretSanta(users);
-  const firstGifter = raffle[0].gifter;
+  const firstGiver = raffle[0].giver;
   const lastRecipient = raffle[raffle.length - 1].recipient;
 
-  // The first gifter of every shuffled list is also the last recipient
-  expect(firstGifter === lastRecipient).toBe(true);
+  // The first giver of every shuffled list is also the last recipient
+  expect(firstGiver === lastRecipient).toBe(true);
 
-  // But also the gifter can't be the recipient
-  raffle.forEach(({ gifter, recipient }) => {
-    expect(gifter !== recipient).toBe(true);
+  // But also the giver can't be the recipient
+  raffle.forEach(({ giver, recipient }) => {
+    expect(giver !== recipient).toBe(true);
   });
 });

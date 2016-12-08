@@ -14,7 +14,7 @@ type User = {
 };
 
 export type Selection = {
-  gifter: User,
+  giver: User,
   recipient: User,
 };
 
@@ -23,9 +23,9 @@ const drawSecretSantas = (users: Array<User>): Array<Selection> => {
   const shuffled = users.sort(() => Math.floor(Math.random() * users.length));
 
   // Create new list and just take all the shuffled users
-  const gifters = [...shuffled];
+  const givers = [...shuffled];
 
-  // Create a second list that takes the shuffled gifters ...
+  // Create a second list that takes the shuffled givers ...
   const recipients = [...shuffled];
 
   // ... and move the first one to the last! We
@@ -34,11 +34,11 @@ const drawSecretSantas = (users: Array<User>): Array<Selection> => {
 
   // Boom, let's raffle! 🎫
   const raffle = users.map((user, raffleRound) => {
-    const gifter = gifters[raffleRound];
+    const giver = givers[raffleRound];
     const recipient = recipients[raffleRound];
 
     return {
-      gifter,
+      giver,
       recipient,
     };
   });

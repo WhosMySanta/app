@@ -29,9 +29,9 @@ setEmailConfig({
 
 drawSecretSanta
   .then(selections => {
-    selections.map(({gifter, recipient}) => {
+    selections.map(({giver, recipient}) => {
       sendEmail({
-        recipient: gifter.email,
+        recipient: giver.email,
         body: `Yo, you need to buy ${recipient.wish || 'a gift'} for ${recipient.name}`,
       }).catch((err) => console.log('errored out!', err));
     });
