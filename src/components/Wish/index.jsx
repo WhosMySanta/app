@@ -18,6 +18,7 @@ type Props = {
       },
     },
   },
+  groupId: string,
 };
 
 type State = {
