@@ -57,7 +57,7 @@ mutation {
 }
 
 mutation {
-  updateWish(input: {groupId: "123a", email: "glenn@glenn.com", wish: "MAC DONGLES!!!!!"}) {
+  updateFriend(input: {groupId: "123a", email: "glenn@glenn.com", wish: "MAC DONGLES!!!!!"}) {
     clientMutationId
   }
 }
