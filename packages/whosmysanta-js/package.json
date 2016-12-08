@@ -1,7 +1,7 @@
 {
-  "name": "whosmysanta-core",
+  "name": "whosmysanta",
   "version": "0.0.0",
-  "description": "Core module of WhosMySanta",
+  "description": "JavaScript SDK for WhosMySanta",
   "main": "index.js",
   "scripts": {
     "flow": "flow",
