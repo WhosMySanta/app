@@ -2,13 +2,13 @@
 
 import React from 'react';
 
-import type {OnChangeEvent} from '../Create';
+import type {OnChangeEventFn} from '../Create';
 
 
 type Props = {
   id: string,
   label?: string,
-  onChange?: OnChangeEvent,
+  onChange?: OnChangeEventFn,
   type?: 'email' | 'text',
   value?: string,
 };

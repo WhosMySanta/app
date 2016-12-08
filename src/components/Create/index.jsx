@@ -1,5 +1,6 @@
 /* @flow */
 
+import kebabCase from 'lodash.kebabcase';
 import React, {Component} from 'react';
 import Relay, {Mutation, Store} from 'react-relay';
 import {Link} from 'react-router';
@@ -31,9 +32,10 @@ type State = {
   error: ?Error,
 };
 
-export type OnChangeEvent = (event: Event) => void;
-type OnChangeFn = (property: string) => OnChangeEvent;
-type OnChangeFriendFn = (params: {property: string, id: string}) => OnChangeEvent;
+export type OnChangeEventFn = (event: Event) => void;
+type OnChangeFn = (property: string) => OnChangeEventFn;
+type OnChangeFriendFn = (params: {property: string, id: string}) => OnChangeEventFn;
+type OnChangeTitleFn = OnChangeEventFn;
 
 class CreateGroupMutation extends Mutation {
   static fragments = {
@@ -81,7 +83,7 @@ const createFriend = (id) => ({id, name: '', email: ''});
 
 class Create extends Component {
   state: State = {
-    id: 'someRandomId',
+    id: '',
     title: '',
     description: '',
     friends: [
@@ -90,7 +92,7 @@ class Create extends Component {
     error: null,
   }
 
-  onChange: OnChangeFn = (property: string) => ({target: {value}}) => {
+  onChange: OnChangeFn = (property) => ({target: {value}}) => {
     this.setState({[property]: value});
   }
 
@@ -105,6 +107,13 @@ class Create extends Component {
           }),
       );
     this.setState({friends});
+  }
+
+  onChangeTitle: OnChangeTitleFn = ({target: {value}}) => {
+    this.setState({
+      id: kebabCase(value),
+      title: value,
+    });
   }
 
   onSubmitFailure = (transaction) => {
@@ -152,10 +161,12 @@ class Create extends Component {
       addFriend,
       onChange,
       onChangeFriend,
+      onChangeTitle,
       onSubmit,
     } = this;
 
     const {
+      id,
       title,
       description,
       friends,
@@ -175,18 +186,18 @@ class Create extends Component {
               type="text"
               id="title"
               value={title}
-              onChange={onChange('title')}
+              onChange={onChangeTitle}
             />
           </div>
 
           <div>
-            <label htmlFor="title">URL (https://whosmysanta.com/group/&lt;your url here&gt;)</label>
+            <label htmlFor="id">URL (https://whosmysanta.com/group/{id || '<your url here>'})</label>
 
             <input
               type="text"
-              id="title"
-              value={title}
-              onChange={onChange('title')}
+              id="id"
+              value={id}
+              onChange={onChange('id')}
             />
           </div>
 
@@ -202,19 +213,19 @@ class Create extends Component {
 
         <section>
           <h3>Friends</h3>
-          {friends.map(({id, name, email}) => (
-            <div key={id}>
+          {friends.map(({name, email, ...friend}) => (
+            <div key={friend.id}>
               <TextField
-                id={`friend-name-${id}`}
+                id={`friend-name-${friend.id}`}
                 label="Name"
                 value={name}
-                onChange={onChangeFriend({property: 'name', id})}
+                onChange={onChangeFriend({property: 'name', id: friend.id})}
               />
               <TextField
-                id={`friend-email-${id}`}
+                id={`friend-email-${friend.id}`}
                 label="Email"
                 value={email}
-                onChange={onChangeFriend({property: 'email', id})}
+                onChange={onChangeFriend({property: 'email', id: friend.id})}
               />
               <hr />
             </div>
