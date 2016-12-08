@@ -19,7 +19,7 @@ import {
   drawSecretSanta,
   setEmailConfig,
   sendEmail,
-} from 'whosmysanta-js';
+} from 'whosmysanta';
 
 setEmailConfig({
   provider: 'MAILGUN',
