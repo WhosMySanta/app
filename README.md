@@ -20,3 +20,7 @@ Selection is done either:
 ## Results
 
 Results are sent via notifications (email).
+
+## Useful queries
+
+Useful queries can be seen in [usefulQueries.graphql](https://github.com/WhosMySanta/app/blob/master/usefulQueries.graphql).

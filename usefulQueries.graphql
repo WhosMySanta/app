@@ -1,0 +1,63 @@
+{
+  app {
+    groups {
+      id
+      title
+      friends {
+        id
+        email
+        wish
+      }
+    }
+  }
+}
+
+{
+  app {
+    group (id: "yo") {
+      friends {
+        id,
+        email,
+        wish,
+        hash,
+      }
+    }
+  }
+}
+
+{
+  app {
+    group (id: "123a") {
+      friend (hash: "Hkgqz8Xqzx") {
+        id,
+        email,
+        wish,
+        hash
+      }
+    }
+  }
+}
+
+
+mutation {
+  createGroup(input: {
+    id: "yo",
+    title: "Yo",
+    description: "desc",
+    friends: [{
+      id: "1",
+      email: "karl@karl.com",
+    },{
+      id: "2",
+      email: "glenn@glenn.com",
+    }]
+  }) {
+    clientMutationId
+  }
+}
+
+mutation {
+  updateWish(input: {groupId: "123a", email: "glenn@glenn.com", wish: "MAC DONGLES!!!!!"}) {
+    clientMutationId
+  }
+}
