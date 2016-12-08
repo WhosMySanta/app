@@ -1,4 +1,4 @@
-import raffleSecretSanta from '..';
+import drawSecretSanta from '..';
 
 test('non-colliding selection of pair', () => {
   const user1 = {
@@ -12,14 +12,14 @@ test('non-colliding selection of pair', () => {
     wish: 'iPhone 9',
   };
 
-  const raffle = raffleSecretSanta([
+  const draw = drawSecretSanta([
     user1,
     user2,
   ]);
 
   // The first selection
-  const firstGiver = raffle[0].giver;
-  const firstRecipient = raffle[0].recipient;
+  const firstGiver = draw[0].giver;
+  const firstRecipient = draw[0].recipient;
 
   // The first giver can't be the recipient
   expect(firstGiver !== firstRecipient).toBe(true);
@@ -54,15 +54,15 @@ test('non-colliding selection of larger group', () => {
     user4,
   ];
 
-  const raffle = raffleSecretSanta(users);
+  const draw = drawSecretSanta(users);
 
-  raffle.forEach(({ giver, recipient }) => {
+  draw.forEach(({ giver, recipient }) => {
     // Every giver and recipient just cant be the same
     expect(giver !== recipient).toEqual(true);
   });
 });
 
-test('keep the raffle snaky 🐍 and don\'t allow small groups', () => {
+test('keep the draw snaky 🐍 and don\'t allow small groups', () => {
   const user1 = {
     name: 'Karl Horky',
     email: 'karl.horky@mailinator.com',
@@ -90,15 +90,15 @@ test('keep the raffle snaky 🐍 and don\'t allow small groups', () => {
     user4,
   ];
 
-  const raffle = raffleSecretSanta(users);
-  const firstGiver = raffle[0].giver;
-  const lastRecipient = raffle[raffle.length - 1].recipient;
+  const draw = drawSecretSanta(users);
+  const firstGiver = draw[0].giver;
+  const lastRecipient = draw[draw.length - 1].recipient;
 
   // The first giver of every shuffled list is also the last recipient
   expect(firstGiver === lastRecipient).toBe(true);
 
   // But also the giver can't be the recipient
-  raffle.forEach(({ giver, recipient }) => {
+  draw.forEach(({ giver, recipient }) => {
     expect(giver !== recipient).toBe(true);
   });
 });

@@ -29,13 +29,13 @@ const drawSecretSantas = (users: Array<User>): Array<Selection> => {
   const recipients = [...shuffled];
 
   // ... and move the first one to the last! We
-  // don't want pairs or small groups of the raffle. This keeps it snaky 🐍!
+  // don't want pairs or small groups of the draw. This keeps it snaky 🐍!
   recipients.push(recipients.shift());
 
-  // Boom, let's raffle! 🎫
-  const raffle = users.map((user, raffleRound) => {
-    const giver = givers[raffleRound];
-    const recipient = recipients[raffleRound];
+  // Boom, let's draw! 🎫
+  const draw = users.map((user, drawRound) => {
+    const giver = givers[drawRound];
+    const recipient = recipients[drawRound];
 
     return {
       giver,
@@ -43,7 +43,7 @@ const drawSecretSantas = (users: Array<User>): Array<Selection> => {
     };
   });
 
-  return raffle;
+  return draw;
 };
 
 
