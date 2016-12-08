@@ -30,12 +30,14 @@ type State = {
   description: string,
   friends: Array<Friend>,
   error: ?Error,
+  showEditId: boolean,
 };
 
 export type OnChangeEventFn = (event: Event) => void;
 type OnChangeFn = (property: string) => OnChangeEventFn;
 type OnChangeFriendFn = (params: {property: string, id: string}) => OnChangeEventFn;
 type OnChangeTitleFn = OnChangeEventFn;
+type OnClickEditIdFn = () => void;
 
 class CreateGroupMutation extends Mutation {
   static fragments = {
@@ -90,6 +92,7 @@ class Create extends Component {
       createFriend('0'),
     ],
     error: null,
+    showEditId: false,
   }
 
   onChange: OnChangeFn = (property) => ({target: {value}}) => {
@@ -113,6 +116,12 @@ class Create extends Component {
     this.setState({
       id: kebabCase(value),
       title: value,
+    });
+  }
+
+  onClickEditId: OnClickEditIdFn = () => {
+    this.setState({
+      showEditId: true,
     });
   }
 
@@ -162,6 +171,7 @@ class Create extends Component {
       onChange,
       onChangeFriend,
       onChangeTitle,
+      onClickEditId,
       onSubmit,
     } = this;
 
@@ -171,6 +181,7 @@ class Create extends Component {
       description,
       friends,
       error,
+      showEditId,
     } = this.state;
 
     return (
@@ -190,16 +201,29 @@ class Create extends Component {
             />
           </div>
 
-          <div>
-            <label htmlFor="id">URL (https://whosmysanta.com/group/{id || '<your url here>'})</label>
+          {id &&
+            <p style={{fontSize: '12px'}}>
+              URL: https://whosmysanta.com/group/{id}
+              <span style={{float: 'right'}}>
+                <button style={{padding: 0, background: 'transparent', color: 'white', cursor: 'pointer'}} onClick={onClickEditId}>
+                  Change
+                </button>
+              </span>
+            </p>
+          }
 
-            <input
-              type="text"
-              id="id"
-              value={id}
-              onChange={onChange('id')}
-            />
-          </div>
+          {showEditId &&
+            <div>
+              <label htmlFor="id">URL</label>
+
+              <input
+                type="text"
+                id="id"
+                value={id}
+                onChange={onChange('id')}
+              />
+            </div>
+          }
 
           <div>
             <label htmlFor="description">Description</label>
