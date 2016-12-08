@@ -58,9 +58,13 @@ class UpdateFriendMutation extends Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateFriendPayload {
-        friend {
-          id,
-          wish,
+        app {
+          group (id: "${this.props.groupId}") {
+            friend (hash: "${this.props.friendHash}") {
+              id,
+              wish,
+            }
+          }
         }
       },
     `;
@@ -69,7 +73,7 @@ class UpdateFriendMutation extends Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: {friend: this.props.friend.id},
+        fieldIDs: {app: this.props.app.id},
       },
     ];
   }

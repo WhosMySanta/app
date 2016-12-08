@@ -7,6 +7,7 @@ type Friend = {
   id: number,
   name: string,
   email: string,
+  wish: string,
 };
 
 type Props = {
@@ -30,10 +31,11 @@ const Manage = ({app: {group: {title, description, friends}}}: Props) =>
       <dt>Friends</dt>
       <dd>
         <ul>
-          {friends.map(({name, email}: Friend) => (
+          {friends.map(({name, email, wish}: Friend) => (
             <li>
               Name: {name}<br />
-              Email: {email}
+              Email: {email}<br />
+              Wish: {wish}
             </li>
           ))}
         </ul>
@@ -58,6 +60,7 @@ export default createContainer(Manage, {
             id,
             name,
             email,
+            wish,
           },
         }
       }

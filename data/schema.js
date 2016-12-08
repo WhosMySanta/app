@@ -174,14 +174,14 @@ const MutationType = new GraphQLObjectType({
         wish: {type: GraphQLString},
       },
       outputFields: {
-        friend: {
-          type: FriendType,
-          groups: {},
-          resolve: (payload) => payload,
+        // TODO: Find out if the resolve is broken here
+        // Shouldn't it be returning the whole app object?
+        app: {
+          type: AppType,
+          resolve: () => GROUPS,
         },
       },
       mutateAndGetPayload: (args) => {
-        console.log(args);
         const {groupId, email, id, wish} = args;
         const payload = {
           id,

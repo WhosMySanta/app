@@ -29,8 +29,8 @@ class AppRoute extends Route {
   static routeName = 'AppRoute';
   static paramDefinitions = {
     groupId: {required: true},
-
   };
+
   static queries = {
     app: ({getFragment}, {groupId}) => Relay.QL`
       query {

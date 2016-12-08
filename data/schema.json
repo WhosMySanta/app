@@ -550,12 +550,12 @@
           "description": null,
           "fields": [
             {
-              "name": "friend",
+              "name": "app",
               "description": null,
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "Friend",
+                "name": "App",
                 "ofType": null
               },
               "isDeprecated": false,
