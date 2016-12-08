@@ -1,3 +1,4 @@
+# Friend query
 {
   app {
     groups {
@@ -12,6 +13,7 @@
   }
 }
 
+# Friends query
 {
   app {
     group (id: "yo") {
@@ -25,6 +27,7 @@
   }
 }
 
+# Friend query with hash
 {
   app {
     group (id: "123a") {
@@ -38,7 +41,7 @@
   }
 }
 
-
+# Group mutation
 mutation {
   createGroup(input: {
     id: "yo",
@@ -56,8 +59,23 @@ mutation {
   }
 }
 
+
+# Friend mutation
 mutation {
   updateFriend(input: {groupId: "123a", email: "glenn@glenn.com", wish: "MAC DONGLES!!!!!"}) {
     clientMutationId
+  }
+}
+
+# Friend query
+{
+  app {
+    groups {
+      title
+      friends {
+        wish
+        email
+      }
+    }
   }
 }
