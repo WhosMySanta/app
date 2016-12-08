@@ -180,6 +180,17 @@ class Create extends Component {
           </div>
 
           <div>
+            <label htmlFor="title">URL (https://whosmysanta.com/group/&lt;your url here&gt;)</label>
+
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={onChange('title')}
+            />
+          </div>
+
+          <div>
             <label htmlFor="description">Description</label>
             <textarea
               id="description"
@@ -211,7 +222,7 @@ class Create extends Component {
           <button onClick={addFriend}>➕</button>
         </section>
 
-        <Link to="/">
+        <Link to="/group/">
           {({onClick}) =>
             <button type="button" onClick={onSubmit(onClick)}>Send</button>
           }
