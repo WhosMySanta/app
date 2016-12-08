@@ -1,6 +1,6 @@
 schema {
   query: Root
-  mutation: GroupMutations
+  mutation: Mutations
 }
 
 type App {
@@ -23,13 +23,15 @@ type CreateGroupPayload {
 }
 
 type Friend {
-  id: Int
+  id: String
   name: String
   email: String
+  wish: String
+  hash: String
 }
 
 input FriendInput {
-  id: Int
+  id: String
   name: String
   email: String
 }
@@ -39,12 +41,27 @@ type Group {
   title: String
   description: String
   friends: [Friend]
+  friend(hash: String): Friend
 }
 
-type GroupMutations {
+type Mutations {
   createGroup(input: CreateGroupInput!): CreateGroupPayload
+  updateFriend(input: UpdateFriendInput!): UpdateFriendPayload
 }
 
 type Root {
   app: App
+}
+
+input UpdateFriendInput {
+  id: String
+  groupId: String!
+  email: String!
+  wish: String
+  clientMutationId: String
+}
+
+type UpdateFriendPayload {
+  app: App
+  clientMutationId: String
 }

@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import Relay, {Mutation, Store} from 'react-relay';
+import {Link} from 'react-router';
 
 import TextField from '../TextField';
 
@@ -17,7 +18,7 @@ type Event = {
 };
 
 type Friend = {
-  id: number,
+  id: string,
   name: string,
   email: string,
 };
@@ -27,11 +28,12 @@ type State = {
   title: string,
   description: string,
   friends: Array<Friend>,
+  error: ?Error,
 };
 
-export type HandleChangeEvent = (event: Event) => void;
-type HandleChangeFn = (property: string) => HandleChangeEvent;
-type HandleChangeFriendFn = (params: {property: string, id: number}) => HandleChangeEvent;
+export type OnChangeEvent = (event: Event) => void;
+type OnChangeFn = (property: string) => OnChangeEvent;
+type OnChangeFriendFn = (params: {property: string, id: string}) => OnChangeEvent;
 
 class CreateGroupMutation extends Mutation {
   static fragments = {
@@ -83,26 +85,16 @@ class Create extends Component {
     title: '',
     description: '',
     friends: [
-      createFriend(0),
+      createFriend('0'),
     ],
+    error: null,
   }
 
-  props: Props
-
-  addFriend = () => {
-    const {friends} = this.state;
-
-    this.setState({friends: [
-      ...friends,
-      createFriend(friends.length),
-    ]});
-  }
-
-  handleChange: HandleChangeFn = (property: string) => ({target: {value}}) => {
+  onChange: OnChangeFn = (property: string) => ({target: {value}}) => {
     this.setState({[property]: value});
   }
 
-  handleChangeFriend: HandleChangeFriendFn = ({property, id}) => ({target: {value}}) => {
+  onChangeFriend: OnChangeFriendFn = ({property, id}) => ({target: {value}}) => {
     const friends = this.state.friends
       .map((friend) =>
         friend.id !== id ?
@@ -115,9 +107,17 @@ class Create extends Component {
     this.setState({friends});
   }
 
-  handleSubmit = () => {
+  onSubmitFailure = (transaction) => {
+    this.setState({
+      error: transaction.getError() || new Error('Mutation failed.'),
+    });
+  }
+
+  onSubmit = (onClick) => (event) => {
     const {app} = this.props;
     const {id, title, description, friends} = this.state;
+
+    event.persist();
 
     Store.commitUpdate(
       new CreateGroupMutation({
@@ -129,27 +129,45 @@ class Create extends Component {
           friends,
         },
       }),
+      {
+        onFailure: this.onSubmitFailure,
+        onSuccess: () => onClick(event),
+      },
     );
   }
+
+  addFriend = () => {
+    const {friends} = this.state;
+
+    this.setState({friends: [
+      ...friends,
+      createFriend(String(friends.length)),
+    ]});
+  }
+
+  props: Props
 
   render() {
     const {
       addFriend,
-      handleChange,
-      handleChangeFriend,
-      handleSubmit,
+      onChange,
+      onChangeFriend,
+      onSubmit,
     } = this;
 
     const {
       title,
       description,
       friends,
+      error,
     } = this.state;
 
     return (
       <main>
         <h1>Create</h1>
+
         <hr />
+
         <section>
           <div>
             <label htmlFor="title">Title</label>
@@ -157,18 +175,20 @@ class Create extends Component {
               type="text"
               id="title"
               value={title}
-              onChange={handleChange('title')}
+              onChange={onChange('title')}
             />
           </div>
+
           <div>
             <label htmlFor="description">Description</label>
             <textarea
               id="description"
               value={description}
-              onChange={handleChange('description')}
+              onChange={onChange('description')}
             />
           </div>
         </section>
+
         <section>
           <h3>Friends</h3>
           {friends.map(({id, name, email}) => (
@@ -177,20 +197,27 @@ class Create extends Component {
                 id={`friend-name-${id}`}
                 label="Name"
                 value={name}
-                onChange={handleChangeFriend({property: 'name', id})}
+                onChange={onChangeFriend({property: 'name', id})}
               />
               <TextField
                 id={`friend-email-${id}`}
                 label="Email"
                 value={email}
-                onChange={handleChangeFriend({property: 'email', id})}
+                onChange={onChangeFriend({property: 'email', id})}
               />
               <hr />
             </div>
           ))}
           <button onClick={addFriend}>➕</button>
         </section>
-        <button type="button" onClick={handleSubmit}>Send</button>
+
+        <Link to="/">
+          {({onClick}) =>
+            <button type="button" onClick={onSubmit(onClick)}>Send</button>
+          }
+        </Link>
+
+        <div>{error && error.toString()}</div>
       </main>
     );
   }

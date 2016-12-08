@@ -1,6 +1,5 @@
 const {
   GraphQLInputObjectType,
-  GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
@@ -10,33 +9,64 @@ const {
 
 const {mutationWithClientMutationId} = require('graphql-relay');
 
+const shortid = require('shortid');
 
-const GROUPS = [
+let GROUPS = [
   {
     id: '123a',
     title: 'Adams Family',
     description: 'Secret santa group for the Adams family',
+    friends: [
+      {
+        id: '0',
+        email: 'glenn@glenn.com',
+        wish: '',
+        hash: 'Hkgqz8Xqzx',
+      },
+      {
+        id: '1',
+        email: 'karl@karl.com',
+        wish: '',
+        hash: 'HkqM8Q9Ge',
+      },
+    ],
   },
   {
     id: '321b',
     title: 'Holmes Family',
     description: 'Secret santa group for the Holmes family',
+    friends: [
+      {
+        id: '0',
+        email: 'glenn@glenn.com',
+        wish: '',
+        hash: 'Hkgqz8Xqzx',
+      },
+      {
+        id: '1',
+        email: 'karl@karl.com',
+        wish: '',
+        hash: 'HkqM8Q9Ge',
+      },
+    ],
   },
 ];
 
 export const FriendType = new GraphQLObjectType({
   name: 'Friend',
   fields: () => ({
-    id: {type: GraphQLInt},
+    id: {type: GraphQLString},
     name: {type: GraphQLString},
     email: {type: GraphQLString},
+    wish: {type: GraphQLString},
+    hash: {type: GraphQLString},
   }),
 });
 
 export const FriendInputType = new GraphQLInputObjectType({
   name: 'FriendInput',
   fields: () => ({
-    id: {type: GraphQLInt},
+    id: {type: GraphQLString},
     name: {type: GraphQLString},
     email: {type: GraphQLString},
   }),
@@ -49,6 +79,14 @@ export const GroupType = new GraphQLObjectType({
     title: {type: GraphQLString},
     description: {type: GraphQLString},
     friends: {type: new GraphQLList(FriendType)},
+    friend: {
+      type: FriendType,
+      args: {
+        // TODO: Change this from `hash` to `id` (make sure unique!)
+        hash: {type: GraphQLString},
+      },
+      resolve: (parent, {hash}) => parent.friends.find((friend) => friend.hash === hash),
+    },
   }),
 });
 
@@ -61,7 +99,6 @@ export const GroupInputType = new GraphQLInputObjectType({
     friends: {type: new GraphQLList(FriendInputType)},
   }),
 });
-
 
 const AppType = new GraphQLObjectType({
   name: 'App',
@@ -84,8 +121,8 @@ const Root = new GraphQLObjectType({
     app: {
       type: AppType,
       resolve: () => ({
-        group: (_, {id}) => GROUPS.find((group) => group.id === id),
         groups: GROUPS,
+        group: (_, {id}) => GROUPS.find((group) => group.id === id),
         id: '0',
       }),
     },
@@ -93,7 +130,7 @@ const Root = new GraphQLObjectType({
 });
 
 const MutationType = new GraphQLObjectType({
-  name: 'GroupMutations',
+  name: 'Mutations',
   fields: () => ({
     createGroup: mutationWithClientMutationId({
       name: 'CreateGroup',
@@ -104,6 +141,8 @@ const MutationType = new GraphQLObjectType({
         friends: {type: new GraphQLList(FriendInputType)},
       },
       outputFields: {
+        // TODO: Find out if the resolve is broken here
+        // Shouldn't it be returning the whole app object?
         app: {
           type: AppType,
           resolve: () => GROUPS,
@@ -115,10 +154,52 @@ const MutationType = new GraphQLObjectType({
           id,
           title,
           description,
-          friends,
+          friends: friends.map((friend) => ({
+            ...friend,
+            hash: shortid.generate(friend.email),
+          })),
         };
 
         GROUPS.push(payload);
+
+        return payload;
+      },
+    }),
+    updateFriend: mutationWithClientMutationId({
+      name: 'UpdateFriend',
+      inputFields: {
+        id: {type: GraphQLString},
+        groupId: {type: new GraphQLNonNull(GraphQLString)},
+        email: {type: new GraphQLNonNull(GraphQLString)},
+        wish: {type: GraphQLString},
+      },
+      outputFields: {
+        // TODO: Find out if the resolve is broken here
+        // Shouldn't it be returning the whole app object?
+        app: {
+          type: AppType,
+          resolve: () => GROUPS,
+        },
+      },
+      mutateAndGetPayload: (args) => {
+        const {groupId, email, id, wish} = args;
+        const payload = {
+          id,
+          email,
+          wish,
+        };
+
+        GROUPS = GROUPS.map((group) =>
+          group.id !== groupId ? group : {
+            ...group,
+            friends: group.friends.map((friend) =>
+              friend.email !== email ? friend : {
+                ...friend,
+                wish,
+              },
+            ),
+          },
+        );
 
         return payload;
       },
