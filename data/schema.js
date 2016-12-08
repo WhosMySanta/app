@@ -148,8 +148,7 @@ const MutationType = new GraphQLObjectType({
           resolve: () => GROUPS,
         },
       },
-      mutateAndGetPayload: ({title, description, friends}) => {
-        const id = title.toLowerCase().replace(' ', '-');
+      mutateAndGetPayload: ({id, title, description, friends}) => {
         const payload = {
           id,
           title,
