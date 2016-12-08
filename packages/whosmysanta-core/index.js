@@ -18,7 +18,7 @@ export type Selection = {
   recipient: User,
 };
 
-const raffleSecretSanta = (users: Array<User>): Array<Selection> => {
+const drawSecretSantas = (users: Array<User>): Array<Selection> => {
   // Shuffle all the users
   const shuffled = users.sort(() => Math.floor(Math.random() * users.length));
 
@@ -47,4 +47,4 @@ const raffleSecretSanta = (users: Array<User>): Array<Selection> => {
 };
 
 
-export default raffleSecretSanta;
+export default drawSecretSantas;
