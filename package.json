@@ -62,12 +62,14 @@
     "express-graphql": "^0.5.4",
     "graphql": "^0.7.2",
     "graphql-relay": "^0.4.3",
+    "material-ui": "^0.16.4",
     "normalize.css": "^5.0.0",
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.4.0",
     "react-dom": "^15.3.2",
     "react-relay": "^0.9.3",
-    "react-router": "^4.0.0-alpha.5"
+    "react-router": "^4.0.0-alpha.5",
+    "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
     "prestart": "npm run update-schema",

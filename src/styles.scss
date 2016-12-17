@@ -1,5 +1,11 @@
 @import '/variables.scss';
 
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
 html {
   box-sizing: border-box;
   font-size: $font-size-base;
@@ -33,7 +39,16 @@ nav {
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
+  font-family: $font-fancy;
   text-align: center;
+
+  &.fancy {
+    text-shadow: 6px 10px 0px $red-lighter;
+  }
+}
+
+h1 {
+  font-size: 40px;
 }
 
 a {
@@ -58,50 +73,45 @@ textarea {
 }
 
 .container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
   width: 90%;
   max-width: 780px;
   margin: 0 auto;
-  position: relative;
 }
 
-.btn {
-  display: inline-block;
-  padding: 8px;
-  border-radius: 6px;
-  border-width: 3px;
-  border-style: solid;
-  box-shadow:
-    0 2px 1px rgba(0, 0, 0, 0.2),
-    inset 0 2px 1px rgba(0, 0, 0, 0.2);
-  text-decoration: none;
-  font-size: $font-size-small;
-  text-transform: uppercase;
-  color: $white;
-  transition: border-color .3s;
-
-  &:hover  {
-    cursor: pointer;
-  }
+main {
+  height: 100%;
 }
 
-.btn-primary {
-  border-color: $red-lighter;
-
-  &:hover,
-  &:active {
-    border-color: lighten($red, 4);
-  }
+section {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .text-center {
   text-align: center;
 }
 
+.margin-top {
+  margin-top: 5%;
+}
+
 .fadeIn-appear {
+  margin-bottom: 50px;
   opacity: 0;
 }
 
 .fadeIn-appear.fadeIn-appear-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  margin-bottom: 0;
+  transition: opacity .5s ease-in;
+  transition: margin-bottom .2s;
 }

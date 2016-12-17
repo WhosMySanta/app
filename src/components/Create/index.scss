@@ -1,0 +1,40 @@
+@import './../../variables.scss';
+
+.wrapper {
+  left: 100px;
+}
+
+.container {
+  border: 3px solid $red;
+  padding: 10px 30px 30px;
+}
+
+.title {
+  margin-bottom: 0;
+}
+
+.santa {
+  position: absolute;
+  left: -30px;
+  top: 40px;
+  width: 200px;
+
+  img {
+    position: absolute;
+
+    &:first-child {
+      filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.18));
+      z-index: 2;
+      left: -100px;
+      transform: rotate(-10deg);
+    }
+
+    &:last-child {
+      position: relative;
+      width: 224%;
+      left: -230px;
+      z-index: -1;
+      top: -25px;
+    }
+  }
+}

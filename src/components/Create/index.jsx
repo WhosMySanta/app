@@ -2,7 +2,12 @@
 
 import React, { Component } from 'react';
 import Relay, { Mutation, Store } from 'react-relay';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { TextField, Paper, RaisedButton } from 'material-ui';
 
+import styles from './index.scss';
+import santaHead from './santa-head.svg';
+import santaBody from './santa-body.svg';
 
 type Props = {
   app: {},
@@ -97,27 +102,58 @@ class Create extends Component {
     } = this.state;
 
     return (
-      <main>
-        <h1>Create</h1>
-        <hr />
-        <section>
-          <div>
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={handleChangeTitle}
-            />
+      <ReactCSSTransitionGroup
+        transitionName="fadeIn"
+        transitionEnterTimeout={200}
+        transitionLeaveTimeout={200}
+        transitionAppear
+        transitionLeave
+        transitionAppearTimeout={500}
+      >
+        <section className={styles.wrapper}>
+          <div className={styles.santa}>
+            <img className={styles.head} src={santaHead} alt="Santa head" />
+            <img clasName={styles.body} src={santaBody} alt="Santa body" />
           </div>
-          <div>
-            <label htmlFor="description">Description</label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={handleChangeDescription}
-            />
-          </div>
+          <Paper zDepth="3" style={{ padding: 20, color: 'indianRed' }}>
+            <div className={styles.container}>
+              <h1 className={styles.title}>Create</h1>
+
+              <TextField
+                hintText="My list"
+                floatingLabelText="Title"
+                floatingLabelStyle={{ top: 20 }}
+                underlineFocusStyle={{ borderColor: 'indianRed' }}
+                floatingLabelFocusStyle={{ color: 'indianRed' }}
+                fullWidth
+                value={title}
+                onChange={handleChangeTitle}
+              />
+              <br />
+
+              <TextField
+                multiLine
+                hintText="My list"
+                floatingLabelText="Description"
+                underlineFocusStyle={{ borderColor: 'indianRed' }}
+                floatingLabelStyle={{ top: 20 }}
+                floatingLabelFocusStyle={{ color: 'indianRed' }}
+                fullWidth
+                value={description}
+                onChange={handleChangeDescription}
+              />
+              <br />
+
+              <div className="text-center margin-top">
+                <RaisedButton
+                  label="Create a new list"
+                  fullWidth
+                  labelColor="indianRed"
+                  onClick={handleSubmit}
+                />
+              </div>
+            </div>
+          </Paper>
         </section>
         {/* <section>
           <h3>Friend</h3>
@@ -131,8 +167,7 @@ class Create extends Component {
             </div>
           ))}
         </section> */}
-        <button type="button" onClick={handleSubmit}>Send</button>
-      </main>
+      </ReactCSSTransitionGroup>
     );
   }
 }

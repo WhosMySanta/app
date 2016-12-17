@@ -5,15 +5,21 @@ import 'normalize.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './components/App';
 
 import './styles.scss';
 
+injectTapEventPlugin();
 
 render(
   <BrowserRouter>
-    <App />
+    <MuiThemeProvider>
+      <App />
+    </MuiThemeProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );
