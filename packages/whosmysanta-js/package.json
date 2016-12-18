@@ -42,5 +42,9 @@
     "eslint-plugin-import": "^2.0.1",
     "flow-bin": "^0.33.0",
     "jest": "^16.0.2"
+  },
+  "dependencies": {
+    "mailgun-js": "^0.7.14",
+    "whosmysanta-core": "^0.0.5"
   }
 }
