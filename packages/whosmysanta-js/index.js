@@ -1,26 +1,26 @@
 /* @flow */
 
 import mailgun from 'mailgun-js';
-import drawSecretSanta from 'whosmysanta-core';
+
+const MAILGUN = Symbol('mailgun');
+
+export const providers = [
+  MAILGUN,
+];
 
 type MailgunConfig = {
   apiKey: string,
   domain: string,
 };
-type MailProviderFn = (provider: string, config: MailgunConfig) => void;
+type MailProviderFn = (options: {provider: string, config: MailgunConfig}) => void;
 
-
-const mailProvider: MailProviderFn = (provider, config) => {
+export const mailProvider: MailProviderFn = ({provider, config}) => {
   switch (provider) {
-    case 'mailgun':
+    case MAILGUN:
       return mailgun(config);
     default:
       throw new Error('This mail provider is not supported yet.');
   }
 };
 
-
-export default {
-  drawSecretSanta,
-  mailProvider,
-};
+export {default as drawSecretSanta} from 'whosmysanta-core';
