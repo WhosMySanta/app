@@ -24,3 +24,7 @@ Results are sent via notifications (email).
 ## Useful queries
 
 Useful queries can be seen in [usefulQueries.graphql](https://github.com/WhosMySanta/app/blob/master/usefulQueries.graphql).
+
+## Architecture
+
+![whosmysanta architecture](https://lh4.googleusercontent.com/AfDbiOZNzK4E190pS21FR6DTTMg2WoaSiLy-CjpjglNb90JGBX3eRwlQs7eaKKchaojTeZMH=w2880-h1446-rw)
