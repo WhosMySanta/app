@@ -27,4 +27,4 @@ Useful queries can be seen in [usefulQueries.graphql](https://github.com/WhosMyS
 
 ## Architecture
 
-![whosmysanta architecture](https://lh5.googleusercontent.com/9jZ0fd_O5buk_2s_INnShRuSa98CL8OFpClyWRrbdW0Zf_WcDjGkYhhvgouKir1EP5pD2mNX=w2880-h1446-rw)
+![whosmysanta architecture](http://drive.google.com/uc?export=view&id=0Bz5sSk6lSOuOMU9iVHdqQU96bWc)
