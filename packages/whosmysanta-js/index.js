@@ -9,7 +9,7 @@ export const providers = [
 ];
 
 type MailgunConfig = {
-  apiKey: string,
+  api_key: string,
   domain: string,
 };
 type MailProviderFn = (options: {provider: string, config: MailgunConfig}) => void;
