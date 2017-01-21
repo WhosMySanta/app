@@ -13,27 +13,27 @@ var drawSecretSantas = function drawSecretSantas(users) {
   });
 
   // Create new list and just take all the shuffled users
-  var gifters = [].concat(_toConsumableArray(shuffled));
+  var givers = [].concat(_toConsumableArray(shuffled));
 
-  // Create a second list that takes the shuffled gifters ...
+  // Create a second list that takes the shuffled givers ...
   var recipients = [].concat(_toConsumableArray(shuffled));
 
   // ... and move the first one to the last! We
-  // don't want pairs or small groups of the raffle. This keeps it snaky 🐍!
+  // don't want pairs or small groups of the draw. This keeps it snaky 🐍!
   recipients.push(recipients.shift());
 
-  // Boom, let's raffle! 🎫
-  var raffle = users.map(function (user, raffleRound) {
-    var gifter = gifters[raffleRound];
-    var recipient = recipients[raffleRound];
+  // Boom, let's draw! 🎫
+  var draw = users.map(function (user, drawRound) {
+    var giver = givers[drawRound];
+    var recipient = recipients[drawRound];
 
     return {
-      gifter: gifter,
+      giver: giver,
       recipient: recipient
     };
   });
 
-  return raffle;
+  return draw;
 };
 
 exports.default = drawSecretSantas;
