@@ -5,6 +5,7 @@
   "scripts": {
     "flow": "lerna run flow",
     "lint": "lerna run lint",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "publish": "lerna publish"
   }
 }
