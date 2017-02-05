@@ -1,6 +1,6 @@
 {
   "name": "whosmysanta",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "JavaScript SDK for WhosMySanta",
   "main": "lib/index.js",
   "scripts": {
@@ -45,6 +45,6 @@
   },
   "dependencies": {
     "mailgun-js": "^0.7.14",
-    "whosmysanta-core": "^0.0.5"
+    "whosmysanta-core": "^0.0.6"
   }
 }
