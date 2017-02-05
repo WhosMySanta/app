@@ -3,7 +3,7 @@
 ## Example implementation
 
 ```js
-import {providers: {MAILGUN}} from 'whosmysanta-js';
+import {mailProvider, mailProviders: {MAILGUN}} from 'whosmysanta-js';
 
 const provider = MAILGUN;
 const config = {
