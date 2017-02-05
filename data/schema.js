@@ -260,6 +260,8 @@ const MutationType = new GraphQLObjectType({
           },
         );
 
+        // TODO: When we have the organizer email address, send an email out to them here!
+
         return payload;
       },
     }),
