@@ -12,6 +12,25 @@ const {mutationWithClientMutationId} = require('graphql-relay');
 const shortid = require('shortid');
 const {mailProvider, mailProviders: {MAILGUN}} = require('whosmysanta');
 
+process.on('uncaughtException', (err) => {
+  process.stderr.write(`${err.message}\n`);
+  process.exit(1);
+});
+
+const errors = [];
+
+[
+  'HOST',
+  'MAILGUN_API_KEY',
+  'MAILGUN_DOMAIN',
+].forEach((key) => {
+  if (!process.env[key]) {
+    errors.push(`Environment variable '${key}' missing! Please add it to your .env file.`);
+  }
+});
+
+if (errors.length > 0) throw new Error(errors.join('\n\n'));
+
 let GROUPS = [
   {
     id: '123a',
