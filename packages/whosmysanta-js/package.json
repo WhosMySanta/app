@@ -2,7 +2,7 @@
   "name": "whosmysanta",
   "version": "0.0.4",
   "description": "JavaScript SDK for WhosMySanta",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "flow": "flow",
     "lint": "eslint index",

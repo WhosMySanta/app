@@ -2,7 +2,7 @@
   "name": "whosmysanta-core",
   "version": "0.0.2",
   "description": "Core module of WhosMySanta",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "flow": "flow",
     "lint": "eslint index",
