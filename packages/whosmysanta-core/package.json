@@ -1,6 +1,6 @@
 {
   "name": "whosmysanta-core",
-  "version": "0.0.5",
+  "version": "0.0.1",
   "description": "Core module of WhosMySanta",
   "main": "index.js",
   "scripts": {
