@@ -203,7 +203,7 @@ const MutationType = new GraphQLObjectType({
             </html>
           `;
           const data = {
-            from: 'Santa <santa@whosmysanta.co>',
+            from: 'Santa <santa@whosmysanta.com>',
             to: email,
             subject,
             html,
