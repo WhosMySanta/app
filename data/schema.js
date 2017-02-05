@@ -23,9 +23,9 @@ const errors = [];
   'HOST',
   'MAILGUN_API_KEY',
   'MAILGUN_DOMAIN',
-].forEach((key) => {
-  if (!process.env[key]) {
-    errors.push(`Environment variable '${key}' missing! Please add it to your .env file.`);
+].forEach((envVarKey) => {
+  if (!process.env[envVarKey]) {
+    errors.push(`Environment variable '${envVarKey}' missing! Please add it to your .env file.`);
   }
 });
 
