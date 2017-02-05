@@ -2,17 +2,19 @@
 
 import mailgun from 'mailgun-js';
 
-const MAILGUN = Symbol('mailgun');
+const MAILGUN = 'MAILGUN';
 
 export const providers = [
   MAILGUN,
 ];
 
+type Provider = 'MAILGUN';
+
 type MailgunConfig = {
   api_key: string,
   domain: string,
 };
-type MailProviderFn = (options: {provider: string, config: MailgunConfig}) => void;
+type MailProviderFn = (options: {provider: Provider, config: MailgunConfig}) => void;
 
 export const mailProvider: MailProviderFn = ({provider, config}) => {
   switch (provider) {
