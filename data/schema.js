@@ -6,10 +6,9 @@ const {
   GraphQLSchema,
   GraphQLString,
 } = require('graphql');
-
 const {mutationWithClientMutationId} = require('graphql-relay');
-
 const shortid = require('shortid');
+const {mailProvider, mailProviders: {MAILGUN}} = require('whosmysanta');
 
 let GROUPS = [
   {
@@ -161,6 +160,45 @@ const MutationType = new GraphQLObjectType({
         };
 
         GROUPS.push(payload);
+
+        // TODO: Move me somewhere else!
+        const provider = MAILGUN;
+        const config = {
+          apiKey: process.env.MAILGUN_API_KEY,
+          domain: process.env.MAILGUN_DOMAIN,
+        };
+        const mail = mailProvider({provider, config});
+
+        const subject = `You have been invited to ${title}!`;
+
+        payload.friends.forEach(({email, hash}) => {
+          const html = `
+            <html>
+              <body>
+                Hey! 👋<br /><br />
+                Click <a href="http://${process.env.HOST}/join/${id}/${hash}">here</a> and let santa know what your wish is.<br /><br />
+                Cheers! 👋<br />
+              </body>
+            </html>
+          `;
+          const data = {
+            from: 'Santa <santa@whosmysanta.co>',
+            to: email,
+            subject,
+            html,
+          };
+
+          if (typeof mail.messages === 'function') {
+            mail.messages().send(data, (error, body) => {
+              if (error) {
+                console.error(error); // eslint-disable-line no-console
+              } else {
+                console.log(body); // eslint-disable-line no-console
+              }
+            });
+          }
+        });
+
 
         return payload;
       },

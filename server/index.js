@@ -1,5 +1,5 @@
 /* eslint-disable global-require, no-console */
-
+require('dotenv').config();
 const express = require('express');
 
 const app = express();
