@@ -5,13 +5,13 @@
 ```js
 import {mailProvider, mailProviders: {MAILGUN}} from 'whosmysanta-js';
 
-const provider = MAILGUN;
-const config = {
-  apiKey: process.env.API_KEY,
-  domain: 'example.com',
-};
-
-const {send} = mailProvider({provider, config});
+const {send} = mailProvider({
+  provider: MAILGUN,
+  config: {
+    apiKey: process.env.API_KEY,
+    domain: 'example.com',
+  },
+});
 
 // Send draw
 // TODO: Finalize parameters

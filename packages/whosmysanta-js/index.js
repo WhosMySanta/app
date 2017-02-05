@@ -11,7 +11,7 @@ type MailProviders = {
 };
 
 type MailgunConfig = {
-  api_key: string,
+  apiKey: string,
   domain: string,
 };
 
