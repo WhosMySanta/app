@@ -72,7 +72,7 @@
   },
   "scripts": {
     "prestart": "npm run update-schema",
-    "start": "babel-node server",
+    "start": "./node_modules/.bin/babel-node server",
     "start:prod": "node server",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
