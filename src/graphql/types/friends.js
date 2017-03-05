@@ -9,12 +9,24 @@ import { getFriends } from '../../data/friends';
 export const FriendType = new GraphQLObjectType({
   name: 'Friend',
   fields: {
+    id: {
+      type: GraphQLID,
+    },
     name: {
       type: GraphQLString,
       resolve: ({ name }) => name,
     },
-    id: {
-      type: GraphQLID,
+    email: {
+      type: GraphQLString,
+      resolve: ({ email }) => email,
+    },
+    wish: {
+      type: GraphQLString,
+      resolve: ({ wish }) => wish,
+    },
+    hash: {
+      type: GraphQLString,
+      resolve: ({ hash }) => hash,
     },
   },
 });
