@@ -2,16 +2,12 @@ import {Base64} from 'js-base64';
 import {pipe} from 'ramda';
 import shortid from 'shortid';
 import FriendModel from './model';
-import {filterFirst, filterById} from '../../helpers';
+import {filterFirst, filterById, throwError} from '../../helpers';
 
 export const getFriends = ({first = 10, id}) =>
-  new Promise((resolve, reject) => FriendModel.find(undefined, (err, data) => {
-    if (err) {
-      reject(err);
-    } else {
-      resolve(pipe(filterById(id), filterFirst(first))(data));
-    }
-  }));
+  FriendModel.find()
+    .then(data => pipe(filterById(id), filterFirst(first))(data))
+    .catch(throwError);
 
 export const addFriend = (
   {
@@ -31,6 +27,4 @@ export const addFriend = (
 
     return friend;
   })
-  .catch((err) => {
-    throw new Error(err);
-  });
+  .catch(throwError);
