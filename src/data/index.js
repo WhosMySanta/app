@@ -1,7 +1,4 @@
-import {
-  connect,
-  Promise, // eslint-disable-line no-unused-vars
-} from 'mongoose';
+import mongoose from 'mongoose';
 import {
   mongoHost,
   mongoDatabase,
@@ -10,16 +7,15 @@ import {
 } from '../constants';
 
 // Use node version of Promise for mongoose
-Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
-const host = encodeURIComponent(mongoHost);
+const host = mongoHost;
 const database = encodeURIComponent(mongoDatabase);
 const user = encodeURIComponent(mongoUser);
 const password = encodeURIComponent(mongoPassword);
 
 // Connect to mlab database
-export const connectDatabase = connect(
-  `mongodb://${user}:${password}@${host}/${database}`,
-);
+export const connectDatabase = () =>
+  mongoose.connect(`mongodb://${user}:${password}@${host}/${database}`);
 
 export default null;
