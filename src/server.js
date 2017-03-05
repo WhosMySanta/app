@@ -1,6 +1,7 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import schema from './graphql/schema';
+import { connectDatabase } from './data';
 
 const app = express();
 
@@ -20,5 +21,6 @@ app.listen(4000, (err) => {
     console.error(err); // eslint-disable-line no-console
   } else {
     console.log('GraphQL server started'); // eslint-disable-line no-console
+    connectDatabase();
   }
 });
