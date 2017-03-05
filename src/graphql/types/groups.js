@@ -21,7 +21,7 @@ export const GroupType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: ({description}) => description,
     },
-    friends: {
+    members: {
       type: FriendConnectionType,
       resolve: ({friends}) => friends,
     },
