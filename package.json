@@ -56,8 +56,10 @@
     "express": "^4.15.0",
     "express-graphql": "^0.6.3",
     "graphql": "^0.9.1",
+    "js-base64": "^2.1.9",
     "mongoose": "^4.8.5",
-    "ramda": "^0.23.0"
+    "ramda": "^0.23.0",
+    "shortid": "^2.2.6"
   },
   "lint-staged": {
     "*.js": [

@@ -1,14 +1,23 @@
 import {GraphQLObjectType, GraphQLSchema} from 'graphql';
+import {addFriendMutation as addFriend} from './mutations';
 import {friends, groups} from './queries';
 
-const Root = new GraphQLObjectType({
-  name: 'Root',
+const QueryRootType = new GraphQLObjectType({
+  name: 'QueryRoot',
   fields: {
     friends,
     groups,
   },
 });
 
+const MutationRootType = new GraphQLObjectType({
+  name: 'MutationRoot',
+  fields: {
+    addFriend,
+  },
+});
+
 export default new GraphQLSchema({
-  query: Root,
+  query: QueryRootType,
+  mutation: MutationRootType,
 });

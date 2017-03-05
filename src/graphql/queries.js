@@ -7,7 +7,7 @@ export const friends = {
     first: {type: GraphQLInt},
     id: {type: GraphQLString},
   },
-  resolve: (_, {first, id}) => ({first, id}),
+  resolve: (_, args) => args,
 };
 
 export const groups = {
@@ -16,5 +16,5 @@ export const groups = {
     first: {type: GraphQLInt},
     id: {type: GraphQLString},
   },
-  resolve: (_, {first, id}) => ({first, id}),
+  resolve: (_, args) => args,
 };
