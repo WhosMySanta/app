@@ -1,0 +1,59 @@
+{
+  "name": "whosmysanta-graphql",
+  "version": "1.0.0",
+  "description": "GraphQL server for WhosMySanta",
+  "private": true,
+  "scripts": {
+    "build": "babel src -d build",
+    "clean": "rimraf build",
+    "dev": "babel-node src",
+    "flow": "flow",
+    "lint": "eslint . --ext .js,.jsx --ignore-path .gitignore --fix",
+    "precommit": "lint-staged",
+    "prettier": "prettier --write --single-quote --trailing-comma all --parser flow *.js",
+    "start": "node build",
+    "test": "jest --coverage"
+  },
+  "keywords": [
+    "graphql",
+    "mongodb",
+    "express"
+  ],
+  "author": "WhosMySanta <hello@whosmysanta.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.23.0",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-stage-3": "^6.22.0",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-flowtype": "^2.30.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "flow-bin": "^0.41.0",
+    "jest": "^19.0.2",
+    "lint-staged": "^3.3.1",
+    "pre-commit": "^1.2.2",
+    "prettier": "^0.21.0",
+    "rimraf": "^2.6.1"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn run prettier",
+      "yarn run lint",
+      "git add"
+    ]
+  },
+  "pre-commit": "precommit",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "dotenv-extended": "^1.0.4",
+    "express": "^4.15.0",
+    "express-graphql": "^0.6.3",
+    "graphql": "^0.9.1"
+  }
+}
