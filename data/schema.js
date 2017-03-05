@@ -12,6 +12,9 @@ const {mutationWithClientMutationId} = require('graphql-relay');
 const shortid = require('shortid');
 const {mailProvider, mailProviders: {MAILGUN}} = require('whosmysanta');
 
+const {addGroup, getListOfGroups} = require('./Models/Group');
+const {getListOfFriends} = require('./Models/Friend');
+
 process.on('uncaughtException', (err) => {
   process.stderr.write(`${err.message}\n`);
   process.exit(1);
@@ -20,6 +23,8 @@ process.on('uncaughtException', (err) => {
 const errors = [];
 
 [
+  'DB_USER',
+  'DB_PASSWORD',
   'HOST',
   'MAILGUN_API_KEY',
   'MAILGUN_DOMAIN',
@@ -29,7 +34,10 @@ const errors = [];
   }
 });
 
+
 if (errors.length > 0) throw new Error(errors.join('\n\n'));
+
+// let GROUPS =
 
 let GROUPS = [
   {
@@ -141,7 +149,7 @@ const Root = new GraphQLObjectType({
     app: {
       type: AppType,
       resolve: () => ({
-        groups: GROUPS,
+        groups: getListOfGroups(),
         group: (_, {id}) => GROUPS.find((group) => group.id === id),
         id: '0',
       }),
@@ -180,7 +188,7 @@ const MutationType = new GraphQLObjectType({
           })),
         };
 
-        GROUPS.push(payload);
+        addGroup(payload);
 
         // TODO: Move me somewhere else!
         const provider = MAILGUN;

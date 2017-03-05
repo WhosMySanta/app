@@ -40,6 +40,7 @@
     "http-proxy-middleware": "0.17.2",
     "jest": "16.0.2",
     "json-loader": "0.5.4",
+    "mongoose": "^4.8.5",
     "object-assign": "4.1.0",
     "path-exists": "3.0.0",
     "postcss-loader": "1.1.0",
