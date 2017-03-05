@@ -54,6 +54,7 @@
     "dotenv-extended": "^1.0.4",
     "express": "^4.15.0",
     "express-graphql": "^0.6.3",
-    "graphql": "^0.9.1"
+    "graphql": "^0.9.1",
+    "ramda": "^0.23.0"
   }
 }

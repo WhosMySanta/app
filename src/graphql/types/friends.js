@@ -4,6 +4,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
+import { getFriends } from '../../data/friends';
 
 export const FriendType = new GraphQLObjectType({
   name: 'Friend',
@@ -33,18 +34,7 @@ export const FriendConnectionType = new GraphQLObjectType({
   fields: {
     edges: {
       type: new GraphQLList(FriendEdgesType),
-      resolve: () => [
-        {
-          node: {
-            name: 'friend1',
-          },
-        },
-        {
-          node: {
-            name: 'friend2',
-          },
-        },
-      ],
+      resolve: args => getFriends(args),
     },
   },
 });

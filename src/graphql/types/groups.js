@@ -4,6 +4,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
+import { getGroups } from '../../data/groups';
 
 export const GroupType = new GraphQLObjectType({
   name: 'Group',
@@ -33,18 +34,7 @@ export const GroupConnectionType = new GraphQLObjectType({
   fields: {
     edges: {
       type: new GraphQLList(GroupEdgesType),
-      resolve: () => [
-        {
-          node: {
-            title: 'group1',
-          },
-        },
-        {
-          node: {
-            title: 'group2',
-          },
-        },
-      ],
+      resolve: args => getGroups(args),
     },
   },
 });
