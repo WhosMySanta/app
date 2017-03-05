@@ -36,7 +36,7 @@ export const FriendEdgesType = new GraphQLObjectType({
   fields: {
     node: {
       type: FriendType,
-      resolve: ({ node }) => node,
+      resolve: friend => friend,
     },
   },
 });

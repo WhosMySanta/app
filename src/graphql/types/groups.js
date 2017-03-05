@@ -33,7 +33,7 @@ export const GroupEdgesType = new GraphQLObjectType({
   fields: {
     node: {
       type: GroupType,
-      resolve: ({ node }) => node,
+      resolve: group => group,
     },
   },
 });

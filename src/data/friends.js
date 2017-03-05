@@ -1,5 +1,5 @@
 import { pipe } from 'ramda';
-import { filterFirst, filterById, wrapWithProperty } from '../helpers';
+import { filterFirst, filterById } from '../helpers';
 
 export const getFriends = ({ first = 10, id }) => {
   const data = [
@@ -19,7 +19,7 @@ export const getFriends = ({ first = 10, id }) => {
     },
   ];
 
-  return pipe(filterById(id), filterFirst(first), wrapWithProperty())(data);
+  return pipe(filterById(id), filterFirst(first))(data);
 };
 
 export const getFriendById = () => null;
