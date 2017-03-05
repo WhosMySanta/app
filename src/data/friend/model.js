@@ -12,7 +12,7 @@ const Friend = new mongoose.Schema({
     unique: true,
   },
   wish: String,
-  hash: {
+  username: {
     type: String,
     lowercase: true,
   },

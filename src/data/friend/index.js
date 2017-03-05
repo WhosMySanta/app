@@ -17,7 +17,7 @@ export const addFriend = (
   },
 ) => FriendModel.create({
   id: Base64.encode(email),
-  hash: shortid.generate(),
+  username: shortid.generate(),
   name,
   email,
   wish,

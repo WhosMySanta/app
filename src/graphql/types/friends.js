@@ -24,9 +24,9 @@ export const FriendType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: ({wish}) => wish,
     },
-    hash: {
+    username: {
       type: GraphQLString,
-      resolve: ({hash}) => hash,
+      resolve: ({username}) => username,
     },
   },
 });
