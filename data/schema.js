@@ -12,8 +12,8 @@ const {mutationWithClientMutationId} = require('graphql-relay');
 const shortid = require('shortid');
 const {mailProvider, mailProviders: {MAILGUN}} = require('whosmysanta');
 
-const {addGroup, getListOfGroups} = require('./Models/Group');
-const {getListOfFriends} = require('./Models/Friend');
+const {addGroup, getListOfGroups, getGroupById} = require('./Models/Group');
+const {addFriend, getListOfFriends, updateFriend} = require('./Models/Friend');
 
 process.on('uncaughtException', (err) => {
   process.stderr.write(`${err.message}\n`);
@@ -36,49 +36,6 @@ const errors = [];
 
 
 if (errors.length > 0) throw new Error(errors.join('\n\n'));
-
-// let GROUPS =
-
-let GROUPS = [
-  {
-    id: '123a',
-    title: 'Adams Family',
-    description: 'Secret santa group for the Adams family',
-    friends: [
-      {
-        id: '0',
-        email: 'glenn@glenn.com',
-        wish: '',
-        hash: 'Hkgqz8Xqzx',
-      },
-      {
-        id: '1',
-        email: 'karl@karl.com',
-        wish: '',
-        hash: 'HkqM8Q9Ge',
-      },
-    ],
-  },
-  {
-    id: '321b',
-    title: 'Holmes Family',
-    description: 'Secret santa group for the Holmes family',
-    friends: [
-      {
-        id: '0',
-        email: 'glenn@glenn.com',
-        wish: '',
-        hash: 'Hkgqz8Xqzx',
-      },
-      {
-        id: '1',
-        email: 'karl@karl.com',
-        wish: '',
-        hash: 'HkqM8Q9Ge',
-      },
-    ],
-  },
-];
 
 export const FriendType = new GraphQLObjectType({
   name: 'Friend',
@@ -138,7 +95,7 @@ const AppType = new GraphQLObjectType({
       args: {
         id: {type: GraphQLString},
       },
-      resolve: (_, {id}) => GROUPS.find((group) => group.id === id),
+      resolve: (_, {id}) => getGroupById(id),
     },
   }),
 });
@@ -149,8 +106,8 @@ const Root = new GraphQLObjectType({
     app: {
       type: AppType,
       resolve: () => ({
-        groups: getListOfGroups(),
-        group: (_, {id}) => GROUPS.find((group) => group.id === id),
+        groups: getListOfGroups,
+        group: (_, {id}) => getGroupById(id),
         id: '0',
       }),
     },
@@ -173,7 +130,7 @@ const MutationType = new GraphQLObjectType({
         // Shouldn't it be returning the whole app object?
         app: {
           type: AppType,
-          resolve: () => GROUPS,
+          resolve: () => getListOfGroups(),
         },
       },
       mutateAndGetPayload: ({id, title, description, friends}) => {
@@ -188,7 +145,24 @@ const MutationType = new GraphQLObjectType({
           })),
         };
 
-        addGroup(payload);
+        const pFriends = friends.map((friend) =>
+          addFriend({
+            ...friend,
+            wish: '',
+            hash: shortid.generate(friend.email),
+          }),
+        );
+
+        Promise.all(pFriends)
+          .then((friends) => {
+            console.log('promise.all friends', friends);
+            addGroup({
+              id,
+              title,
+              description,
+              friends,
+            });
+          });
 
         // TODO: Move me somewhere else!
         const provider = MAILGUN;
@@ -245,7 +219,7 @@ const MutationType = new GraphQLObjectType({
         // Shouldn't it be returning the whole app object?
         app: {
           type: AppType,
-          resolve: () => GROUPS,
+          resolve: () => getListOfGroups(),
         },
       },
       mutateAndGetPayload: (args) => {
@@ -256,17 +230,7 @@ const MutationType = new GraphQLObjectType({
           wish,
         };
 
-        GROUPS = GROUPS.map((group) =>
-          group.id !== groupId ? group : {
-            ...group,
-            friends: group.friends.map((friend) =>
-              friend.email !== email ? friend : {
-                ...friend,
-                wish,
-              },
-            ),
-          },
-        );
+        updateFriend(payload);
 
         // TODO: When we have the organizer email address, send an email out to them here!
 
