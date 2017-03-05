@@ -4,7 +4,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
-import { getFriends } from '../../data/friends';
+import {getFriends} from '../../data/friends';
 
 export const FriendType = new GraphQLObjectType({
   name: 'Friend',
@@ -14,19 +14,19 @@ export const FriendType = new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: ({ name }) => name,
+      resolve: ({name}) => name,
     },
     email: {
       type: GraphQLString,
-      resolve: ({ email }) => email,
+      resolve: ({email}) => email,
     },
     wish: {
       type: GraphQLString,
-      resolve: ({ wish }) => wish,
+      resolve: ({wish}) => wish,
     },
     hash: {
       type: GraphQLString,
-      resolve: ({ hash }) => hash,
+      resolve: ({hash}) => hash,
     },
   },
 });

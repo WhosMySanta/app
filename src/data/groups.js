@@ -1,7 +1,7 @@
-import { pipe } from 'ramda';
-import { filterFirst, filterById } from '../helpers';
+import {pipe} from 'ramda';
+import {filterFirst, filterById} from '../helpers';
 
-export const getGroups = ({ first = 10, id }) => {
+export const getGroups = ({first = 10, id}) => {
   const data = [
     {
       id: '1',

@@ -10,7 +10,7 @@
     "flow": "flow",
     "lint": "eslint . --ext .js,.jsx --ignore-path .gitignore --fix",
     "precommit": "lint-staged",
-    "prettier": "prettier --write --single-quote --trailing-comma all --parser flow *.js",
+    "prettier": "prettier --write --no-bracket-spacing --single-quote --trailing-comma all --parser flow *.js",
     "start": "node build",
     "test": "jest --coverage"
   },

@@ -1,5 +1,5 @@
-import { GraphQLObjectType, GraphQLSchema } from 'graphql';
-import { friends, groups } from './queries';
+import {GraphQLObjectType, GraphQLSchema} from 'graphql';
+import {friends, groups} from './queries';
 
 const Root = new GraphQLObjectType({
   name: 'Root',
