@@ -5,7 +5,7 @@ import {
   GraphQLString,
 } from 'graphql';
 import {FriendConnectionType} from './friends';
-import {getGroups} from '../../data/groups';
+import {getGroups} from '../../data/group';
 
 export const GroupType = new GraphQLObjectType({
   name: 'Group',

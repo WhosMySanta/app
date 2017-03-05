@@ -4,7 +4,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
-import {getFriends} from '../../data/friends';
+import {getFriends} from '../../data/friend';
 
 export const FriendType = new GraphQLObjectType({
   name: 'Friend',

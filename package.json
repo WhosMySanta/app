@@ -3,6 +3,22 @@
   "version": "1.0.0",
   "description": "GraphQL server for WhosMySanta",
   "private": true,
+  "author": "WhosMySanta <hello@whosmysanta.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/WhosMySanta/graphql#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WhosMySanta/graphql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WhosMySanta/graphql/issues"
+  },
+  "keywords": [
+    "graphql",
+    "mongodb",
+    "express"
+  ],
+  "main": "build",
   "scripts": {
     "build": "babel src -d build",
     "clean": "rimraf build",
@@ -14,13 +30,6 @@
     "start": "node build",
     "test": "jest --coverage"
   },
-  "keywords": [
-    "graphql",
-    "mongodb",
-    "express"
-  ],
-  "author": "WhosMySanta <hello@whosmysanta.com>",
-  "license": "MIT",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.23.0",
@@ -41,14 +50,6 @@
     "prettier": "^0.21.0",
     "rimraf": "^2.6.1"
   },
-  "lint-staged": {
-    "*.js": [
-      "yarn run prettier",
-      "yarn run lint",
-      "git add"
-    ]
-  },
-  "pre-commit": "precommit",
   "dependencies": {
     "dotenv": "^4.0.0",
     "dotenv-extended": "^1.0.4",
@@ -57,5 +58,13 @@
     "graphql": "^0.9.1",
     "mongoose": "^4.8.5",
     "ramda": "^0.23.0"
-  }
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn run prettier",
+      "yarn run lint",
+      "git add"
+    ]
+  },
+  "pre-commit": "precommit"
 }
