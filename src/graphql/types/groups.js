@@ -5,7 +5,7 @@ import {
   GraphQLString,
 } from 'graphql';
 import {FriendConnectionType} from './friends';
-import {getGroups} from '../../data/group';
+import {getFriendById} from '../../data/friend';
 
 export const GroupType = new GraphQLObjectType({
   name: 'Group',
@@ -13,17 +13,21 @@ export const GroupType = new GraphQLObjectType({
     id: {
       type: GraphQLID,
     },
+    name: {
+      type: GraphQLString,
+    },
     title: {
       type: GraphQLString,
-      resolve: ({title}) => title,
     },
     description: {
       type: GraphQLString,
-      resolve: ({description}) => description,
     },
-    members: {
+    friends: {
       type: FriendConnectionType,
-      resolve: ({friends}) => friends,
+      resolve: ({friends}) =>
+        Promise.all(friends.map(id => getFriendById(id))).then(
+          friend => friend,
+        ),
     },
   },
 });
@@ -43,7 +47,7 @@ export const GroupConnectionType = new GraphQLObjectType({
   fields: {
     edges: {
       type: new GraphQLList(GroupEdgesType),
-      resolve: args => getGroups(args),
+      resolve: args => args,
     },
   },
 });

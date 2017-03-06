@@ -1,10 +1,11 @@
 import {
   GraphQLID,
+  GraphQLInputObjectType,
   GraphQLList,
+  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLString,
 } from 'graphql';
-import {getFriends} from '../../data/friend';
 
 export const FriendType = new GraphQLObjectType({
   name: 'Friend',
@@ -14,19 +15,15 @@ export const FriendType = new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: ({name}) => name,
     },
     email: {
       type: GraphQLString,
-      resolve: ({email}) => email,
     },
     wish: {
       type: GraphQLString,
-      resolve: ({wish}) => wish,
     },
     username: {
       type: GraphQLString,
-      resolve: ({username}) => username,
     },
   },
 });
@@ -46,7 +43,17 @@ export const FriendConnectionType = new GraphQLObjectType({
   fields: {
     edges: {
       type: new GraphQLList(FriendEdgesType),
-      resolve: args => getFriends(args),
+      resolve: args => args,
     },
+  },
+});
+
+// For mutation that allows us to pass an object (a friend) as argument
+export const FriendInputType = new GraphQLInputObjectType({
+  name: 'FriendInput',
+  fields: {
+    name: {type: GraphQLString},
+    email: {type: new GraphQLNonNull(GraphQLString)},
+    wish: {type: GraphQLString},
   },
 });

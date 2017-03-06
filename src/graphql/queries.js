@@ -1,5 +1,7 @@
 import {GraphQLInt, GraphQLString} from 'graphql';
 import {FriendConnectionType, GroupConnectionType} from './types';
+import {getFriends} from '../data/friend';
+import {getGroups} from '../data/group';
 
 export const friends = {
   type: FriendConnectionType,
@@ -7,7 +9,7 @@ export const friends = {
     first: {type: GraphQLInt},
     id: {type: GraphQLString},
   },
-  resolve: (_, args) => args,
+  resolve: (_, args) => getFriends(args),
 };
 
 export const groups = {
@@ -16,5 +18,5 @@ export const groups = {
     first: {type: GraphQLInt},
     id: {type: GraphQLString},
   },
-  resolve: (_, args) => args,
+  resolve: (_, args) => getGroups(args),
 };

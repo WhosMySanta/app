@@ -1,12 +1,14 @@
-import {Base64} from 'js-base64';
-import {pipe} from 'ramda';
+import mongoose from 'mongoose';
 import shortid from 'shortid';
 import FriendModel from './model';
-import {filterFirst, filterById, throwError} from '../../helpers';
+import {throwError} from '../../helpers';
 
 export const getFriends = ({first = 10, id}) =>
-  FriendModel.find()
-    .then(data => pipe(filterById(id), filterFirst(first))(data))
+  FriendModel.find(id && {id}).limit(first).exec().catch(throwError);
+
+export const getFriendById = id =>
+  FriendModel.findOne({_id: mongoose.Types.ObjectId(id)})
+    .exec()
     .catch(throwError);
 
 export const addFriend = (
@@ -16,14 +18,14 @@ export const addFriend = (
     wish,
   },
 ) => FriendModel.create({
-  id: Base64.encode(email),
   username: shortid.generate(),
   name,
   email,
   wish,
 })
   .then((friend) => {
-    console.log(`Saved ${friend.name}!`); // eslint-disable-line no-console
+    // eslint-disable-next-line no-console
+    console.log(`Saved Friend "${friend.name}"!`);
 
     return friend;
   })
