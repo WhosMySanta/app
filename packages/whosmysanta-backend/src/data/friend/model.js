@@ -21,14 +21,10 @@ const Friend = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   wish: {
     type: String,
   },
-  groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}],
 });
 
-const FriendModel = mongoose.model('Friends', Friend);
-
-export default FriendModel;
+export default mongoose.model('Friend', Friend);

@@ -28,7 +28,7 @@ export const FriendType = new GraphQLObjectType({
   },
 });
 
-export const FriendEdgesType = new GraphQLObjectType({
+const FriendEdgesType = new GraphQLObjectType({
   name: 'FriendEdges',
   fields: {
     node: {
@@ -43,12 +43,11 @@ export const FriendConnectionType = new GraphQLObjectType({
   fields: {
     edges: {
       type: new GraphQLList(FriendEdgesType),
-      resolve: args => args,
+      resolve: friends => friends,
     },
   },
 });
 
-// For mutation that allows us to pass an object (a friend) as argument
 export const FriendInputType = new GraphQLInputObjectType({
   name: 'FriendInput',
   fields: {
