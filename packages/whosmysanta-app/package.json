@@ -1,0 +1,113 @@
+{
+  "name": "whosmysanta-app",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+  },
+  "dependencies": {
+    "autoprefixer": "6.5.1",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "7.1.0",
+    "babel-jest": "16.0.0",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "babel-relay-plugin": "0.9.3",
+    "case-sensitive-paths-webpack-plugin": "1.1.4",
+    "chalk": "1.1.3",
+    "connect-history-api-fallback": "1.3.0",
+    "cross-spawn": "5.0.0",
+    "css-loader": "0.25.0",
+    "detect-port": "1.0.5",
+    "dotenv": "^4.0.0",
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-loader": "1.6.1",
+    "eslint-plugin-flowtype": "2.25.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.6.0",
+    "extract-text-webpack-plugin": "1.0.1",
+    "file-loader": "0.9.0",
+    "filesize": "3.3.0",
+    "find-cache-dir": "0.1.1",
+    "flow-bin": "^0.34.0",
+    "fs-extra": "1.0.0",
+    "gzip-size": "3.0.0",
+    "html-webpack-plugin": "2.24.1",
+    "http-proxy-middleware": "0.17.2",
+    "jest": "16.0.2",
+    "json-loader": "0.5.4",
+    "object-assign": "4.1.0",
+    "path-exists": "3.0.0",
+    "postcss-loader": "1.1.0",
+    "promise": "7.1.1",
+    "react-dev-utils": "^0.3.0",
+    "recursive-readdir": "2.1.0",
+    "rimraf": "2.5.4",
+    "strip-ansi": "3.0.1",
+    "style-loader": "0.13.1",
+    "url-loader": "0.5.7",
+    "webpack": "1.13.3",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "1.16.2",
+    "webpack-hot-middleware": "^2.13.1",
+    "webpack-manifest-plugin": "1.1.0",
+    "whatwg-fetch": "1.0.0",
+
+    "express": "^4.14.0",
+    "express-graphql": "^0.5.4",
+    "graphql": "^0.7.2",
+    "graphql-relay": "^0.4.3",
+    "lodash.kebabcase": "^4.1.1",
+    "normalize.css": "^5.0.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-relay": "^0.9.3",
+    "react-router": "4.0.0-alpha.6",
+    "shortid": "^2.2.6",
+    "whosmysanta": "^0.0.6"
+  },
+  "scripts": {
+    "postinstall": "yarn build",
+    "prestart": "yarn update-schema",
+    "start": "./node_modules/.bin/babel-node server",
+    "build": "./node_modules/.bin/babel-node scripts/build.js",
+    "test": "node scripts/test.js --env=jsdom",
+    "lint": "eslint src data --ext .js,.jsx --ignore-path .gitignore",
+    "flow": "flow",
+    "update-schema": "./node_modules/.bin/babel-node ./scripts/updateSchema.js"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "jsx",
+      "js",
+      "json"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/FileStub.js",
+      "^.+\\.css$": "<rootDir>/config/jest/CSSStub.js"
+    },
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(build|docs|node_modules)/"
+    ],
+    "testEnvironment": "node"
+  },
+  "babel": {
+    "presets": [
+      "react-app"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "engines": {
+    "node": "7.5.0",
+    "npm": "4.1.2"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "whosmysanta-js",
+  "version": "0.0.6",
+  "description": "JavaScript SDK for WhosMySanta",
+  "main": "lib/index.js",
+  "scripts": {
+    "flow": "flow",
+    "lint": "eslint index",
+    "build": "babel index.js -d lib",
+    "prepublish": "yarn run build",
+    "test": "jest --coverage",
+    "test:watch": "npm test -- --watch"
+  },
+  "files": [
+    "index",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WhosMySanta/whosmysanta.git"
+  },
+  "keywords": [
+    "santa",
+    "secretsanta",
+    "christmas",
+    "draw"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WhosMySanta/whosmysanta/issues"
+  },
+  "homepage": "https://github.com/WhosMySanta/whosmysanta#readme",
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-eslint": "^7.0.0",
+    "babel-plugin-transform-flow-strip-types": "^6.14.0",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-stage-2": "^6.17.0",
+    "eslint": "^3.8.0",
+    "eslint-config-airbnb-base": "latest",
+    "eslint-plugin-flowtype": "^2.21.0",
+    "eslint-plugin-import": "^2.0.1",
+    "flow-bin": "^0.33.0",
+    "jest": "^16.0.2"
+  },
+  "dependencies": {
+    "mailgun-js": "^0.7.14",
+    "whosmysanta-core": "^0.0.6"
+  }
+}

@@ -1,30 +1,92 @@
-# whosmysanta app
+# whosmysanta
 
-## Routes
+[![Build Status](https://travis-ci.org/WhosMySanta/whosmysanta.svg?branch=master)](https://travis-ci.org/WhosMySanta/whosmysanta)
 
+Tools to build secret santa apps.
+
+## Packages
+
+### [`whosmysanta-core`](packages/whosmysanta-core)
+
+Core Secret Santa selection logic.
+
+### [`whosmysanta-js`](packages/whosmysanta-js)
+
+JavaScript SDK for interacting with the core.
+
+```js
+import {
+  drawSecretSanta,
+  setEmailConfig,
+  sendEmail,
+} from 'whosmysanta';
+
+setEmailConfig({
+  provider: 'MAILGUN',
+  username: 'glenn',
+  password: '****',
+});
+
+drawSecretSanta
+  .then(selections => {
+    selections.map(({giver, recipient}) => {
+      sendEmail({
+        recipient: giver.email,
+        body: `Yo, you need to buy ${recipient.wish || 'a gift'} for ${recipient.name}`,
+      }).catch((err) => console.log('errored out!', err));
+    });
+  });
 ```
-/                           Home
-/create                     Create a group
-/join/:groupId/:friendHash  User enters a name and their wish
-/group/:groupId             Answer status of group participants, results
+
+#### Future API Ideas
+
+Move all GraphQL logic to the JS library to make the process of creating apps easier.
+
+```js
+import {
+  setAdapter,
+  graphQLSchema,
+  graphQLQueries,
+  graphQLMutations,
+  graphQLCreateGroup,
+  createGroup,
+  joinGroup,
+} from 'whosmysanta-js';
+
+setAdapter('GRAPHQL', SERVER, PORT);
+
+createGroup({
+  id: 'my-title',
+  title: 'my title',
+  description: 'description',
+  friends: [
+    {
+      name: 'Glenn',
+      email: 'glenn@example.com',
+    },
+  ],
+});
+
+// => Group {
+//   id: 'my-title',
+//   title: 'my title',
+//   description: 'description',
+//   friends: [
+//     {
+//       id: 'HBEIWJkfjwir38',
+//       name: 'Glenn',
+//       email: 'glenn@example.com',
+//       wish: null,
+//     },
+//   ],
+// }
+
+joinGroup({
+  id: 'HBEIWJkfjwir38',
+  wish: 'iPhone 9',
+});
 ```
 
-## Selection process
+## LICENSE
 
-Selection is done either:
-
-1. When every invitee has answered...
-
-2. ...or when the organizer decides that enough participants have answered. The invitees who didn't answer will not be included in the selection.
-
-## Results
-
-Results are sent via notifications (email).
-
-## Useful queries
-
-Useful queries can be seen in [usefulQueries.graphql](https://github.com/WhosMySanta/app/blob/master/usefulQueries.graphql).
-
-## Architecture
-
-[![whosmysanta architecture](https://cloud.githubusercontent.com/assets/1935696/22625528/cac91b42-eb99-11e6-89d9-21c13fd2ab6c.png)](https://drive.google.com/file/d/0Bz5sSk6lSOuOMU9iVHdqQU96bWc/view?ts=5883480e)
+MIT
