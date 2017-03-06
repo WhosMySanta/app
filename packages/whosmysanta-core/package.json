@@ -7,7 +7,7 @@
     "flow": "flow",
     "lint": "eslint index",
     "build": "babel index.js -d lib",
-    "prepublish": "npm run build",
+    "prepublish": "yarn run build",
     "test": "jest --coverage",
     "test:watch": "npm test -- --watch"
   },
