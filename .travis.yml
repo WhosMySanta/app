@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "node"
+cache:
+  directories:
+    - $HOME/.npm
+    - node_modules
+  yarn: true
+before_install:
+  - time npm i -g yarn --cache-min 999999999
+  - time yarn global add lerna@2.0.0-beta.36
+install:
+  - time lerna exec -- yarn
+script:
+  - time yarn run lint
+  - time yarn run flow
+  - time yarn run test
