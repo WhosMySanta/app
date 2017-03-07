@@ -24,7 +24,7 @@ export const addGroup = ({
 
   // TODO: Move this out into a separate function + file
   return Promise.all(
-    friends.map(({name, email}) =>
+    friends.map(({email, name}) =>
       FriendModel.create({
         username: shortid.generate(),
         name,
