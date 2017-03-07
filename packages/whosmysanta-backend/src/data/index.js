@@ -10,5 +10,5 @@ export const connectDatabase = () => {
   mongoose.Promise = global.Promise;
 
   // Connect to mlab database
-  mongoose.connect(`mongodb://${user}:${password}@${host}/${database}`);
+  return mongoose.connect(`mongodb://${user}:${password}@${host}/${database}`);
 };

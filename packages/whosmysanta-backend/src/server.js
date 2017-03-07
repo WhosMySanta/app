@@ -20,6 +20,8 @@ app.use(
 app.listen(4000, (err) => {
   if (err) throw new Error(err);
   console.log('GraphQL server started'); // eslint-disable-line no-console
-  connectDatabase();
-  console.log('Database connected!'); // eslint-disable-line no-console
+  connectDatabase().then(
+    () => console.log('Database connected!'), // eslint-disable-line no-console
+    err => console.error('Failed to connect to database! Error:', err), // eslint-disable-line no-console
+  );
 });
