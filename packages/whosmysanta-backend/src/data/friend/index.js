@@ -25,6 +25,7 @@ export const addFriend = ({
   wish,
 })
   .then((friend) => {
+    // eslint-disable-next-line no-console
     console.log(`Saved friend "${friend.name}"!`);
     return friend;
   })

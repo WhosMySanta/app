@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import shortid from 'shortid';
 import GroupModel from './model';
 import FriendModel from '../friend/model';
