@@ -4,8 +4,7 @@ import FriendModel from './model';
 
 export const getFriends = ({first = 10, id}) =>
   FriendModel
-    // Only pass id if defined
-    .find(id && {id})
+    .find(id ? {id} : {})
     .limit(first)
     .exec()
     .catch((err) => { throw new Error(err); });

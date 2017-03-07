@@ -5,8 +5,7 @@ import FriendModel from '../friend/model';
 
 export const getGroups = ({first = 10, id}) =>
   GroupModel
-    // Only pass id if defined
-    .find(id && {id})
+    .find(id ? {id} : {})
     .limit(first)
     .exec()
     .catch((err) => { throw new Error(err); });
