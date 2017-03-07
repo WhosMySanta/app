@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-// import {mongoHost, mongoDatabase, mongoUser, mongoPassword} from '../constants';
 
 const host = process.env.MONGO_HOST;
 const database = encodeURIComponent(process.env.MONGO_DATABASE);
