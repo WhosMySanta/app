@@ -12,8 +12,6 @@ const RootQueryType = new GraphQLObjectType({
     groups,
   },
 });
-// console.log(addFriend);
-// process.exit();
 
 const RootMutationType = new GraphQLObjectType({
   name: 'RootMutation',
