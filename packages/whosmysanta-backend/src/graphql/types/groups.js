@@ -25,14 +25,12 @@ export const GroupType = new GraphQLObjectType({
     friends: {
       type: FriendConnectionType,
       resolve: ({friends}) =>
-        Promise.all(friends.map(id => getFriendById(id))).then(
-          friend => friend,
-        ),
+        Promise.all(friends.map(id => getFriendById(id))),
     },
   },
 });
 
-export const GroupEdgesType = new GraphQLObjectType({
+const GroupEdgesType = new GraphQLObjectType({
   name: 'GroupEdges',
   fields: {
     node: {
@@ -47,7 +45,7 @@ export const GroupConnectionType = new GraphQLObjectType({
   fields: {
     edges: {
       type: new GraphQLList(GroupEdgesType),
-      resolve: args => args,
+      resolve: groups => groups,
     },
   },
 });

@@ -25,6 +25,4 @@ const Group = new mongoose.Schema({
   friends: [{type: mongoose.Schema.Types.ObjectId, ref: 'Friend'}],
 });
 
-const GroupModel = mongoose.model('Groups', Group);
-
-export default GroupModel;
+export default mongoose.model('Group', Group);

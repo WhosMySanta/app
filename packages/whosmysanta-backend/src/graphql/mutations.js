@@ -22,5 +22,3 @@ export const addGroupMutation = {
   },
   resolve: (_, args) => addGroup(args),
 };
-
-export default {addFriendMutation};

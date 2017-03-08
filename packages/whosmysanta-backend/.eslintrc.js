@@ -31,5 +31,10 @@ module.exports = {
     'max-len': ['error', {code: 80}],
     'no-console': 'error',
     'object-curly-spacing': ['error', 'never'],
+    'space-before-function-paren': ['error', {
+      anonymous: 'always', // const foo = function () {}
+      named: 'always', // function foo () {} (Airbnb rule change)
+      asyncArrow: 'always' // const foo = async (a) => await a
+    }],
   },
 };
