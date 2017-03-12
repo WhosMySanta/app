@@ -17,7 +17,7 @@ app.use(
   }),
 );
 
-app.listen(4000, err => {
+app.listen(4000, (err) => {
   if (err) throw new Error(err);
   /* eslint-disable no-console */
   console.log('GraphQL server started');

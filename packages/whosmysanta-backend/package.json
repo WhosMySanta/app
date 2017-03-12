@@ -37,7 +37,7 @@
     "clean": "rimraf build",
     "dev": "babel-node src",
     "flow": "flow",
-    "format": "yarn run lint -- --fix && yarn run prettier",
+    "format": "yarn run prettier && yarn run lint -- --fix",
     "lint": "eslint . --ignore-path .gitignore",
     "precommit": "yarn run format && lint-staged",
     "prettier": "prettier --no-bracket-spacing --single-quote --trailing-comma all --parser flow --write 'src/**/*.js'",
