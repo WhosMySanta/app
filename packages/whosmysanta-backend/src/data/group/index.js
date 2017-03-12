@@ -1,7 +1,7 @@
 import shortid from 'shortid';
 import GroupModel from './model';
 import {addFriend} from '../friend';
-// import {notifyFriendsAboutGroup} from '../../notifications';
+import {notifyFriendsAboutGroup} from '../../notifications';
 
 export const getGroups = ({first = 10, id}) =>
   GroupModel.find(id ? {id} : {}).limit(first).exec().catch(err => {
@@ -33,24 +33,18 @@ export const addGroup = (
       })),
   )
     .then(() => group.save())
-    .then(newGroup =>
-      GroupModel.findOne({id: newGroup.id}).populate('friends').exec())
+    .then(({id}) => GroupModel.findOne({id}).populate('friends').exec())
     .then(newGroup => {
       // eslint-disable-next-line no-console
       console.log(`Saved group "${newGroup.title}"!`);
       return newGroup;
     })
-    // .then(newGroup => notifyFriendsAboutGroup({
-    //   group: {
-    //     ...newGroup,
-    //     friends,
-    //   },
-    // }).then(() => newGroup))
-    // .then(newGroup => {
-    //   // eslint-disable-next-line no-console
-    //   console.log('Mails sent to friends');
-    //   return newGroup;
-    // })
+    .then(newGroup => notifyFriendsAboutGroup(newGroup).then(() => newGroup))
+    .then(newGroup => {
+      // eslint-disable-next-line no-console
+      console.log('Mails sent to friends!');
+      return newGroup;
+    })
     .catch(err => {
       throw new Error(err);
     });

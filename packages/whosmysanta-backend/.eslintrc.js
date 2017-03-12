@@ -29,6 +29,7 @@ module.exports = {
     'flowtype/union-intersection-spacing': 'error',
     'flowtype/use-flow-type': 'error',
     'flowtype/valid-syntax': 'error',
+    'import/prefer-default-export': 'off',
     'no-console': 'error',
     'object-curly-spacing': ['error', 'never'],
   },
