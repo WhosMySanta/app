@@ -2,7 +2,9 @@ import {GraphQLObjectType, GraphQLSchema} from 'graphql';
 import {
   addFriendMutation as addFriend,
   updateFriendMutation as updateFriend,
+  deleteFriendMutation as deleteFriend,
   addGroupMutation as addGroup,
+  deleteGroupMutation as deleteGroup,
 } from './mutations';
 import {friends, groups} from './queries';
 
@@ -19,7 +21,9 @@ const RootMutationType = new GraphQLObjectType({
   fields: {
     addFriend,
     updateFriend,
+    deleteFriend,
     addGroup,
+    deleteGroup,
   },
 });
 

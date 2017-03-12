@@ -5,7 +5,7 @@ const database = encodeURIComponent(process.env.MONGO_DATABASE);
 const user = encodeURIComponent(process.env.MONGO_USER);
 const password = encodeURIComponent(process.env.MONGO_PASS);
 
-export default function connectDatabase () {
+export default function connectDatabase() {
   // Use node version of Promise for mongoose
   mongoose.Promise = global.Promise;
 

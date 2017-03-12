@@ -1,6 +1,6 @@
 import {GraphQLNonNull, GraphQLString} from 'graphql';
 import {FriendType} from '../types';
-import {addFriend, updateFriend} from '../../data/friend';
+import {addFriend, deleteFriend, updateFriend} from '../../data/friend';
 
 export const addFriendMutation = {
   type: FriendType,
@@ -19,4 +19,12 @@ export const updateFriendMutation = {
     wish: {type: GraphQLString},
   },
   resolve: (_, args) => updateFriend(args),
+};
+
+export const deleteFriendMutation = {
+  type: FriendType,
+  args: {
+    id: {type: new GraphQLNonNull(GraphQLString)},
+  },
+  resolve: (_, args) => deleteFriend(args),
 };
