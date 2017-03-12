@@ -5,7 +5,6 @@ import {
   GraphQLString,
 } from 'graphql';
 import {FriendConnectionType} from './friends';
-import {getFriendById} from '../../data/friend';
 
 export const GroupType = new GraphQLObjectType({
   name: 'Group',
@@ -24,7 +23,6 @@ export const GroupType = new GraphQLObjectType({
     },
     friends: {
       type: FriendConnectionType,
-      resolve: ({friends}) => Promise.all(friends.map(id => getFriendById(id))),
     },
   },
 });
