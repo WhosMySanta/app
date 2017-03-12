@@ -29,4 +29,17 @@ export const addFriend = ({
     console.log(`Saved friend "${friend.name}"!`);
     return friend;
   })
-  .catch((err) => { throw new Error(err); });
+  .catch((err) => { throw new Error('Error saving friend!', err); });
+
+export const updateFriend = ({
+  id,
+  wish,
+}) => FriendModel.findByIdAndUpdate(id, {
+  $set: {wish},
+})
+  .then((friend) => {
+    // eslint-disable-next-line no-console
+    console.log(`Updated friend "${friend.name}"!`);
+    return friend;
+  })
+  .catch((err) => { throw new Error('Error updating friend!', err); });
