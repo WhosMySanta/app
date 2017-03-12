@@ -38,7 +38,7 @@
     "dev": "babel-node src",
     "flow": "flow",
     "format": "yarn run prettier && yarn run lint -- --fix",
-    "lint": "eslint . --ignore-path .gitignore",
+    "lint": "eslint --ignore-path .gitignore src",
     "precommit": "yarn run format && lint-staged",
     "prettier": "prettier --no-bracket-spacing --single-quote --trailing-comma all --parser flow --write 'src/**/*.js'",
     "start": "node build",
@@ -47,7 +47,7 @@
   "lint-staged": {
     "*.js": [
       "prettier --no-bracket-spacing --single-quote --trailing-comma all --parser flow --write",
-      "yarn run lint -- --fix",
+      "eslint --ignore-path .gitignore --fix",
       "git add"
     ]
   },
