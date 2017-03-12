@@ -40,13 +40,13 @@
     "format": "yarn run lint -- --fix && yarn run prettier",
     "lint": "eslint . --ignore-path .gitignore",
     "precommit": "yarn run format && lint-staged",
-    "prettier": "prettier --no-bracket-spacing --single-quote --trailing-comma all --parser flow --write *.js",
+    "prettier": "prettier --no-bracket-spacing --single-quote --trailing-comma all --parser flow --write 'src/**/*.js'",
     "start": "node build",
     "test": "jest --coverage"
   },
   "lint-staged": {
     "*.js": [
-      "yarn run prettier",
+      "prettier --no-bracket-spacing --single-quote --trailing-comma all --parser flow --write",
       "yarn run lint -- --fix",
       "git add"
     ]
