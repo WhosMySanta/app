@@ -28,7 +28,6 @@ module.exports = {
     'flowtype/union-intersection-spacing': 'error',
     'flowtype/use-flow-type': 'error',
     'flowtype/valid-syntax': 'error',
-    'max-len': ['error', {code: 80}],
     'no-console': 'error',
     'object-curly-spacing': ['error', 'never'],
     'space-before-function-paren': ['error', {
