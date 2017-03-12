@@ -24,8 +24,7 @@ export const GroupType = new GraphQLObjectType({
     },
     friends: {
       type: FriendConnectionType,
-      resolve: ({friends}) =>
-        Promise.all(friends.map(id => getFriendById(id))),
+      resolve: ({friends}) => Promise.all(friends.map(id => getFriendById(id))),
     },
   },
 });

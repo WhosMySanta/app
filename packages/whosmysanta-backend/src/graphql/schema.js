@@ -1,6 +1,7 @@
 import {GraphQLObjectType, GraphQLSchema} from 'graphql';
 import {
   addFriendMutation as addFriend,
+  updateFriendMutation as updateFriend,
   addGroupMutation as addGroup,
 } from './mutations';
 import {friends, groups} from './queries';
@@ -17,6 +18,7 @@ const RootMutationType = new GraphQLObjectType({
   name: 'RootMutation',
   fields: {
     addFriend,
+    updateFriend,
     addGroup,
   },
 });
