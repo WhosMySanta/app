@@ -3,7 +3,7 @@ import GroupModel from './model';
 import FriendModel from '../friend/model';
 
 export const getGroups = ({first = 10, id}) =>
-  GroupModel.find(id ? {id} : {}).limit(first).exec().catch((err) => {
+  GroupModel.find(id ? {id} : {}).limit(first).exec().catch(err => {
     throw new Error(err);
   });
 
@@ -28,20 +28,20 @@ export const addGroup = (
       name,
       email,
     })
-      .then((newFriend) => {
+      .then(newFriend => {
         group.friends.push(newFriend);
       })
-      .catch((err) => {
+      .catch(err => {
         throw new Error(err);
       })),
   )
     .then(() => group.save())
-    .then((newGroup) => {
+    .then(newGroup => {
       // eslint-disable-next-line no-console
       console.log(`Saved group "${newGroup.title}"!`);
       return newGroup;
     })
-    .catch((err) => {
+    .catch(err => {
       throw new Error(err);
     });
 };

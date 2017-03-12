@@ -3,12 +3,12 @@ import shortid from 'shortid';
 import FriendModel from './model';
 
 export const getFriends = ({first = 10, id}) =>
-  FriendModel.find(id ? {id} : {}).limit(first).exec().catch((err) => {
+  FriendModel.find(id ? {id} : {}).limit(first).exec().catch(err => {
     throw new Error(`Unable to get friends\n${err}`);
   });
 
 export const getFriendById = id =>
-  FriendModel.findOne({_id: mongoose.Types.ObjectId(id)}).exec().catch((err) => {
+  FriendModel.findOne({_id: mongoose.Types.ObjectId(id)}).exec().catch(err => {
     throw new Error(`Unable to get friend by id\n${err}`);
   });
 
@@ -24,12 +24,12 @@ export const addFriend = (
   email,
   wish,
 })
-  .then((friend) => {
+  .then(friend => {
     // eslint-disable-next-line no-console
     console.log(`Saved friend "${friend.name}"!`);
     return friend;
   })
-  .catch((err) => {
+  .catch(err => {
     throw new Error(`Error saving friend!\n${err}`);
   });
 
@@ -49,11 +49,11 @@ export const updateFriend = (
     new: true,
   },
 )
-  .then((friend) => {
+  .then(friend => {
     // eslint-disable-next-line no-console
     console.log(`Updated friend "${friend.name}"!`);
     return friend;
   })
-  .catch((err) => {
+  .catch(err => {
     throw new Error(`Error updating friend!\n${err}`);
   });

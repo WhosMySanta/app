@@ -7,6 +7,7 @@ module.exports = {
   parser: 'babel-eslint',
   plugins: ['flowtype'],
   rules: {
+    'arrow-parens': 'off',
     'flowtype/boolean-style': 'error',
     'flowtype/define-flow-type': 'error',
     'flowtype/delimiter-dangle': ['error', 'always-multiline'],
@@ -30,10 +31,5 @@ module.exports = {
     'flowtype/valid-syntax': 'error',
     'no-console': 'error',
     'object-curly-spacing': ['error', 'never'],
-    'space-before-function-paren': ['error', {
-      anonymous: 'always', // const foo = function () {}
-      named: 'always', // function foo () {} (Airbnb rule change)
-      asyncArrow: 'always' // const foo = async (a) => await a
-    }],
   },
 };
