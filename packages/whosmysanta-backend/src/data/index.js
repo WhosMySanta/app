@@ -5,10 +5,10 @@ const database = encodeURIComponent(process.env.MONGO_DATABASE);
 const user = encodeURIComponent(process.env.MONGO_USER);
 const password = encodeURIComponent(process.env.MONGO_PASS);
 
-export default function connectDatabase() {
-  // Use node version of Promise for mongoose
-  mongoose.Promise = global.Promise;
+// Use node version of Promise for mongoose
+mongoose.Promise = global.Promise;
 
+export default function connectDatabase() {
   // Connect to mlab database
   return mongoose.connect(`mongodb://${user}:${password}@${host}/${database}`);
 }
