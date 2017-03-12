@@ -1,6 +1,9 @@
 import {GraphQLNonNull, GraphQLString} from 'graphql';
 import {FriendType} from '../types';
-import {addFriend, updateFriend} from '../../data/friend';
+import {
+  addFriend,
+  updateFriend,
+} from '../../data/friend';
 
 export const addFriendMutation = {
   type: FriendType,
