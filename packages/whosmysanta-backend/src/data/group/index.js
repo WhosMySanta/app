@@ -23,7 +23,7 @@ export const addGroup = (
 
   // TODO: Move this out into a separate function + file
   return Promise.all(
-    friends.map((friend) => addFriend(friend)
+    friends.map(friend => addFriend(friend)
       .then(newFriend => {
         group.friends.push(newFriend);
         return newFriend;
@@ -32,11 +32,9 @@ export const addGroup = (
         throw new Error(err);
       })),
   )
-    .then((addedFriends) => group.save().then((newGroup) => {
-      newGroup.friends = addedFriends;
-
-      return newGroup;
-    }))
+    .then(() => group.save())
+    .then(newGroup =>
+      GroupModel.findOne({id: newGroup.id}).populate('friends').exec())
     .then(newGroup => {
       // eslint-disable-next-line no-console
       console.log(`Saved group "${newGroup.title}"!`);

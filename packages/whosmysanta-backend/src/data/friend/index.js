@@ -32,17 +32,7 @@ export const updateFriend = (
     id,
     wish,
   },
-) => FriendModel.findOneAndUpdate(
-  {
-    id,
-  },
-  {
-    wish,
-  },
-  {
-    new: true,
-  },
-)
+) => FriendModel.findOneAndUpdate({id}, {wish}, {new: true})
   .then(friend => {
     // eslint-disable-next-line no-console
     console.log(`Updated friend "${friend.name}"!`);
