@@ -45,3 +45,13 @@ export const addGroup = (
       throw new Error(err);
     });
 };
+
+export const deleteGroup = ({id}) => GroupModel.findOneAndRemove({id})
+  .then(group => {
+    // eslint-disable-next-line no-console
+    console.log(`Deleted group "${group.title}"!`);
+    return group;
+  })
+  .catch(err => {
+    throw new Error(`Error deleting group!\n${err}`);
+  });

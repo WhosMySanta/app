@@ -57,3 +57,13 @@ export const updateFriend = (
   .catch(err => {
     throw new Error(`Error updating friend!\n${err}`);
   });
+
+export const deleteFriend = ({id}) => FriendModel.findOneAndRemove({id})
+  .then(friend => {
+    // eslint-disable-next-line no-console
+    console.log(`Deleted friend "${friend.name}"!`);
+    return friend;
+  })
+  .catch(err => {
+    throw new Error(`Error deleting friend!\n${err}`);
+  });

@@ -1,6 +1,6 @@
 import {GraphQLList, GraphQLNonNull, GraphQLString} from 'graphql';
 import {FriendInputType, GroupType} from '../types';
-import {addGroup} from '../../data/group';
+import {addGroup, deleteGroup} from '../../data/group';
 
 export const addGroupMutation = {
   type: GroupType,
@@ -12,4 +12,10 @@ export const addGroupMutation = {
   resolve: (_, args) => addGroup(args),
 };
 
-export const c = 'c';
+export const deleteGroupMutation = {
+  type: GroupType,
+  args: {
+    id: {type: new GraphQLNonNull(GraphQLString)},
+  },
+  resolve: (_, args) => deleteGroup(args),
+};
