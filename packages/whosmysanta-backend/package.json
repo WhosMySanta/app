@@ -29,6 +29,7 @@
     "express": "^4.15.2",
     "express-graphql": "^0.6.3",
     "graphql": "^0.9.1",
+    "mailgun-js": "^0.8.2",
     "mongoose": "^4.8.6",
     "shortid": "^2.2.8"
   },
